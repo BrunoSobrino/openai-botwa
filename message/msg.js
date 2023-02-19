@@ -71,70 +71,41 @@ module.exports = async (conn, msg, m, openai) => {
       console.log("->[\x1b[1;32mCMD\x1b[1;37m]", color(moment(msg.messageTimestamp * 1000).format("DD/MM/YYYY HH:mm:ss"), "yellow"), color(`${command} [${args.length}]`), "from", color(pushname), "in", color(groupName));
     }
 
-    switch (command) {
-		case '/start':
-			var textShare = `Hei, aku ada Chat Bot WhatsApp OpenAI nih.
-Kirim pertanyaan kamu di bot ini, nanti dijawab sama bot ini.
+switch (command) {
+case '/start': case '/menu':
+var textReply = `Hola 👋
 
-https://wa.me/${botNumber.split("@")[0]}?text=/start`
-      var textReply = `Hai 👋
+Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI, fui creado para responder a tus preguntas. Por favor, envíame una pregunta y te responderé. 
 
-Saya adalah Robot OpenAI yang diciptakan untuk menjawab pertanyaan Anda. Silahkan kirim satu pertanyaan, nanti saya akan menjawabnya.
+_La Inteligencia Artificial (IA) es una tecnología que utiliza algoritmos complejos para crear máquinas que piensan y actúan como los seres humanos. La IA se puede utilizar para resolver problemas complejos y tomar decisiones más precisas que los humanos. La IA también se puede utilizar para analizar datos y tomar decisiones basadas en esos datos. La IA también se puede utilizar para mejorar la productividad y la eficiencia, así como para ayudar a los humanos a realizar tareas complejas._
 
-_AI (Artificial Intelligence) adalah teknologi yang menggunakan algoritma kompleks untuk membuat mesin yang dapat berpikir dan bertindak seperti manusia. AI dapat digunakan untuk menyelesaikan masalah yang rumit dan membuat keputusan yang lebih tepat daripada manusia. AI juga dapat digunakan untuk menganalisis data dan mengambil keputusan berdasarkan data tersebut. AI juga dapat digunakan untuk meningkatkan produktivitas dan efisiensi, serta membantu manusia dalam menyelesaikan tugas-tugas yang rumit._
+_El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 
-_bot dibatasi menjawab maximal ${MAX_TOKEN} kata_
-
-*Created By @irfann._x*`
-      var buttonReply = [
-				{ urlButton: { displayText: `Owner 💌`, url : `https://instagram.com/irfann._x` } },
-				{ urlButton: { displayText: `Source Code 🔗`, url: `https://github.com/rtwone/openai-botwa` } },
-				{ urlButton: { displayText: `Share This Bot ❤️`, url: `https://api.whatsapp.com/send?`+new URLSearchParams({ text: textShare }) } }
-			]
-			tempButton(from, textReply, '', buttonReply)
-			break
-		case '/runtime':
-                        reply(require('../lib/myfunc').runtime(process.uptime()))
-                        break
-                case '/ping':
-                        var timestamp = speed();
-                        var latensi = speed() - timestamp
-                        reply(`*Pong!!*\nSpeed: ${latensi.toFixed(4)}s`)
-                        break
-		case '=>':
-			if (!isOwner) return reply(`Perintah ini hanya dapat digunakan oleh Owner Bot`)
-			try {
-				let evaled = await eval(q);
-				if (typeof evaled !== "string")
-				  evaled = require("util").inspect(evaled);
-				reply(`${evaled}`);
-			} catch (err) {
-				reply(`${err}`);
-			}
-			break
-		default:
-			if (!chats) return
-      if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Maaf, aku hanya menerima pesan teks!`)
-      console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Question From', 'yellow'), color(pushname, 'lightblue'), `: "${chats}"`)
-			conn.sendPresenceUpdate("composing", from);
-		  try {
-				const response = await openai.createCompletion({
-					model: "text-davinci-003",
-					prompt: chats,
-					temperature: 0,
-				  max_tokens: MAX_TOKEN,
-					stop: ["Ai:", "Human:"],
-					top_p: 1,
-					frequency_penalty: 0.2,
-					presence_penalty: 0,
-				})
-				reply(response.data.choices[0].text.trim())
-			} catch (e) {
-				reply("Server Error, AI Not Responding...")
-			} 
-			break
-    }
-  } catch (err) {
-    console.log(color("[ERROR]", "red"), err);
-  }
-};
+*Editado By @BrunoSobrino*`
+var buttonReply = [
+{ urlButton: { displayText: `𝙾𝚆𝙽𝙴𝚁 👑`, url: `https://wa.me/5219996125657` }},
+{ urlButton: { displayText: `𝙶𝙸𝚃𝙷𝚄𝙱 🔗`, url: `https://github.com/BrunoSobrino/openai-botwa`}}]
+tempButton(from, textReply, '', buttonReply)
+break
+case '/runtime':
+reply(require('../lib/myfunc').runtime(process.uptime()))
+break
+case '/ping':
+var timestamp = speed();
+var latensi = speed() - timestamp
+reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
+break
+default:
+if (!chats) return
+if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Maaf, aku hanya menerima pesan teks!`)
+console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Question From', 'yellow'), color(pushname, 'lightblue'), `: "${chats}"`)
+conn.sendPresenceUpdate("composing", from);
+try {
+const response = await openai.createCompletion({ model: "text-davinci-003", prompt: chats, temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
+reply(response.data.choices[0].text.trim())
+} catch (e) {
+reply("*[❗] Error en el servidor, no se obtuvieron respuestas de la IA...*")
+} 
+break
+}} catch (err) {
+console.log(color("[ERROR]", "red"), err); }};
