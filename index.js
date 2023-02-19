@@ -64,10 +64,14 @@ const connectToWhatsApp = async () => {
 	const { state, saveCreds } = await useMultiFileAuthState('auth_info_baileys')
 	const conn = makeWASocket({
         printQRInTerminal: true,
-        logger: logg({ level: 'fatal' }),
+        logger: logg({ level: 'silent' }),
         auth: state,
+	patchMessageBeforeSending: (message) => {
+        const requiresPatch = !!( message.buttonsMessage || message.templateMessage || message.listMessage );
+        if (requiresPatch) { message = { viewOnceMessage: { message: { messageContextInfo: { deviceListMetadataVersion: 2, deviceListMetadata: {}, }, ...message, },},};}
+        return message;},	
         browser: ["OpenAI BOT", "Safari", "3.0"],
-	    getMessage: async key => {
+	getMessage: async key => {
             return {
                 
             }
