@@ -1,14 +1,5 @@
 "use strict";
-const {
-	default: makeWASocket,
-	BufferJSON,
-	initInMemoryKeyStore,
-	DisconnectReason,
-	AnyMessageContent,
-	useMultiFileAuthState,
-	delay,
-	generateWAMessageFromContent
-} = require("@adiwajshing/baileys")
+const { default: makeWASocket, BufferJSON, initInMemoryKeyStore, DisconnectReason, AnyMessageContent, useMultiFileAuthState, delay, generateWAMessageFromContent } = require("@adiwajshing/baileys")
 const figlet = require("figlet");
 const fs = require("fs");
 const moment = require('moment')
@@ -35,7 +26,7 @@ function title() {
 		width: 80,
 		whitespaceBreak: false
 	})))
-	console.log(chalk.yellow(`\n                        ${chalk.yellow('[ Created By Irfan ]')}\n\n${chalk.red('Bot OpenAI')} : ${chalk.white('WhatsApp Bot OpenAI')}\n${chalk.red('Follow Insta Dev')} : ${chalk.white('@irfann._x')}\n${chalk.red('Message Me On WhatsApp')} : ${chalk.white('+62 851-7522-2272')}\n`))
+	console.log(chalk.yellow(`\n              ${chalk.yellow('[ Editado By BrunoSobrino ]')}\n\n${chalk.red('Bot OpenAI')} : ${chalk.white('WhatsApp Bot OpenAI')}\n${chalk.red('Contactame por WhatsApp')} : ${chalk.white('+52 1 999 612 5657')}\n\n${chalk.yellow('Bot Activado y Funcionando')}\n`))
 }
 
 /**
@@ -44,7 +35,6 @@ function title() {
 * @param {function} cb <optional> ;
 */
 function nocache(module, cb = () => { }) {
-	console.log(`Module ${module} sedang diperhatikan terhadap perubahan`) 
 	fs.watchFile(require.resolve(module), async () => {
 		await uncache(require.resolve(module))
 		cb(module)
