@@ -2,7 +2,7 @@
   "ownerNumber": "5219996125657@s.whatsapp.net",
   "MAX_TOKEN": 3000,
   "OPENAI_KEY": "TU_APIKEY", 
-  /* Consigue tu ApiKey en este enlace: https://platform.openai.com/account/api-keys */
+  __Consigue tu ApiKey en este enlace: https://platform.openai.com/account/api-keys__
   "ORG_ID": "TU_ID_DE_ORG"
-  /* Consigue tu ID de organizacion en este enlace: https://platform.openai.com/account/org-settings */
+  __Consigue tu ID de organizacion en este enlace: https://platform.openai.com/account/org-settings__
 }
