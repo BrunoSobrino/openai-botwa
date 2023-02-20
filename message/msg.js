@@ -120,8 +120,8 @@ sendVid(mediaa.dl_link, `${json2.result.thumbnail}`)
 break             
 default:
 if (!chats) return
-if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Maaf, aku hanya menerima pesan teks!`)
-console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Question From', 'yellow'), color(pushname, 'lightblue'), `: "${chats}"`)
+if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Lo siento, solo leo mensajes de texto!`)
+console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chats}"`)
 conn.sendPresenceUpdate("composing", from);
 try {
 const response = await openai.createCompletion({ model: "text-davinci-003", prompt: chats, temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
@@ -133,8 +133,7 @@ let tiores = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrin
 let hasil = await tiores.json()
 reply(`${hasil.result}`.trim())   
 } catch (ee) {        
-reply("*[❗] Error en el servidor, no se obtuvieron respuestas de la IA...*")
-await reply('El error es: ' + ee)    
+reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + ee)  
 }} 
 break
 }} catch (err) {
