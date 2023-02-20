@@ -124,7 +124,7 @@ default:
 if (!chats) return
 let mencion = conn.user.jid        
 if (!chats.includes(mencion.split("@")[0]) && isGroup && !isCmd) return    
-if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Lo siento, solo leo mensajes de texto!`)
+//if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Lo siento, solo leo mensajes de texto!`)
 let chatstext = chats.replace(mencion.split("@")[0], '') 
 if (isGroup) chatstext = chatstext.replace("@", '') 
 console.log(conn.user.id.split(":")[0])        
