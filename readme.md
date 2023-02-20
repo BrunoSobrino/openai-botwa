@@ -2,6 +2,8 @@
 
 - Bot aun en desarrolo 
 
+- Bot en español
+
 - WhatsApp Bot que usa la Ia de OpenAI creado por @rtwone y editado por @BrunoSobrino
 
 - En colaboracion de Otosaka, I'm Felix y Diego-OFC
