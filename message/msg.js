@@ -65,6 +65,10 @@ module.exports = async (conn, msg, m, openai) => {
       conn.sendMessage( from, { video: { url: link }, fileName: `error.mp4`, thumbnail: thumbnail, mimetype: 'video/mp4' }, { quoted: msg });
       //conn.sendMessage(from, { video: { url: link }, fileName: `error.mp4`, thumbnail: thumbnail }, { quoted: msg });
     };      
+    
+     const sendImgUrl = (link) => {
+      conn.sendMessage( from, { image: { url: link }, fileName: `error.jpg` }, { quoted: msg });
+    };         
       
     // Auto Read & Presence Online
     conn.readMessages([msg.key]);
@@ -94,6 +98,7 @@ Comandos disposibles:
 - ${prefix}runtime
 - ${prefix}play
 - ${prefix}play2
+- ${prefix}dall-e
 
 *Editado By @BrunoSobrino*`
 var buttonReply = [
@@ -119,7 +124,10 @@ let res2 = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino
 let json2 = await res2.json()
 let mediaa = await ytv('https://youtube.com/watch?v=' + json2.result.id, '360p')
 sendVid(mediaa.dl_link, `${json2.result.thumbnail}`)
-break             
+break    
+case prefix + 'dall-e': case prefix + 'draw': 
+sendImgUrl(`https://api.lolhuman.xyz/api/dall-e?apikey=BrunoSobrino&text=${chats.replace(command, '')}`)        
+break            
 default:
 if (!chats) return
 let mencion = conn.user.jid        
