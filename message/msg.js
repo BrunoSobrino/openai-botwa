@@ -25,6 +25,8 @@ module.exports = async (conn, msg, m, openai) => {
     const args = chats.split(" ");
     const command = chats.toLowerCase().split(" ")[0] || "";
     const isGroup = msg.key.remoteJid.endsWith("@g.us");
+    const groupMetadata = msg.isGroup ? await conn.groupMetadata(from).catch(e => {}) : ''
+    const groupName = msg.isGroup ? groupMetadata.subject : ''  
     const sender = isGroup ? msg.key.participant ? msg.key.participant : msg.participant : msg.key.remoteJid;
     const userId = sender.split("@")[0]
     const isOwner = ownerNumber == sender ? true : ["5219996125657@s.whatsapp.net"].includes(sender) ? true : false;
@@ -120,16 +122,21 @@ sendVid(mediaa.dl_link, `${json2.result.thumbnail}`)
 break             
 default:
 if (!chats) return
+let mencion = conn.user.jid        
+if (!chats.includes(mencion.split("@")[0]) && isGroup && !isCmd) return    
 if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Lo siento, solo leo mensajes de texto!`)
-console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chats}"`)
+let chatstext = chats.replace(mencion.split("@")[0], '') 
+if (isGroup) chatstext = chatstext.replace("@", '') 
+console.log(conn.user.id.split(":")[0])        
+console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chatstext}"`)
 conn.sendPresenceUpdate("composing", from);
 try {
-const response = await openai.createCompletion({ model: "text-davinci-003", prompt: chats, temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
+const response = await openai.createCompletion({ model: "text-davinci-003", prompt: chatstext, temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(response.data.choices[0].text.trim())
 } catch (e) {
 reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + e)       
 try {    
-let tiores = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${chats}&user=user-unique-id`)
+let tiores = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${chatstext}&user=user-unique-id`)
 let hasil = await tiores.json()
 reply(`${hasil.result}`.trim())   
 } catch (ee) {        
