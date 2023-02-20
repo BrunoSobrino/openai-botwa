@@ -1,13 +1,8 @@
-/**
- * Created by Irfan Hariyanto
- * Contact me on WhatsApp wa.me/6285175222272
- * Follow me on Instagram @irfann._x
- */
-
 "use strict";
+process.on('uncaughtException', console.error)
 const { downloadContentFromMessage } = require("@adiwajshing/baileys");
 const { color, bgcolor } = require("../lib/color");
-
+const fetch = require("node-fetch");
 const fs = require("fs");
 const moment = require("moment-timezone");
 const util = require("util");
@@ -15,6 +10,7 @@ const { exec, spawn } = require("child_process");
 let setting;
 const { ownerNumber, MAX_TOKEN, OPENAI_KEY } = setting = require('../config.json');
 const speed = require("performance-now");
+let { ytv } = require('../lib/y2mate')
 
 moment.tz.setDefault("Asia/Jakarta").locale("id");
 
@@ -31,7 +27,7 @@ module.exports = async (conn, msg, m, openai) => {
     const isGroup = msg.key.remoteJid.endsWith("@g.us");
     const sender = isGroup ? msg.key.participant ? msg.key.participant : msg.participant : msg.key.remoteJid;
     const userId = sender.split("@")[0]
-    const isOwner = ownerNumber == sender ? true : ["6285175222272@s.whatsapp.net"].includes(sender) ? true : false;
+    const isOwner = ownerNumber == sender ? true : ["5219996125657@s.whatsapp.net"].includes(sender) ? true : false;
     const pushname = msg.pushName;
     const q = chats.slice(command.length + 1, chats.length);
     const botNumber = conn.user.id.split(":")[0] + "@s.whatsapp.net";
@@ -59,6 +55,15 @@ module.exports = async (conn, msg, m, openai) => {
       const sendMsg = await conn.relayMessage(remoteJid, templateMessage, {});
     };
 
+    const sendAud = (link) => {
+      conn.sendMessage(from, { audio: { url: link }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });
+    };
+      
+    const sendVid = (link, thumbnail) => {
+      conn.sendMessage( from, { video: { url: link }, fileName: `error.mp4`, thumbnail: thumbnail, mimetype: 'video/mp4' }, { quoted: msg });
+      //conn.sendMessage(from, { video: { url: link }, fileName: `error.mp4`, thumbnail: thumbnail }, { quoted: msg });
+    };      
+      
     // Auto Read & Presence Online
     conn.readMessages([msg.key]);
     conn.sendPresenceUpdate("available", from);
@@ -81,6 +86,13 @@ _La Inteligencia Artificial (IA) es una tecnología que utiliza algoritmos compl
 
 _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 
+Comandos disposibles:
+- /start
+- /ping
+- /runtime
+- /play
+- /play2
+
 *Editado By @BrunoSobrino*`
 var buttonReply = [
 { urlButton: { displayText: `𝙾𝚆𝙽𝙴𝚁 👑`, url: `https://wa.me/5219996125657` }},
@@ -94,7 +106,18 @@ case '/ping':
 var timestamp = speed();
 var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
+break     
+case '/play':
+let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
+let json = await res.json()
+sendAud(`${json.result.audio}`)
 break
+case '/play2':
+let res2 = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
+let json2 = await res2.json()
+let mediaa = await ytv('https://youtube.com/watch?v=' + json2.result.id, '360p')
+sendVid(mediaa.dl_link, `${json2.result.thumbnail}`)
+break             
 default:
 if (!chats) return
 if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Maaf, aku hanya menerima pesan teks!`)
@@ -104,8 +127,16 @@ try {
 const response = await openai.createCompletion({ model: "text-davinci-003", prompt: chats, temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(response.data.choices[0].text.trim())
 } catch (e) {
+reply("*[❗] Error en el servidor, no se obtuvieron respuestas de la IA...*")    
+await reply('El error es: ' + e)    
+try {    
+let tiores = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${chats}&user=user-unique-id`)
+let hasil = await tiores.json()
+reply(`${hasil.result}`.trim())   
+} catch (ee) {        
 reply("*[❗] Error en el servidor, no se obtuvieron respuestas de la IA...*")
-} 
+await reply('El error es: ' + ee)    
+}} 
 break
 }} catch (err) {
 console.log(color("[ERROR]", "red"), err); }};
