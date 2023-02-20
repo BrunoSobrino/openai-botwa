@@ -13,6 +13,7 @@ const time = moment(new Date()).format('HH:mm:ss DD/MM/YYYY')
 let setting = JSON.parse(fs.readFileSync('./config.json'));
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
+	organization: setting.ORG_KEY,
 	apiKey: setting.OPENAI_KEY,
 });
 const openai = new OpenAIApi(configuration);
