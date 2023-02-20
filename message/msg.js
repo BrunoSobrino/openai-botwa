@@ -8,7 +8,7 @@ const moment = require("moment-timezone");
 const util = require("util");
 const { exec, spawn } = require("child_process");
 let setting;
-const { ownerNumber, MAX_TOKEN, OPENAI_KEY } = setting = require('../config.json');
+const { ownerNumber, MAX_TOKEN, OPENAI_KEY, prefix } = setting = require('../config.json');
 const speed = require("performance-now");
 let { ytv } = require('../lib/y2mate')
 
@@ -31,7 +31,7 @@ module.exports = async (conn, msg, m, openai) => {
     const pushname = msg.pushName;
     const q = chats.slice(command.length + 1, chats.length);
     const botNumber = conn.user.id.split(":")[0] + "@s.whatsapp.net";
-    const isCmd = chats.startsWith('/')
+    const isCmd = chats.startsWith(prefix)
  
     const reply = (teks) => {
       conn.sendMessage(from, { text: teks }, { quoted: msg });
@@ -77,7 +77,7 @@ module.exports = async (conn, msg, m, openai) => {
     }
 
 switch (command) {
-case '/start': case '/menu':
+case prefix + 'start': case prefix + 'menu':
 var textReply = `Hola 👋
 
 Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI, fui creado para responder a tus preguntas. Por favor, envíame una pregunta y te responderé. 
@@ -87,11 +87,11 @@ _La Inteligencia Artificial (IA) es una tecnología que utiliza algoritmos compl
 _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 
 Comandos disposibles:
-- /start
-- /ping
-- /runtime
-- /play
-- /play2
+- ${prefix}start
+- ${prefix}ping
+- ${prefix}runtime
+- ${prefix}play
+- ${prefix}play2
 
 *Editado By @BrunoSobrino*`
 var buttonReply = [
@@ -99,20 +99,20 @@ var buttonReply = [
 { urlButton: { displayText: `𝙶𝙸𝚃𝙷𝚄𝙱 🔗`, url: `https://github.com/BrunoSobrino/openai-botwa`}}]
 tempButton(from, textReply, '', buttonReply)
 break
-case '/runtime':
+case prefix + 'runtime':
 reply(require('../lib/myfunc').runtime(process.uptime()))
 break
-case '/ping':
+case prefix + 'ping':
 var timestamp = speed();
 var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
 break     
-case '/play':
+case prefix + 'play':
 let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
 let json = await res.json()
 sendAud(`${json.result.audio}`)
 break
-case '/play2':
+case prefix + 'play2':
 let res2 = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
 let json2 = await res2.json()
 let mediaa = await ytv('https://youtube.com/watch?v=' + json2.result.id, '360p')
