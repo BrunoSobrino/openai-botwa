@@ -132,13 +132,12 @@ reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n
 }} 
 break  
 default:
-if (!chats || args[0].startsWith(command)) return    
-//if (!chats) return
-let mencion = conn.user.jid        
-if (!chats.includes(mencion.split("@")[0]) && isGroup && !isCmd) return    
+if (!chats) return
+const botNumber22 = '@' + conn.user.id.split(":")[0];       
+if (!chats.startsWith(botNumber22) && isGroup && !isCmd) return        
 //if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Lo siento, solo leo mensajes de texto!`)
-let chatstext = chats.replace(mencion.split("@")[0], '') 
-if (isGroup) chatstext = chatstext.replace("@", '') 
+let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '') 
+if (isGroup) chatstext = chatstext.replace("@", '')      
 console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chatstext}"`)
 conn.sendPresenceUpdate("composing", from);
 try {
