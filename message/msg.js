@@ -100,13 +100,13 @@ var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
 break     
 case prefix + 'play':
-if (!args[1]) return reply(`[❗𝐈𝐍𝐅𝐎❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre/titulo o enlace de algunanciona canción o video de YouTube\n\n*—◉ Ejemplo:\n${command} Good Feeling - Flo Rida*`)        
+if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n${command} Good Feeling - Flo Rida*`)        
 let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
 let json = await res.json()
 sendAud(`${json.result.audio}`)
 break
 case prefix + 'play2':
-if (!args[1]) return reply(`[❗𝐈𝐍𝐅𝐎❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre/titulo o enlace de algunanciona canción o video de YouTube\n\n*—◉ Ejemplo:\n${command} Good Feeling - Flo Rida*`)        
+if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n${command} Good Feeling - Flo Rida*`)        
 let res2 = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
 let json2 = await res2.json()
 let mediaa = await ytv('https://youtube.com/watch?v=' + json2.result.id, '360p')
