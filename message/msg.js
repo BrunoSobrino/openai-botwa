@@ -21,9 +21,14 @@ module.exports = async (conn, msg, m, openai) => {
     const toJSON = (j) => JSON.stringify(j, null, "\t");
     const from = msg.key.remoteJid;
     const chats = type === "conversation" && msg.message.conversation ? msg.message.conversation : type === "imageMessage" && msg.message.imageMessage.caption ? msg.message.imageMessage.caption : type === "videoMessage" && msg.message.videoMessage.caption ? msg.message.videoMessage.caption : type === "extendedTextMessage" && msg.message.extendedTextMessage.text ? msg.message.extendedTextMessage.text : type === "buttonsResponseMessage" && quotedMsg.fromMe && msg.message.buttonsResponseMessage.selectedButtonId ? msg.message.buttonsResponseMessage.selectedButtonId : type === "templateButtonReplyMessage" && quotedMsg.fromMe && msg.message.templateButtonReplyMessage.selectedId ? msg.message.templateButtonReplyMessage.selectedId : type === "messageContextInfo" ? msg.message.buttonsResponseMessage?.selectedButtonId || msg.message.listResponseMessage?.singleSelectReply.selectedRowId : type == "listResponseMessage" && quotedMsg.fromMe && msg.message.listResponseMessage.singleSelectReply.selectedRowId ? msg.message.listResponseMessage.singleSelectReply.selectedRowId : "";
-
     const args = chats.split(" ");
-    const command = chats.toLowerCase().split(" ")[0] || "";
+
+    const budy = (typeof m.text == 'string' ? m.text : '')
+    const isCmd = /^[°•π÷×¶∆£¢€¥®™�✓_=|~!?#/$%^&.+-,\\\©^]/.test(chats)
+    const prefix = isCmd ? budy[0] : ''
+    const command = isCmd ? chats.slice(1).trim().split(' ').shift().toLowerCase() : ''
+    //const command = chats.toLowerCase().split(" ")[0] || "";
+
     const isGroup = msg.key.remoteJid.endsWith("@g.us");
     const groupMetadata = msg.isGroup ? await conn.groupMetadata(from).catch(e => {}) : ''
     const groupName = msg.isGroup ? groupMetadata.subject : ''  
@@ -33,7 +38,7 @@ module.exports = async (conn, msg, m, openai) => {
     const pushname = msg.pushName;
     const q = chats.slice(command.length + 1, chats.length);
     const botNumber = conn.user.id.split(":")[0] + "@s.whatsapp.net";
-    const isCmd = chats.startsWith(prefix)
+   //const isCmd = chats.startsWith(prefix)
  
 /* Envios de mensajes */ 
     
@@ -67,7 +72,7 @@ conn.sendPresenceUpdate("available", from);
     }
 
 switch (command) {
-case prefix + 'start': case prefix + 'menu':
+case 'start': case 'menu':
 var textReply = `Hola 👋
 
 Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI, fui creado para responder a tus preguntas. Por favor, envíame una pregunta y te responderé. 
@@ -91,32 +96,32 @@ var buttonReply = [
 { urlButton: { displayText: `𝙶𝙸𝚃𝙷𝚄𝙱 🔗`, url: `https://github.com/BrunoSobrino/openai-botwa`}}]
 tempButton(from, textReply, '', buttonReply)
 break
-case prefix + 'runtime':
+case 'runtime':
 reply(require('../lib/myfunc').runtime(process.uptime()))
 break
-case prefix + 'ping':
+case 'ping':
 var timestamp = speed();
 var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
 break     
-case prefix + 'play':
+case 'play':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n${command} Good Feeling - Flo Rida*`)        
 let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
 let json = await res.json()
 sendAud(`${json.result.audio}`)
 break
-case prefix + 'play2':
+case 'play2':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n${command} Good Feeling - Flo Rida*`)        
 let res2 = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
 let json2 = await res2.json()
 let mediaa = await ytv('https://youtube.com/watch?v=' + json2.result.id, '360p')
 sendVid(mediaa.dl_link, `${json2.result.thumbnail}`)
 break    
-case prefix + 'dall-e': case prefix + 'draw': 
+case 'dall-e': case 'draw': 
 if (!args[1]) return reply(`*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${command} gatitos llorando*\n*◉ ${command} hatsune miku beso*`)     
 sendImgUrl(`https://api.lolhuman.xyz/api/dall-e?apikey=BrunoSobrino&text=${chats.replace(command, '')}`)        
 break      
-case prefix + 'chatgpt': case prefix + 'ia': 
+case 'chatgpt': case 'ia': 
 if (!args[1]) return reply(`*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${command} Codigo en JS para un juego de cartas*`)           
 try {
 const BotIA = await openai.createCompletion({ model: "text-davinci-003", prompt: chats.replace(command, ''), temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })

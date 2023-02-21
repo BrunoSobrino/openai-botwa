@@ -83,8 +83,8 @@ const connectToWhatsApp = async () => {
 	/* Auto Update */
 	require('./lib/myfunc')
 	require('./message/msg')
-	nocache('./lib/myfunc', module => console.log(chalk.greenBright('[ WHATSAPP BOT ]  ') + time + chalk.cyanBright(` "${module}" Telah diupdate!`)))
-	nocache('./message/msg', module => console.log(chalk.greenBright('[ WHATSAPP BOT ]  ') + time + chalk.cyanBright(` "${module}" Telah diupdate!`)))
+	nocache('./lib/myfunc', module => console.log(chalk.greenBright('[ WHATSAPP BOT ]  ') + time + chalk.cyanBright(` "${module}" ha sido actualizado!`)))
+	nocache('./message/msg', module => console.log(chalk.greenBright('[ WHATSAPP BOT ]  ') + time + chalk.cyanBright(` "${module}" ha sido actualizado!`)))
 	
 	conn.multi = true
 	conn.nopref = false
