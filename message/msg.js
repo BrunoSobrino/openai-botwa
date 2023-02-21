@@ -35,44 +35,28 @@ module.exports = async (conn, msg, m, openai) => {
     const botNumber = conn.user.id.split(":")[0] + "@s.whatsapp.net";
     const isCmd = chats.startsWith(prefix)
  
-    const reply = (teks) => {
-      conn.sendMessage(from, { text: teks }, { quoted: msg });
-    };
-    const tempButton = async (remoteJid, text, footer, content) => {
-      // const { displayText, url, contentText, footer } = content
-      //send a template message!
-      const templateMessage = {
-        viewOnceMessage: {
-          message: {
-            templateMessage: {
-              hydratedTemplate: {
-                hydratedContentText: text,
-                hydratedContentFooter: footer,
-                hydratedButtons: content,
-              },
-            },
-          },
-        },
-      };
-      const sendMsg = await conn.relayMessage(remoteJid, templateMessage, {});
-    };
-
-    const sendAud = (link) => {
-      conn.sendMessage(from, { audio: { url: link }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });
-    };
-      
-    const sendVid = (link, thumbnail) => {
-      conn.sendMessage( from, { video: { url: link }, fileName: `error.mp4`, thumbnail: thumbnail, mimetype: 'video/mp4' }, { quoted: msg });
-      //conn.sendMessage(from, { video: { url: link }, fileName: `error.mp4`, thumbnail: thumbnail }, { quoted: msg });
-    };      
+/* Envios de mensajes */ 
     
-     const sendImgUrl = (link) => {
-      conn.sendMessage( from, { image: { url: link }, fileName: `error.jpg` }, { quoted: msg });
-    };         
+const reply = (teks) => {
+conn.sendMessage(from, { text: teks }, { quoted: msg });
+};
+const tempButton = async (remoteJid, text, footer, content) => {
+const templateMessage = { viewOnceMessage: { message: { templateMessage: { hydratedTemplate: { hydratedContentText: text, hydratedContentFooter: footer, hydratedButtons: content, }, }, }, }, };
+const sendMsg = await conn.relayMessage(remoteJid, templateMessage, {}); 
+};
+const sendAud = (link) => { 
+conn.sendMessage(from, { audio: { url: link }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });
+};
+const sendVid = (link, thumbnail) => {
+conn.sendMessage( from, { video: { url: link }, fileName: `error.mp4`, thumbnail: thumbnail, mimetype: 'video/mp4' }, { quoted: msg });
+};      
+const sendImgUrl = (link) => {
+conn.sendMessage( from, { image: { url: link }, fileName: `error.jpg` }, { quoted: msg });
+};         
       
-    // Auto Read & Presence Online
-    conn.readMessages([msg.key]);
-    conn.sendPresenceUpdate("available", from);
+/* Auto Read & Presence Online */
+conn.readMessages([msg.key]);
+conn.sendPresenceUpdate("available", from);
 
     // Logs;
     if (!isGroup && isCmd && !fromMe) {
@@ -98,6 +82,7 @@ Comandos disposibles:
 - ${prefix}runtime
 - ${prefix}play
 - ${prefix}play2
+- ${prefix}chatgpt
 - ${prefix}dall-e
 
 *Editado By @BrunoSobrino*`
@@ -115,21 +100,40 @@ var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
 break     
 case prefix + 'play':
+if (!args[1]) return reply(`[❗𝐈𝐍𝐅𝐎❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre/titulo o enlace de algunanciona canción o video de YouTube\n\n*—◉ Ejemplo:\n${command} Good Feeling - Flo Rida*`)        
 let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
 let json = await res.json()
 sendAud(`${json.result.audio}`)
 break
 case prefix + 'play2':
+if (!args[1]) return reply(`[❗𝐈𝐍𝐅𝐎❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre/titulo o enlace de algunanciona canción o video de YouTube\n\n*—◉ Ejemplo:\n${command} Good Feeling - Flo Rida*`)        
 let res2 = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
 let json2 = await res2.json()
 let mediaa = await ytv('https://youtube.com/watch?v=' + json2.result.id, '360p')
 sendVid(mediaa.dl_link, `${json2.result.thumbnail}`)
 break    
 case prefix + 'dall-e': case prefix + 'draw': 
+if (!args[1]) return reply(`*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${command} gatitos llorando*\n*◉ ${command} hatsune miku beso*`)     
 sendImgUrl(`https://api.lolhuman.xyz/api/dall-e?apikey=BrunoSobrino&text=${chats.replace(command, '')}`)        
-break            
+break      
+case prefix + 'chatgpt': case prefix + 'ia': 
+if (!args[1]) return reply(`*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${command} Codigo en JS para un juego de cartas*`)           
+try {
+const BotIA = await openai.createCompletion({ model: "text-davinci-003", prompt: chats.replace(command, ''), temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
+reply(BotIA.data.choices[0].text.trim())
+} catch (q) {
+reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + q)       
+try {    
+let tioress = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${chats}&user=user-unique-id`)
+let hasill = await tioress.json()
+reply(`${hasill.result}`.trim())   
+} catch (qq) {        
+reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qq)  
+}} 
+break  
 default:
-if (!chats) return
+if (!chats || args[0].startsWith(command)) return    
+//if (!chats) return
 let mencion = conn.user.jid        
 if (!chats.includes(mencion.split("@")[0]) && isGroup && !isCmd) return    
 //if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Lo siento, solo leo mensajes de texto!`)
