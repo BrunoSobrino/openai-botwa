@@ -116,7 +116,57 @@ const connectToWhatsApp = async () => {
 		await conn.relayMessage(jid, prepare.message, { messageId: prepare.key.id })
 		return prepare
 	 }
-
+	
+	 conn.downloadAndSaveMediaMessage = async(msg, type_file, path_file) => {
+		if (type_file === 'image') {
+		var stream = await downloadContentFromMessage(msg.message.imageMessage || msg.message.extendedTextMessage?.contextInfo.quotedMessage.imageMessage, 'image')
+		let buffer = Buffer.from([])
+		for await(const chunk of stream) {
+		buffer = Buffer.concat([buffer, chunk])
+		}
+		fs.writeFileSync(path_file, buffer)
+		return path_file
+		} else if (type_file === 'video') {
+		var stream = await downloadContentFromMessage(msg.message.videoMessage || msg.message.extendedTextMessage?.contextInfo.quotedMessage.videoMessage, 'video')
+		let buffer = Buffer.from([])
+		for await(const chunk of stream) {
+		  buffer = Buffer.concat([buffer, chunk])
+		}
+		fs.writeFileSync(path_file, buffer)
+		return path_file
+		} else if (type_file === 'sticker') {
+		var stream = await downloadContentFromMessage(msg.message.stickerMessage || msg.message.extendedTextMessage?.contextInfo.quotedMessage.stickerMessage, 'sticker')
+		let buffer = Buffer.from([])
+		for await(const chunk of stream) {
+		buffer = Buffer.concat([buffer, chunk])
+		}
+		fs.writeFileSync(path_file, buffer)
+		return path_file
+		} else if (type_file === 'audio') {
+		var stream = await downloadContentFromMessage(msg.message.audioMessage || msg.message.extendedTextMessage?.contextInfo.quotedMessage.audioMessage, 'audio')
+		let buffer = Buffer.from([])
+		for await(const chunk of stream) {
+		buffer = Buffer.concat([buffer, chunk])
+		}
+		fs.writeFileSync(path_file, buffer)
+		return path_file
+		}
+		}
+		conn.sendImageAsSticker = async (jid, path, quoted, options = {}) => {
+			let buff = Buffer.isBuffer(path) ? path : /^data:.*?\/.*?;base64,/i.test(path) ? Buffer.from(path.split`,`[1], 'base64') : /^https?:\/\//.test(path) ? await (await getBuffer(path)) : fs.existsSync(path) ? fs.readFileSync(path) : Buffer.alloc(0)
+			let buffer
+			if (options && (options.packname || options.author)) {
+			buffer = await writeExifImg(buff, options)
+			} else {
+			buffer = await imageToWebp(buff)
+			}
+			await conn.sendMessage(jid, { sticker: { url: buffer }, ...options }, { quoted })
+			.then( response => {
+			fs.unlinkSync(buffer)
+			return response
+			})
+			}
+	
 	return conn
 }
 
