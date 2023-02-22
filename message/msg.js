@@ -38,6 +38,11 @@ module.exports = async (conn, msg, m, openai) => {
     const q = chats.slice(command.length + 1, chats.length);
     const botNumber = conn.user.id.split(":")[0] + "@s.whatsapp.net";
     const isCmd = chats.startsWith(prefix)
+    const content = JSON.stringify(msg.message)
+    const isImage = (type == 'imageMessage')
+    const isQuotedImage = isQuotedMsg ? content.includes('imageMessage') ? true : false : false
+    const isVideo = (type == 'videoMessage')
+    const isQuotedVideo = isQuotedMsg ? content.includes('videoMessage') ? true : false : false
  
 /* Envios de mensajes */ 
     
