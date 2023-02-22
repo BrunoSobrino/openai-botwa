@@ -94,10 +94,15 @@ Comandos disposibles:
 - ${prefix}sticker
 
 *Editado By @BrunoSobrino*`
-var buttonReply = [
+var templateButtons = [
+{index: 1, urlButton: {displayText: '𝙾𝚆𝙽𝙴𝚁 👑', url: 'https://wa.me/5219996125657'}},
+{index: 2, urlButton: {displayText: '𝙶𝙸𝚃𝙷𝚄𝙱 🔗', url: 'https://github.com/BrunoSobrino/openai-botwa'}}]
+let templateMessage = { image: {url: 'https://www.mizanurrmizan.info/wp-content/uploads/2023/02/chatgpt.jpg'}, caption: textReply, footer: null, templateButtons: templateButtons, viewOnce: true };
+conn.sendMessage(from, templateMessage, { quoted: msg });
+/*var buttonReply = [
 { urlButton: { displayText: `𝙾𝚆𝙽𝙴𝚁 👑`, url: `https://wa.me/5219996125657` }},
 { urlButton: { displayText: `𝙶𝙸𝚃𝙷𝚄𝙱 🔗`, url: `https://github.com/BrunoSobrino/openai-botwa`}}]
-tempButton(from, textReply, '', buttonReply)
+tempButton(from, textReply, '', buttonReply)*/
 break
 case 'runtime':
 reply(require('../lib/myfunc').runtime(process.uptime()))
