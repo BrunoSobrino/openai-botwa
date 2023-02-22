@@ -93,6 +93,7 @@ Comandos disposibles:
 - ${prefix}play2
 - ${prefix}chatgpt
 - ${prefix}dall-e
+- ${prefix}sticker
 
 *Editado By @BrunoSobrino*`
 var buttonReply = [
@@ -140,18 +141,18 @@ reply(`${hasill.result}`.trim())
 reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qq)  
 }} 
 break
-case 'prueba':        
+case 'sticker': case 's':
 const pname = 'OpenAI - WaBot'
 const athor = '+' + conn.user.id.split(":")[0];
 if (isImage || isQuotedImage) {
-await conn.downloadAndSaveMediaMessage(msg, "image", `./sticker/${sender.split("@")[0]}.jpeg`)
-var media = fs.readFileSync(`./sticker/${sender.split("@")[0]}.jpeg`)
+await conn.downloadAndSaveMediaMessage(msg, "image", `./tmp/${sender.split("@")[0]}.jpeg`)
+var media = fs.readFileSync(`./tmp/${sender.split("@")[0]}.jpeg`)
 var opt = { packname: pname, author: athor }
 conn.sendImageAsSticker(from, media, msg, opt)
 fs.unlinkSync(media)
 } else {
 if(isVideo || isQuotedVideo) {
-var media = await conn.downloadAndSaveMediaMessage(msg, 'video', `./sticker/${sender}.jpeg`)
+var media = await conn.downloadAndSaveMediaMessage(msg, 'video', `./tmp/${sender}.jpeg`)
 var opt = { packname: pname, author: athor }
 conn.sendImageAsSticker(from, media, msg, opt)
 fs.unlinkSync(media)
