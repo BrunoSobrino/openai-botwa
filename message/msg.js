@@ -33,10 +33,11 @@ module.exports = async (conn, msg, m, openai) => {
     const groupName = msg.isGroup ? groupMetadata.subject : ''  
     const sender = isGroup ? msg.key.participant ? msg.key.participant : msg.participant : msg.key.remoteJid;
     const userId = sender.split("@")[0]
-    const isOwner = ownerNumber == sender ? true : ["5219996125657@s.whatsapp.net"].includes(sender) ? true : false;
+    const botNumber = conn.user.id.split(":")[0] + "@s.whatsapp.net";
+    //const isOwner = ownerNumber == sender ? true : ["5219996125657@s.whatsapp.net"].includes(sender) ? true : false;
+    const isOwner = [botNumber,...ownerNumber].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(sender)
     const pushname = msg.pushName;
     const q = chats.slice(command.length + 1, chats.length);
-    const botNumber = conn.user.id.split(":")[0] + "@s.whatsapp.net";
     const isCmd = chats.startsWith(prefix)
     const content = JSON.stringify(msg.message)
     const isImage = (type == 'imageMessage')
@@ -184,7 +185,7 @@ await conn.sendMessage(from, {sticker: {url:'stk.webp'}})
 }}} catch {     
 reply(`*[❗] Responda a una imagen, gif o video, el cual será convertido en sticker, recuerde que debe mandar una imagen o responder a una imagen con el comando ${prefix + command}*`)        
 }
-break  
+break 
 default:
 if (!chats) return
 const botNumber22 = '@' + conn.user.id.split(":")[0];       
