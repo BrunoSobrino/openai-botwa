@@ -1,5 +1,5 @@
 "use strict";
-const { default: makeWASocket, BufferJSON, initInMemoryKeyStore, DisconnectReason, AnyMessageContent, useMultiFileAuthState, delay, generateWAMessageFromContent } = require("@adiwajshing/baileys")
+const { default: makeWASocket, BufferJSON, initInMemoryKeyStore, DisconnectReason, AnyMessageContent, useMultiFileAuthState, delay, generateWAMessageFromContent, downloadContentFromMessage } = require("@adiwajshing/baileys")
 const figlet = require("figlet");
 const fs = require("fs");
 const moment = require('moment')
@@ -11,6 +11,7 @@ const { serialize } = require("./lib/myfunc");
 const { color, mylog, infolog } = require("./lib/color");
 const time = moment(new Date()).format('HH:mm:ss DD/MM/YYYY')
 let setting = JSON.parse(fs.readFileSync('./config.json'));
+const { imageToWebp, videoToWebp, writeExifImg, writeExifVid } = require('./lib/exif');
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
 	organization: setting.ORG_KEY,
