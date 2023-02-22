@@ -147,15 +147,16 @@ const athor = '+' + conn.user.id.split(":")[0];
 if (isImage || isQuotedImage) {
 await conn.downloadAndSaveMediaMessage(msg, "image", `./tmp/${sender.split("@")[0]}.jpeg`)
 var media = fs.readFileSync(`./tmp/${sender.split("@")[0]}.jpeg`)
+if (!media) return reply(`*[❗] Responde a una imagen, viode, gif o ingrese el enlace de una imagen terminación .𝚓𝚙𝚐 (o similar) el cual sera convertido en sticker, recuerde que debe mandar una imagen o responder a una imagen con el comando ${command}*`)    
 var opt = { packname: pname, author: athor }
 conn.sendImageAsSticker(from, media, msg, opt)
-fs.unlinkSync(media)
+//fs.unlinkSync(media)
 } else {
 if(isVideo || isQuotedVideo) {
 var media = await conn.downloadAndSaveMediaMessage(msg, 'video', `./tmp/${sender}.jpeg`)
 var opt = { packname: pname, author: athor }
 conn.sendImageAsSticker(from, media, msg, opt)
-fs.unlinkSync(media)
+//fs.unlinkSync(media)
 } else {
 const imageBuffer = await downloadMediaMessage(msg, 'buffer', {}, {});
 let filenameJpg = "stk.jpg";
