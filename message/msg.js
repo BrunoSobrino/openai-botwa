@@ -8,7 +8,7 @@ const moment = require("moment-timezone");
 const util = require("util");
 const { exec, spawn } = require("child_process");
 let setting;
-const { ownerNumber, MAX_TOKEN, OPENAI_KEY, prefix } = setting = require('../config.json');
+const { ownerNumber, MAX_TOKEN, OPENAI_KEY } = setting = require('../config.json');
 const speed = require("performance-now");
 let { ytv } = require('../lib/y2mate')
 const ffmpeg = require("fluent-ffmpeg");
