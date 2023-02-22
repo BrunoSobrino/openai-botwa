@@ -135,6 +135,35 @@ reply(`${hasill.result}`.trim())
 reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qq)  
 }} 
 break
+case 'prueba':        
+const pname = 'OpenAI - WaBot'
+const athor = '+' + conn.user.id.split(":")[0];
+if (isImage || isQuotedImage) {
+await conn.downloadAndSaveMediaMessage(msg, "image", `./sticker/${sender.split("@")[0]}.jpeg`)
+var media = fs.readFileSync(`./sticker/${sender.split("@")[0]}.jpeg`)
+var opt = { packname: pname, author: athor }
+conn.sendImageAsSticker(from, media, msg, opt)
+fs.unlinkSync(media)
+} else {
+if(isVideo || isQuotedVideo) {
+var media = await conn.downloadAndSaveMediaMessage(msg, 'video', `./sticker/${sender}.jpeg`)
+var opt = { packname: pname, author: athor }
+conn.sendImageAsSticker(from, media, msg, opt)
+fs.unlinkSync(media)
+} else {
+const imageBuffer = await downloadMediaMessage(msg, 'buffer', {}, {});
+let filenameJpg = "stk.jpg";
+fs.writeFileSync(filenameJpg, imageBuffer);
+await ffmpeg('./' + filenameJpg).input(filenameJpg).on('start', function(cmd){
+console.log(`Started: ${cmd}`)
+}).on('error', function(err) {
+console.log(`Error: ${err}`);
+reply('error')}).on('end', async function() {
+console.log('Finish')
+await conn.sendMessage(from, {sticker: {url:'stk.webp'}})
+}).addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`]).toFormat('webp').save('stk.webp');
+}}
+break    
 /*case 'sticker': case 's':   
 const imageBuffer = await downloadMediaMessage(msg, 'buffer', {}, {});
 let filenameJpg = "stk.jpg";
