@@ -79,7 +79,7 @@ switch (command) {
 case 'start': case 'menu':
 var textReply = `Hola 👋
 
-Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI, fui creado para responder a tus preguntas. Por favor, envíame una pregunta y te responderé. 
+Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI (ChatGPT), fui creado para responder a tus preguntas. Envíame una pregunta y te responderé!. 
 
 _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 
