@@ -28,7 +28,7 @@ function title() {
 		width: 80,
 		whitespaceBreak: false
 	})))
-	console.log(chalk.yellow(`\n              ${chalk.yellow('[ Editado By BrunoSobrino ]')}\n\n${chalk.red('Bot OpenAI')} : ${chalk.white('WhatsApp Bot OpenAI')}\n${chalk.red('Contactame por WhatsApp')} : ${chalk.white('+52 1 999 612 5657')}\n\n${chalk.yellow('Bot Activado y Funcionando')}\n`))
+	console.log(chalk.yellow(`\n              ${chalk.yellow('[ Editado By BrunoSobrino ]')}\n\n${chalk.red('Bot OpenAI')} : ${chalk.white('WhatsApp Bot OpenAI')}\n${chalk.red('Contactame por WhatsApp')} : ${chalk.white('+52 1 999 612 5657')}\n`))
 }
 
 /**
@@ -66,7 +66,7 @@ const connectToWhatsApp = async () => {
 	const { state, saveCreds } = await useMultiFileAuthState('auth_info_baileys')
 	const conn = makeWASocket({
         printQRInTerminal: true,
-        logger: logg({ level: 'silent' }),
+        logger: logg({ level: 'fatal' }),
         auth: state,
 	patchMessageBeforeSending: (message) => {
         const requiresPatch = !!( message.buttonsMessage || message.templateMessage || message.listMessage );
@@ -106,7 +106,13 @@ const connectToWhatsApp = async () => {
             if (connection === 'close') {
                 lastDisconnect.error?.output?.statusCode !== DisconnectReason.loggedOut ? connectToWhatsApp() : console.log('connection logged out...')
             }
-        })
+            if (update.qr != 0 && update.qr != undefined) {
+                console.log(chalk.yellow('🚩ㅤEscanea este codigo QR, el codigo QR expira en 60 segundos.'))
+            }
+            if (connection == 'open') {
+                console.log(chalk.yellow('❧ Bot Activo y Funcionado Correctamente ✅'))
+            }        
+            })
 	conn.ev.on('creds.update', await saveCreds)
 
 	conn.reply = (from, content, msg) => conn.sendMessage(from, { text: content }, { quoted: msg })
