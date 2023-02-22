@@ -187,9 +187,10 @@ reply(`*[❗] Responda a una imagen, gif o video, el cual será convertido en st
 }
 break 
 default:
-if (!chats) return
-const botNumber22 = '@' + conn.user.id.split(":")[0];       
-if (!chats.startsWith(botNumber22) && isGroup && !isCmd) return        
+
+  const botNumber22 = '@' + conn.user.id.split(":")[0];
+  if (chats.startsWith(botNumber22)){
+    if (!isGroup) return;
 //if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Lo siento, solo leo mensajes de texto!`)
 let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '') 
 if (isGroup) chatstext = chatstext.replace("@", '').replace(prefix, '')       
@@ -208,5 +209,7 @@ reply(`${hasil.result}`.trim())
 reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + eeee)  
 }} 
 break
+}
+
 }} catch (err) {
 console.log(color("[ERROR]", "red"), err); }};
