@@ -170,7 +170,7 @@ console.log('Finish')
 await conn.sendMessage(from, {sticker: {url:'stk.webp'}})
 }).addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`]).toFormat('webp').save('stk.webp');
 }}} catch {     
-reply(`*[❗] Responda a una imagen, video, gif o ingrese el enlace de una imagen terminación .𝚓𝚙𝚐 (o similar) el cual sera convertido en sticker, recuerde que debe mandar una imagen o responder a una imagen con el comando ${command}*`)        
+reply(`*[❗] Responda a una imagen, gif o video, el cual será convertido en sticker, recuerde que debe mandar una imagen o responder a una imagen con el comando ${command}*`)        
 }
 break  
 default:
