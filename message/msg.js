@@ -1,6 +1,6 @@
 "use strict";
 process.on('uncaughtException', console.error)
-const { downloadContentFromMessage } = require("@adiwajshing/baileys");
+const { downloadContentFromMessage, downloadMediaMessage } = require("@adiwajshing/baileys");
 const { color, bgcolor } = require("../lib/color");
 const fetch = require("node-fetch");
 const fs = require("fs");
@@ -142,21 +142,21 @@ reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n
 }} 
 break
 case 'sticker': case 's':
+try {        
 const pname = 'OpenAI - WaBot'
 const athor = '+' + conn.user.id.split(":")[0];
 if (isImage || isQuotedImage) {
 await conn.downloadAndSaveMediaMessage(msg, "image", `./tmp/${sender.split("@")[0]}.jpeg`)
 var media = fs.readFileSync(`./tmp/${sender.split("@")[0]}.jpeg`)
-if (!media) return reply(`*[❗] Responde a una imagen, viode, gif o ingrese el enlace de una imagen terminación .𝚓𝚙𝚐 (o similar) el cual sera convertido en sticker, recuerde que debe mandar una imagen o responder a una imagen con el comando ${command}*`)    
 var opt = { packname: pname, author: athor }
 conn.sendImageAsSticker(from, media, msg, opt)
-//fs.unlinkSync(media)
+fs.unlinkSync(`./tmp/${sender.split("@")[0]}.jpeg`)
 } else {
 if(isVideo || isQuotedVideo) {
 var media = await conn.downloadAndSaveMediaMessage(msg, 'video', `./tmp/${sender}.jpeg`)
 var opt = { packname: pname, author: athor }
 conn.sendImageAsSticker(from, media, msg, opt)
-//fs.unlinkSync(media)
+fs.unlinkSync(media)
 } else {
 const imageBuffer = await downloadMediaMessage(msg, 'buffer', {}, {});
 let filenameJpg = "stk.jpg";
@@ -169,21 +169,10 @@ reply('error')}).on('end', async function() {
 console.log('Finish')
 await conn.sendMessage(from, {sticker: {url:'stk.webp'}})
 }).addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`]).toFormat('webp').save('stk.webp');
-}}
-break    
-/*case 'sticker': case 's':   
-const imageBuffer = await downloadMediaMessage(msg, 'buffer', {}, {});
-let filenameJpg = "stk.jpg";
-fs.writeFileSync(filenameJpg, imageBuffer);
-await ffmpeg('./' + filenameJpg).input(filenameJpg).on('start', function(cmd){
-console.log(`Started: ${cmd}`)
-}).on('error', function(err) {
-console.log(`Error: ${err}`);
-reply('error')}).on('end', async function() {
-console.log('Finish')
-await conn.sendMessage(from, {sticker: {url:'stk.webp'}})
-}).addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`]).toFormat('webp').save('stk.webp');
-break*/             
+}}} catch {     
+reply(`*[❗] Responda a una imagen, video, gif o ingrese el enlace de una imagen terminación .𝚓𝚙𝚐 (o similar) el cual sera convertido en sticker, recuerde que debe mandar una imagen o responder a una imagen con el comando ${command}*`)        
+}
+break  
 default:
 if (!chats) return
 const botNumber22 = '@' + conn.user.id.split(":")[0];       
