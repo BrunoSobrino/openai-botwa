@@ -11,6 +11,7 @@ let setting;
 const { ownerNumber, MAX_TOKEN, OPENAI_KEY, prefix } = setting = require('../config.json');
 const speed = require("performance-now");
 let { ytv } = require('../lib/y2mate')
+const ffmpeg = require("fluent-ffmpeg");
 
 moment.tz.setDefault("Asia/Jakarta").locale("id");
 
@@ -133,7 +134,20 @@ reply(`${hasill.result}`.trim())
 } catch (qq) {        
 reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qq)  
 }} 
-break  
+break
+/*case 'sticker': case 's':   
+const imageBuffer = await downloadMediaMessage(msg, 'buffer', {}, {});
+let filenameJpg = "stk.jpg";
+fs.writeFileSync(filenameJpg, imageBuffer);
+await ffmpeg('./' + filenameJpg).input(filenameJpg).on('start', function(cmd){
+console.log(`Started: ${cmd}`)
+}).on('error', function(err) {
+console.log(`Error: ${err}`);
+reply('error')}).on('end', async function() {
+console.log('Finish')
+await conn.sendMessage(from, {sticker: {url:'stk.webp'}})
+}).addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`]).toFormat('webp').save('stk.webp');
+break*/             
 default:
 if (!chats) return
 const botNumber22 = '@' + conn.user.id.split(":")[0];       
