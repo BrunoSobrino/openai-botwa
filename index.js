@@ -110,7 +110,7 @@ const connectToWhatsApp = async () => {
                 console.log(chalk.yellow('🚩ㅤEscanea este codigo QR, el codigo QR expira en 60 segundos.'))
             }
             if (connection == 'open') {
-                console.log(chalk.yellow('❧ Bot Activo y Funcionando Correctamente ✅'))
+                console.log(chalk.yellow('❧ Bot Activo y Funcionando Correctamente ✅\n'))
             }        
             })
 	conn.ev.on('creds.update', await saveCreds)
