@@ -81,8 +81,6 @@ var textReply = `Hola 👋
 
 Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI, fui creado para responder a tus preguntas. Por favor, envíame una pregunta y te responderé. 
 
-_La Inteligencia Artificial (IA) es una tecnología que utiliza algoritmos complejos para crear máquinas que piensan y actúan como los seres humanos. La IA se puede utilizar para resolver problemas complejos y tomar decisiones más precisas que los humanos. La IA también se puede utilizar para analizar datos y tomar decisiones basadas en esos datos. La IA también se puede utilizar para mejorar la productividad y la eficiencia, así como para ayudar a los humanos a realizar tareas complejas._
-
 _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 
 Comandos disposibles:
