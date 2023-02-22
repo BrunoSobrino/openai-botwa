@@ -126,22 +126,31 @@ let mediaa = await ytv('https://youtube.com/watch?v=' + json2.result.id, '360p')
 sendVid(mediaa.dl_link, `${json2.result.thumbnail}`)
 break    
 case 'dall-e': case 'draw': 
-if (!args[1]) return reply(`*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*`)     
-sendImgUrl(`https://api.lolhuman.xyz/api/dall-e?apikey=BrunoSobrino&text=${chats.replace(command, '')}`)        
-break      
+if (!args[1]) return reply(`*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*`)    
+try {       
+const responsee = await openai.createImage({ prompt: chats.replace(command, ''), n: 1, size: "512x512", });    
+sendImgUrl(responsee.data.data[0].url)        
+} catch (jj) {
+reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + jj)       
+try {      
+sendImgUrl(`https://api.lolhuman.xyz/api/dall-e?apikey=BrunoSobrino&text=${chats.replace(command, '')}`)  
+} catch (jj2) {
+reply("*[❗] Error en el servidor 2, no se obtuvo ninguna imagen de la IA...*\n\n*—◉ Error:*\n" + jj2)        
+}}
+break
 case 'chatgpt': case 'ia': 
 if (!args[1]) return reply(`*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${prefix + command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${prefix + command} Codigo en JS para un juego de cartas*`)           
 try {
 const BotIA = await openai.createCompletion({ model: "text-davinci-003", prompt: chats.replace(command, ''), temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(BotIA.data.choices[0].text.trim())
-} catch (q) {
-reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + q)       
+} catch (qe) {
+reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + qe)       
 try {    
 let tioress = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${chats}&user=user-unique-id`)
 let hasill = await tioress.json()
 reply(`${hasill.result}`.trim())   
-} catch (qq) {        
-reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qq)  
+} catch (qqe) {        
+reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qqe)  
 }} 
 break
 case 'sticker': case 's':
@@ -188,14 +197,14 @@ conn.sendPresenceUpdate("composing", from);
 try {
 const response = await openai.createCompletion({ model: "text-davinci-003", prompt: chatstext, temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(response.data.choices[0].text.trim())
-} catch (e) {
-reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + e)       
+} catch (eee) {
+reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + eee)       
 try {    
 let tiores = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${chatstext}&user=user-unique-id`)
 let hasil = await tiores.json()
 reply(`${hasil.result}`.trim())   
-} catch (ee) {        
-reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + ee)  
+} catch (eeee) {        
+reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + eeee)  
 }} 
 break
 }} catch (err) {
