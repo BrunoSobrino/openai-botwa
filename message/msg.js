@@ -12,6 +12,7 @@ const { ownerNumber, MAX_TOKEN, OPENAI_KEY } = setting = require('../config.json
 const speed = require("performance-now");
 let { ytv } = require('../lib/y2mate')
 const ffmpeg = require("fluent-ffmpeg");
+let { ytmp4, ytmp3, ytplay, ytplayvid } = require('../lib/youtube')
 
 moment.tz.setDefault("Asia/Jakarta").locale("id");
 
@@ -121,10 +122,8 @@ sendAud(`${json.result.audio}`)
 break
 case 'play2':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n${prefix + command} Good Feeling - Flo Rida*`)        
-let res2 = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${chats.replace(command, '')}`) 
-let json2 = await res2.json()
-let mediaa = await ytv('https://youtube.com/watch?v=' + json2.result.id, '360p')
-sendVid(mediaa.dl_link, `${json2.result.thumbnail}`)
+let mediaa = await ytplayvid(chats.replace(command, ''))
+sendVid(mediaa.result, `${mediaa.thumb}`)
 break    
 case 'dall-e': case 'draw': 
 if (!args[1]) return reply(`*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*`)    
