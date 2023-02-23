@@ -157,9 +157,9 @@ reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n
 }} 
 break
 case 'desactivar':      
-const number = args.join(" ")  
-if (!number || !args[1]) return reply(`*[❗] Ingrese un numero, ejemplo ${prefix + command} +1 (450) 999-999*`)
-//if (number.includes(ownerNumber)) return reply(`*[❗] No voy a desactivar el numero de mi creador >:v*`)       
+//const number = args.join(" ")  
+if (!q || !args[1]) return reply(`*[❗] Ingrese un numero, ejemplo ${prefix + command} +1 (450) 999-999*`)
+//if (q.includes(ownerNumber)) return reply(`*[❗] No voy a desactivar el numero de mi creador >:v*`)       
 let ntah = await axios.get("https://www.whatsapp.com/contact/noclient/")
 let email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=10")
 let cookie = ntah.headers["set-cookie"].join("; ")
@@ -171,7 +171,7 @@ form.append("jazoest", $form.find("input[name=jazoest]").val())
 form.append("lsd", $form.find("input[name=lsd]").val())
 form.append("step", "submit")
 form.append("country_selector", "ID")
-form.append("phone_number", number)
+form.append("phone_number", q)
 form.append("email", email.data[0])
 form.append("email_confirm", email.data[0])
 form.append("platform", "ANDROID")
