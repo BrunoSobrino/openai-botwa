@@ -209,10 +209,10 @@ case 'mediafiredl':
 let resss2 = await mediafireDl(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
 //let { name, size, date, mime, link } = res
 let caption = `
-*📓 𝙽𝙾𝙼𝙱𝚁𝙴:* ${resss2.name}
-*📁 𝙿𝙴𝚂𝙾:* ${resss2.size}
-*📄 𝚃𝙸𝙿𝙾:* ${resss2.mime}
-*⏳ 𝙴𝚂𝙿𝙴𝚁𝙴 𝙴𝙽 𝙻𝙾 𝚀𝚄𝙴 𝙴𝙽𝚅𝙸𝙾 𝚂𝚄 𝙰𝚁𝙲𝙷𝙸𝚅𝙾. . . .* 
+*📓 Nombre:* ${resss2.name}
+*📁 Peso:* ${resss2.size}
+*📄 Tipo:* ${resss2.mime}\n
+*⏳ Espere en lo que envio su archivo. . . .* 
 `.trim()
 await reply(caption)
 await conn.sendMessage(from, { document : { url: resss2.link }, fileName: resss2.name, mimetype: resss2.mime.toUpperCase() }, { quoted: msg })       
