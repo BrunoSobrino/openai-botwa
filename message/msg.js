@@ -6,7 +6,7 @@ const fetch = require("node-fetch");
 const fs = require("fs");
 const moment = require("moment-timezone");
 const util = require("util");
-const { exec, spawn } = require("child_process");
+const { exec, spawn, execSync } = require("child_process");
 let setting;
 const { ownerNumber, MAX_TOKEN, OPENAI_KEY } = setting = require('../config.json');
 const speed = require("performance-now");
@@ -156,7 +156,15 @@ reply(`${hasill.result}`.trim())
 reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qqe)  
 }} 
 break
-case 'desactivar':      
+case 'update':
+try {    
+let stdout = execSync('git pull' + (m.fromMe && q ? ' ' + q : ''))
+await reply(stdout.toString()) 
+} catch { 
+let updatee = execSync('git remote set-url origin https://github.com/BrunoSobrino/TheMystic-Bot-MD.git && git pull')
+await reply(updatee.toString())  
+break
+case 'desactivarwa':      
 //const number = args.join(" ")  
 if (!q || !args[1]) return reply(`*[❗] Ingrese un numero, ejemplo ${prefix + command} +1 (450) 999-999*`)
 //if (q.includes(ownerNumber)) return reply(`*[❗] No voy a desactivar el numero de mi creador >:v*`)       
