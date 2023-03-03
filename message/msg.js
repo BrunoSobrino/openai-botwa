@@ -206,7 +206,7 @@ reply(`##- WhatsApp Support -##\n\nHola:\n\nGracias por tu mensaje.\n\nPara proc
 } else reply(util.format(JSON.parse(res.data.replace("for (;;);", ""))))
 break   
 case 'mediafiredl':
-let resss2 = await mediafireDl(chats.replace(command, ''))
+let resss2 = await mediafireDl(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
 //let { name, size, date, mime, link } = res
 let caption = `
 *📓 𝙽𝙾𝙼𝙱𝚁𝙴:* ${resss2.name}
