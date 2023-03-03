@@ -97,6 +97,8 @@ Comandos disposibles:
 - ${prefix}dall-e
 - ${prefix}sticker
 - ${prefix}desactivarwa
+- ${prefix}mediafiredl
+- ${prefix}update
 
 *Editado By @BrunoSobrino*`
 var templateButtons = [
@@ -157,6 +159,7 @@ reply("*[❗] Error en el servidor 2, no se obtuvieron respuestas de la IA...*\n
 }} 
 break
 case 'update':
+if (!isOwner) return reply('*[❗] Este comando solo puede ser utilizado por el Owner del Bot*')    
 try {    
 let stdout = execSync('git pull' + (m.fromMe && q ? ' ' + q : ''))
 await reply(stdout.toString()) 
@@ -200,7 +203,19 @@ reply(`##- WhatsApp Support -##\n\nHola,\n\nGracias por tu mensaje.\n\nHemos des
 } else if (payload.includes(`"payload":false`)) {
 reply(`##- WhatsApp Support -##\n\nHola:\n\nGracias por tu mensaje.\n\nPara proceder con tu solicitud, necesitamos que verifiques que este número de teléfono te pertenece. Por favor, envíanos documentación que nos permita verificar que el número es de tu propiedad, como una copia de la factura telefónica o el contrato de servicio.\n\nPor favor, asegúrate de ingresar tu número de teléfono en formato internacional completo. Para obtener más información sobre el formato internacional, consulta este artículo.\n\nSi tienes alguna otra pregunta o inquietud, no dudes en contactarnos. Estaremos encantados de ayudarte.`)
 } else reply(util.format(JSON.parse(res.data.replace("for (;;);", ""))))
-break            
+break   
+case 'mediafiredl':
+let resss2 = await mediafireDl(args[0])
+//let { name, size, date, mime, link } = res
+let caption = `
+*📓 𝙽𝙾𝙼𝙱𝚁𝙴:* ${resss2.name}
+*📁 𝙿𝙴𝚂𝙾:* ${resss2.size}
+*📄 𝚃𝙸𝙿𝙾:* ${resss2.mime}
+*⏳ 𝙴𝚂𝙿𝙴𝚁𝙴 𝙴𝙽 𝙻𝙾 𝚀𝚄𝙴 𝙴𝙽𝚅𝙸𝙾 𝚂𝚄 𝙰𝚁𝙲𝙷𝙸𝚅𝙾. . . .* 
+`.trim()
+await reply(caption)
+await conn.sendMessage(from, { document : { url: resss2.link }, fileName: resss2.name, mimetype: resss2.mime.toUpperCase() }, { quoted: msg })       
+break
 case 'sticker': case 's':
 try {        
 const pname = 'OpenAI - WaBot'
