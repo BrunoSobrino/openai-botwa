@@ -4,6 +4,7 @@ const { downloadContentFromMessage, downloadMediaMessage } = require("@adiwajshi
 const { color, bgcolor } = require("../lib/color");
 const fetch = require("node-fetch");
 const fs = require("fs");
+const { mediafireDl } = require('../lib/myfunc')
 const moment = require("moment-timezone");
 const util = require("util");
 const { exec, spawn, execSync } = require("child_process");
