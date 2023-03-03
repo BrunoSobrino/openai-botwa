@@ -253,14 +253,12 @@ default:
 const botNumber22 = '@' + conn.user.id.split(":")[0];
 if (!chats.startsWith(botNumber22) && isGroup) return
 if (isImage) return
-//if (!isGroup) return;
-//if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Lo siento, solo leo mensajes de texto!`)
-let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '')
-if (isGroup) chatstext = chatstext.replace("@", '').replace(prefix, '')
+let chatstext = decodeURIComponent(chats.replace(conn.user.id.split(":")[0].split("@")[0], ''))
+if (isGroup) chatstext = decodeURIComponent(chatstext.replace("@", '').replace(prefix, ''))
 console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chatstext}"`)
 conn.sendPresenceUpdate("composing", from);
 try {
-const response = await openai.createCompletion({ model: "text-davinci-003", prompt: decodeURIComponent(chatstext), temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
+const response = await openai.createCompletion({ model: "text-davinci-003", prompt: chatstext, temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(response.data.choices[0].text.trim())
 } catch (eee) {
 reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + eee)       
