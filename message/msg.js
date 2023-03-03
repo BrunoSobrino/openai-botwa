@@ -252,6 +252,7 @@ break
 default:
 const botNumber22 = '@' + conn.user.id.split(":")[0];
 if (!chats.startsWith(botNumber22) && isGroup) return
+if (isImage) return
 //if (!isGroup) return;
 //if (!['conversation', 'extendedTextMessage'].includes(msg.type)) return reply(`Lo siento, solo leo mensajes de texto!`)
 let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '') 
