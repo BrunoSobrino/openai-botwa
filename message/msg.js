@@ -96,7 +96,7 @@ Comandos disposibles:
 - ${prefix}chatgpt
 - ${prefix}dall-e
 - ${prefix}sticker
-- ${prefix}desactivar
+- ${prefix}desactivarwa
 
 *Editado By @BrunoSobrino*`
 var templateButtons = [
