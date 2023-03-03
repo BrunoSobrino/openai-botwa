@@ -27,18 +27,14 @@ module.exports = async (conn, msg, m, openai) => {
     const from = msg.key.remoteJid;
     const chats = type === "conversation" && msg.message.conversation ? msg.message.conversation : type === "imageMessage" && msg.message.imageMessage.caption ? msg.message.imageMessage.caption : type === "videoMessage" && msg.message.videoMessage.caption ? msg.message.videoMessage.caption : type === "extendedTextMessage" && msg.message.extendedTextMessage.text ? msg.message.extendedTextMessage.text : type === "buttonsResponseMessage" && quotedMsg.fromMe && msg.message.buttonsResponseMessage.selectedButtonId ? msg.message.buttonsResponseMessage.selectedButtonId : type === "templateButtonReplyMessage" && quotedMsg.fromMe && msg.message.templateButtonReplyMessage.selectedId ? msg.message.templateButtonReplyMessage.selectedId : type === "messageContextInfo" ? msg.message.buttonsResponseMessage?.selectedButtonId || msg.message.listResponseMessage?.singleSelectReply.selectedRowId : type == "listResponseMessage" && quotedMsg.fromMe && msg.message.listResponseMessage.singleSelectReply.selectedRowId ? msg.message.listResponseMessage.singleSelectReply.selectedRowId : "";
     const args = chats.split(" ");
-
     const prefix = /^[°•π÷×¶∆£¢€¥®™✓=|~+×_*!#%^&./\\©^]/.test(chats) ? chats.match(/^[°•π÷×¶∆£¢€¥®™✓=|~+×_*!#,|÷?;:%^&./\\©^]/gi) : null;
     const command = prefix ? chats.slice(1).trim().split(' ').shift().toLowerCase() : ''
-    //const command = chats.toLowerCase().split(" ")[0] || "";
-
     const isGroup = msg.key.remoteJid.endsWith("@g.us");
     const groupMetadata = msg.isGroup ? await conn.groupMetadata(from).catch(e => {}) : ''
     const groupName = msg.isGroup ? groupMetadata.subject : ''  
     const sender = isGroup ? msg.key.participant ? msg.key.participant : msg.participant : msg.key.remoteJid;
     const userId = sender.split("@")[0]
     const botNumber = conn.user.id.split(":")[0] + "@s.whatsapp.net";
-    //const isOwner = ownerNumber == sender ? true : ["5219996125657@s.whatsapp.net"].includes(sender) ? true : false;
     const isOwner = [botNumber,...ownerNumber].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(sender)
     const pushname = msg.pushName;
     const q = chats.slice(command.length + 1, chats.length);
@@ -97,9 +93,11 @@ Comandos disposibles:
 - ${prefix}chatgpt
 - ${prefix}dall-e
 - ${prefix}sticker
-- ${prefix}desactivarwa
 - ${prefix}mediafiredl
+
+Comandos del Owner:
 - ${prefix}update
+- ${prefix}desactivarwa
 
 *Editado By @BrunoSobrino*`
 var templateButtons = [
@@ -107,10 +105,6 @@ var templateButtons = [
 {index: 2, urlButton: {displayText: '𝙶𝙸𝚃𝙷𝚄𝙱 🔗', url: 'https://github.com/BrunoSobrino/openai-botwa'}}]
 let templateMessage = { image: {url: 'https://www.mizanurrmizan.info/wp-content/uploads/2023/02/chatgpt.jpg'}, caption: textReply, footer: null, templateButtons: templateButtons, viewOnce: true };
 conn.sendMessage(from, templateMessage, { quoted: msg });
-/*var buttonReply = [
-{ urlButton: { displayText: `𝙾𝚆𝙽𝙴𝚁 👑`, url: `https://wa.me/5219996125657` }},
-{ urlButton: { displayText: `𝙶𝙸𝚃𝙷𝚄𝙱 🔗`, url: `https://github.com/BrunoSobrino/openai-botwa`}}]
-tempButton(from, textReply, '', buttonReply)*/
 break
 case 'runtime':
 reply(require('../lib/myfunc').runtime(process.uptime()))
@@ -124,7 +118,10 @@ case 'play':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n${prefix + command} Good Feeling - Flo Rida*`)        
 let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${decodeURIComponent(chats.replace(command, ''))}`) 
 let json = await res.json()
-sendAud(`${json.result.audio}`)
+let kingcore = await ytplay(decodeURIComponent(chats.replace(command, '')))
+let audiodownload = json.result.audio
+if (!audiodownload) audiodownload = kingcore.result
+sendAud(`${audiodownload}`)
 break
 case 'play2':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n${prefix + command} Good Feeling - Flo Rida*`)        
