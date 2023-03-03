@@ -134,12 +134,12 @@ break
 case 'dall-e': case 'draw': 
 if (!args[1]) return reply(`*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*`)    
 try {       
-const responsee = await openai.createImage({ prompt: chats.replace(command, ''), n: 1, size: "512x512", });    
+const responsee = await openai.createImage({ prompt: decodeURIComponent(chats.replace(command, '')), n: 1, size: "512x512", });    
 sendImgUrl(responsee.data.data[0].url)        
 } catch (jj) {
 reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + jj)       
 try {      
-sendImgUrl(`https://api.lolhuman.xyz/api/dall-e?apikey=BrunoSobrino&text=${chats.replace(command, '')}`)  
+sendImgUrl(`https://api.lolhuman.xyz/api/dall-e?apikey=BrunoSobrino&text=${decodeURIComponent(chats.replace(command, ''))}`)  
 } catch (jj2) {
 reply("*[❗] Error en el servidor 2, no se obtuvo ninguna imagen de la IA...*\n\n*—◉ Error:*\n" + jj2)        
 }}
@@ -152,7 +152,7 @@ reply(BotIA.data.choices[0].text.trim())
 } catch (qe) {
 reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + qe)       
 try {    
-let tioress = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${chats}&user=user-unique-id`)
+let tioress = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${decodeURIComponent(chats.replace(command, ''))}&user=user-unique-id`)
 let hasill = await tioress.json()
 reply(`${hasill.result}`.trim())   
 } catch (qqe) {        
@@ -169,9 +169,8 @@ let updatee = execSync('git remote set-url origin https://github.com/BrunoSobrin
 await reply(updatee.toString())}  
 break
 case 'desactivarwa':      
-//const number = args.join(" ")  
+if (!isOwner) return reply('*[❗] Este comando solo puede ser utilizado por el Owner del Bot*')    
 if (!q || !args[1]) return reply(`*[❗] Ingrese un numero, ejemplo ${prefix + command} +1 (450) 999-999*`)
-//if (q.includes(ownerNumber)) return reply(`*[❗] No voy a desactivar el numero de mi creador >:v*`)       
 let ntah = await axios.get("https://www.whatsapp.com/contact/noclient/")
 let email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=10")
 let cookie = ntah.headers["set-cookie"].join("; ")
@@ -207,7 +206,6 @@ reply(`##- WhatsApp Support -##\n\nHola:\n\nGracias por tu mensaje.\n\nPara proc
 break   
 case 'mediafiredl':
 let resss2 = await mediafireDl(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
-//let { name, size, date, mime, link } = res
 let caption = `
 *📓 Nombre:* ${resss2.name}
 *📁 Peso:* ${resss2.size}
@@ -253,8 +251,8 @@ default:
 const botNumber22 = '@' + conn.user.id.split(":")[0];
 if (!chats.startsWith(botNumber22) && isGroup) return
 if (isImage) return
-let chatstext = decodeURIComponent(chats.replace(conn.user.id.split(":")[0].split("@")[0], ''))
-if (isGroup) chatstext = decodeURIComponent(chatstext.replace("@", '').replace(prefix, ''))
+let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '')
+if (isGroup) chatstext = chatstext.replace("@", '').replace(prefix, '')
 console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chatstext}"`)
 conn.sendPresenceUpdate("composing", from);
 try {
