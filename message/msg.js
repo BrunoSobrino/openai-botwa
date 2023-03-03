@@ -162,7 +162,7 @@ let stdout = execSync('git pull' + (m.fromMe && q ? ' ' + q : ''))
 await reply(stdout.toString()) 
 } catch { 
 let updatee = execSync('git remote set-url origin https://github.com/BrunoSobrino/TheMystic-Bot-MD.git && git pull')
-await reply(updatee.toString())  
+await reply(updatee.toString())}  
 break
 case 'desactivarwa':      
 //const number = args.join(" ")  
