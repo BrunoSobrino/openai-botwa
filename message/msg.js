@@ -4,7 +4,6 @@ const { downloadContentFromMessage, downloadMediaMessage } = require("@adiwajshi
 const { color, bgcolor } = require("../lib/color");
 const fetch = require("node-fetch");
 const fs = require("fs");
-const { mediafireDl } = require('../lib/myfunc')
 const moment = require("moment-timezone");
 const util = require("util");
 const { exec, spawn, execSync } = require("child_process");
@@ -14,6 +13,7 @@ const speed = require("performance-now");
 let { ytv } = require('../lib/y2mate')
 const ffmpeg = require("fluent-ffmpeg");
 let { ytmp4, ytmp3, ytplay, ytplayvid } = require('../lib/youtube')
+const { mediafireDl } = require('../lib/myfunc')
 const axios = require("axios");
 const cheerio = require("cheerio");
 
@@ -41,8 +41,10 @@ module.exports = async (conn, msg, m, openai) => {
     const isCmd = chats.startsWith(prefix)
     const content = JSON.stringify(msg.message)
     const isImage = (type == 'imageMessage')
-    const isQuotedImage = isQuotedMsg ? content.includes('imageMessage') ? true : false : false
     const isVideo = (type == 'videoMessage')
+    const isSticker = (type == 'stickerMessage')
+    const isViewOnce = (type == 'viewOnceMessageV2')
+    const isQuotedImage = isQuotedMsg ? content.includes('imageMessage') ? true : false : false    
     const isQuotedVideo = isQuotedMsg ? content.includes('videoMessage') ? true : false : false
     const textolink = decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join(''))  
     const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
@@ -269,7 +271,7 @@ break
 default:
 const botNumber22 = '@' + conn.user.id.split(":")[0];
 if (!chats.startsWith(botNumber22) && isGroup) return
-if (isImage) return
+if (isImage || isVideo || isSticker || isViewOnce) return
 let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '')
 if (isGroup) chatstext = chatstext.replace("@", '').replace(prefix, '')
 console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chatstext}"`)
