@@ -133,7 +133,7 @@ case 'ytmp4':
 if (!args[1]) return reply(`*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc`)        
 let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=BrunoSobrino&url=${decodeURIComponent(chats.replace(command, ''))}`) 
 let jsonn2 = await ress2.json()
-let kingcoreee = await ytmp4(decodeURIComponent(chats.replace(command, '')))
+let kingcoreee = await ytmp4(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
 console.log(kingcoreee)
 let audiodownloaddd = jsonn2.result.link
 if (!audiodownloaddd) audiodownloaddd = kingcoreee.result
