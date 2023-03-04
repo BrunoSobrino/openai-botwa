@@ -92,6 +92,8 @@ Comandos disposibles:
 - ${prefix}runtime
 - ${prefix}play
 - ${prefix}play2
+- ${prefix}ytmp3
+- ${prefix}ytmp4
 - ${prefix}chatgpt
 - ${prefix}dall-e
 - ${prefix}sticker
