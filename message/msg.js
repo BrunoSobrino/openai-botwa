@@ -135,9 +135,9 @@ let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=BrunoSobri
 let jsonn2 = await ress2.json()
 let kingcoreee = await ytmp4(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
 console.log(kingcoreee)
-let audiodownloaddd = jsonn2.result.link
-if (!audiodownloaddd) audiodownloaddd = kingcoreee.result
-sendAud(`${audiodownloaddd}`)
+let videodownloaddd = jsonn2.result.link
+if (!videodownloaddd) videodownloaddd = kingcoreee.result
+sendVid(videodownloaddd, `${kingcoreee.thumb}`)    
 break    
     
     
