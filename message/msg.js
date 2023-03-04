@@ -132,7 +132,7 @@ break
     
 case 'ytmp4':
 if (!args[1]) return reply(`*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc`)    
-let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=BrunoSobrino&url=${textolink}`) 
+let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=BrunoSobrino&url=${textolink}`) 
 let jsonn2 = await ress2.json()
 let kingcoreee = await ytmp4(textolink)
 console.log(jsonn2)
