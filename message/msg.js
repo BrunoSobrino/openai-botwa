@@ -131,10 +131,10 @@ break
     
 case 'ytmp4':
 if (!args[1]) return reply(`*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc`)        
-let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=BrunoSobrino&url=${decodeURIComponent(chats.replace(command, '').replace(prefix, ''))}`) 
+let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=BrunoSobrino&url=${decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join(''))}`) 
 let jsonn2 = await ress2.json()
-let kingcoreee = await ytmp4(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
-console.log(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
+let kingcoreee = await ytmp4(decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join('')))
+console.log(decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join('')))
 let videodownloaddd = jsonn2.result.link.link
 if (!videodownloaddd) videodownloaddd = kingcoreee.result2
 sendVid(videodownloaddd, `${kingcoreee.thumb}`)    
