@@ -136,7 +136,7 @@ let jsonn2 = await ress2.json()
 let kingcoreee = await ytmp4(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
 console.log(kingcoreee)
 let videodownloaddd = jsonn2.result.link
-if (!videodownloaddd) videodownloaddd = kingcoreee.result
+if (!videodownloaddd) videodownloaddd = kingcoreee.result2
 sendVid(videodownloaddd, `${kingcoreee.thumb}`)    
 break    
     
