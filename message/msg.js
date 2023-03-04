@@ -130,9 +130,19 @@ let mediaa = await ytplayvid(decodeURIComponent(chats.replace(command, '').repla
 sendVid(mediaa.result, `${mediaa.thumb}`)
 break   
     
+case 'ytmp3':
+if (!args[1]) return reply(`*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc`)    
+let ress22 = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=BrunoSobrino&url=${textolink}`) 
+let jsonn22 = await ress22.json()
+let kingcoreee2 = await ytmp3(textolink)
+let audiodownloaddd2 = jsonn22.result.link
+if (!audiodownloaddd2) audiodownloaddd2 = kingcoreee2.result
+sendAud(`${audiodownloaddd2}`)    
+break        
+    
 case 'ytmp4':
 if (!args[1]) return reply(`*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc`)    
-let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo2?apikey=BrunoSobrino&url=${textolink}`) 
+let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=BrunoSobrino&url=${textolink}`) 
 let jsonn2 = await ress2.json()
 let kingcoreee = await ytmp4(textolink)
 console.log(jsonn2)
