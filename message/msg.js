@@ -135,9 +135,9 @@ if (!args[1]) return reply(`*[❗] Ingresa el enlace de un video de YouTube*\n\n
 let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=BrunoSobrino&url=${textolink}`) 
 let jsonn2 = await ress2.json()
 let kingcoreee = await ytmp4(textolink)
-console.log(decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join('')))
+console.log(jsonn2)
 let videodownloaddd = jsonn2.result.link.link
-if (!videodownloaddd) videodownloaddd = kingcoreee.result2
+if (!videodownloaddd) videodownloaddd = kingcoreee.result
 sendVid(videodownloaddd, `${kingcoreee.thumb}`)    
 break    
     
