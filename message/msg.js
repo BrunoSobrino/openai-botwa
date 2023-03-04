@@ -115,7 +115,7 @@ var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
 break     
 case 'play':
-if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n${prefix + command} Good Feeling - Flo Rida*`)        
+if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*`)        
 let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${decodeURIComponent(chats.replace(command, ''))}`) 
 let json = await res.json()
 let kingcore = await ytplay(decodeURIComponent(chats.replace(command, '')))
@@ -124,10 +124,23 @@ if (!audiodownload) audiodownload = kingcore.result
 sendAud(`${audiodownload}`)
 break
 case 'play2':
-if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n${prefix + command} Good Feeling - Flo Rida*`)        
+if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*`)        
 let mediaa = await ytplayvid(decodeURIComponent(chats.replace(command, '')))
 sendVid(mediaa.result, `${mediaa.thumb}`)
+break   
+    
+case 'ytmp4':
+if (!args[1]) return reply(`*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc`)        
+let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=BrunoSobrino&url=${decodeURIComponent(chats.replace(command, ''))}`) 
+let jsonn2 = await ress2.json()
+let kingcoreee = await ytmp4(decodeURIComponent(chats.replace(command, '')))
+console.log(kingcoreee)
+let audiodownloaddd = jsonn2.result.link
+if (!audiodownloaddd) audiodownloaddd = kingcoreee.result
+sendAud(`${audiodownloaddd}`)
 break    
+    
+    
 case 'dall-e': case 'draw': 
 if (!args[1]) return reply(`*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*`)    
 try {       
