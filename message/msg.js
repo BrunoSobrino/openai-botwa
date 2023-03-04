@@ -45,6 +45,7 @@ module.exports = async (conn, msg, m, openai) => {
     const isVideo = (type == 'videoMessage')
     const isQuotedVideo = isQuotedMsg ? content.includes('videoMessage') ? true : false : false
     const textolink = decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join(''))  
+    const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
  
 /* Envios de mensajes */ 
     
@@ -129,7 +130,6 @@ if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ing
 let mediaa = await ytplayvid(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
 sendVid(mediaa.result, `${mediaa.thumb}`)
 break   
-    
 case 'ytmp3':
 if (!args[1]) return reply(`*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc`)    
 let ress22 = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=BrunoSobrino&url=${textolink}`) 
@@ -139,19 +139,15 @@ let audiodownloaddd2 = jsonn22.result.link
 if (!audiodownloaddd2) audiodownloaddd2 = kingcoreee2.result
 sendAud(`${audiodownloaddd2}`)    
 break        
-    
 case 'ytmp4':
 if (!args[1]) return reply(`*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc`)    
 let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=BrunoSobrino&url=${textolink}`) 
 let jsonn2 = await ress2.json()
 let kingcoreee = await ytmp4(textolink)
-console.log(jsonn2)
 let videodownloaddd = jsonn2.result.link.link
 if (!videodownloaddd) videodownloaddd = kingcoreee.result
 sendVid(videodownloaddd, `${kingcoreee.thumb}`)    
 break    
-    
-    
 case 'dall-e': case 'draw': 
 if (!args[1]) return reply(`*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*`)    
 try {       
@@ -226,7 +222,7 @@ reply(`##- WhatsApp Support -##\n\nHola:\n\nGracias por tu mensaje.\n\nPara proc
 } else reply(util.format(JSON.parse(res.data.replace("for (;;);", ""))))
 break   
 case 'mediafiredl':
-let resss2 = await mediafireDl(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
+let resss2 = await mediafireDl(textosinespacio)
 let caption = `
 *📓 Nombre:* ${resss2.name}
 *📁 Peso:* ${resss2.size}
