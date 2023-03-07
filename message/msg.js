@@ -117,9 +117,6 @@ case 'runtime':
 reply(require('../lib/myfunc').runtime(process.uptime()))
 break
 case 'ping':
-console.log('Q: ' + q)
-console.log('textosinespacio: ' + textosinespacio)    
-console.log('textolink: ' + textolink)    
 var timestamp = speed();
 var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
