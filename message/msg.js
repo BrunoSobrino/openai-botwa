@@ -116,16 +116,15 @@ case 'runtime':
 reply(require('../lib/myfunc').runtime(process.uptime()))
 break
 case 'ping':
-console.log(textosinespacio)    
 var timestamp = speed();
 var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
 break     
 case 'play':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*`)        
-let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${decodeURIComponent(chats.replace(command, '').replace(prefix, ''))}`) 
+let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${textosinespacio}`) 
 let json = await res.json()
-let kingcore = await ytplay(decodeURIComponent(chats.replace(command, '')))
+let kingcore = await ytplay(textosinespacio)
 let audiodownload = json.result.audio
 if (!audiodownload) audiodownload = kingcore.result
 sendAud(`${audiodownload}`)
@@ -174,7 +173,7 @@ reply(BotIA.data.choices[0].text.trim())
 } catch (qe) {
 reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + qe)       
 try {    
-let tioress = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${decodeURIComponent(chats.replace(command, ''))}&user=user-unique-id`)
+let tioress = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textosinespacio}&user=user-unique-id`)
 let hasill = await tioress.json()
 reply(`${hasill.result}`.trim())   
 } catch (qqe) {        
