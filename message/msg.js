@@ -116,6 +116,7 @@ case 'runtime':
 reply(require('../lib/myfunc').runtime(process.uptime()))
 break
 case 'ping':
+console.log(textosinespacio)    
 var timestamp = speed();
 var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
@@ -131,7 +132,7 @@ sendAud(`${audiodownload}`)
 break
 case 'play2':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*`)        
-let mediaa = await ytplayvid(decodeURIComponent(chats.replace(command, '').replace(prefix, '')))
+let mediaa = await ytplayvid(textosinespacio)
 sendVid(mediaa.result, `${mediaa.thumb}`)
 break   
 case 'ytmp3':
@@ -155,12 +156,12 @@ break
 case 'dall-e': case 'draw': 
 if (!args[1]) return reply(`*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*`)    
 try {       
-const responsee = await openai.createImage({ prompt: decodeURIComponent(chats.replace(command, '')), n: 1, size: "512x512", });    
+const responsee = await openai.createImage({ prompt: textosinespacio, n: 1, size: "512x512", });    
 sendImgUrl(responsee.data.data[0].url)        
 } catch (jj) {
 reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + jj)       
 try {      
-sendImgUrl(`https://api.lolhuman.xyz/api/dall-e?apikey=BrunoSobrino&text=${decodeURIComponent(chats.replace(command, ''))}`)  
+sendImgUrl(`https://api.lolhuman.xyz/api/dall-e?apikey=BrunoSobrino&text=${textosinespacio}`)  
 } catch (jj2) {
 reply("*[❗] Error en el servidor 2, no se obtuvo ninguna imagen de la IA...*\n\n*—◉ Error:*\n" + jj2)        
 }}
@@ -168,7 +169,7 @@ break
 case 'chatgpt': case 'ia': 
 if (!args[1]) return reply(`*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${prefix + command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${prefix + command} Codigo en JS para un juego de cartas*`)           
 try {
-const BotIA = await openai.createCompletion({ model: "text-davinci-003", prompt: chats.replace(command, ''), temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
+const BotIA = await openai.createCompletion({ model: "text-davinci-003", prompt: textosinespacio, temperature: 0, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(BotIA.data.choices[0].text.trim())
 } catch (qe) {
 reply("*[❗] Error en el servidor 1, se intentará con otro servidor...*\n\n*—◉ Error:*\n" + qe)       
