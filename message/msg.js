@@ -42,6 +42,7 @@ module.exports = async (conn, msg, m, openai) => {
     const content = JSON.stringify(msg.message)
     const isImage = (type == 'imageMessage')
     const isVideo = (type == 'videoMessage')
+    const isAudio = (type == 'audioMessage')
     const isSticker = (type == 'stickerMessage')
     const isViewOnce = (type == 'viewOnceMessageV2')
     const isQuotedImage = isQuotedMsg ? content.includes('imageMessage') ? true : false : false    
@@ -116,6 +117,9 @@ case 'runtime':
 reply(require('../lib/myfunc').runtime(process.uptime()))
 break
 case 'ping':
+console.log('Q: ' + q)
+console.log('textosinespacio: ' + textosinespacio)    
+console.log('textolink: ' + textolink)    
 var timestamp = speed();
 var latensi = speed() - timestamp
 reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
@@ -271,7 +275,7 @@ break
 default:
 const botNumber22 = '@' + conn.user.id.split(":")[0];
 if (!chats.startsWith(botNumber22) && isGroup) return
-if (isImage || isVideo || isSticker || isViewOnce) return
+if (isImage || isVideo || isSticker || isViewOnce || isAudio) return
 let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '')
 if (isGroup) chatstext = chatstext.replace("@", '').replace(prefix, '')
 console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chatstext}"`)
