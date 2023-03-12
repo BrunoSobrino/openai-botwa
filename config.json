@@ -2,7 +2,7 @@
   "ownerNumber": [
   "5219996125657"
   ],
-  "MAX_TOKEN": 3000,
+  "MAX_TOKEN": 4097,
   "OPENAI_KEY": "TU_APIKEY", 
   "NOTA_1": "Consigue tu ApiKey en este enlace: https://platform.openai.com/account/api-keys",
   "ORG_ID": "TU_ID_DE_ORG",
