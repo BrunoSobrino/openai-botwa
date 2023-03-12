@@ -117,12 +117,12 @@ const connectToWhatsApp = async () => {
 
 	conn.reply = (from, content, msg) => conn.sendMessage(from, { text: content }, { quoted: msg })
     
-	conn.sendMessageFromContent = async(jid, message, options = {}) => {
+	/*conn.sendMessageFromContent = async(jid, message, options = {}) => {
 		var option = { contextInfo: {}, ...options }
 		var prepare = await generateWAMessageFromContent(jid, message, option)
 		await conn.relayMessage(jid, prepare.message, { messageId: prepare.key.id })
 		return prepare
-	 }
+	 }*/
 	
 	 conn.downloadAndSaveMediaMessage = async(msg, type_file, path_file) => {
 		if (type_file === 'image') {
