@@ -7,7 +7,7 @@ const chalk = require('chalk')
 const logg = require('pino')
 const clui = require('clui')
 const { Spinner } = clui
-const { serialize } = require("./lib/myfunc");
+const { serialize, getBuffer } = require("./lib/myfunc");
 const { color, mylog, infolog } = require("./lib/color");
 const time = moment(new Date()).format('HH:mm:ss DD/MM/YYYY')
 let setting = JSON.parse(fs.readFileSync('./config.json'));
@@ -113,6 +113,56 @@ const connectToWhatsApp = async () => {
                 console.log(chalk.yellow('❧ Bot Activo y Funcionando Correctamente ✅\n'))
             }        
             })
+	
+/*conn.ev.on('group-participants.update', async (anu) => {
+try {
+let metadata = await conn.groupMetadata(anu.id)
+let participants = anu.participants
+let ppuser
+let ppgroup
+for (let num of participants) {
+try {    
+ppuser = await conn.profilePictureUrl(num, 'image')
+} catch {
+ppuser = 'https://i.ibb.co/sbqvDMw/avatar-contact-large-v2.png'} 
+try {
+ppgroup = await conn.profilePictureUrl(anu.id, 'image')
+} catch {
+ppgroup = 'https://i.ibb.co/RBx5SQC/avatar-group-large-v2.png'}
+let memb = metadata.participants.length
+let PPWlcm = await getBuffer(ppuser)
+let PPLft = await getBuffer(ppuser)
+const time = moment().format('HH:mm:ss')
+const date = moment().format('DD/MM/YYYY')
+const memberss = metadata.participants.length
+let qfake = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${num.split('@')[0]}:${num.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
+if (anu.action == 'add') {
+let captionwel = `┌─❖
+│「 𝗛𝗶 👋 」
+└┬❖ 「 @${num.split("@")[0]}  」
+   │✑  Bienvenido a 
+   │✑  ${metadata.subject}
+   │✑  Miembro : 
+   │✑ ${memberss}
+   │✑  Acceso : 
+   │✑ ${time} ${date}
+   └───────────────┈ ⳹`
+conn.sendMessage(anu.id, { image: PPWlcm, caption: captionwel, mentions: [num]}, { quoted: qfake })                  
+} else if (anu.action == 'remove') {
+let captionbye = `┌─❖
+│「 𝗚𝗼𝗼𝗱𝗯𝘆𝗲 👋 」
+└┬❖ 「 @${num.split("@")[0]}  」
+   │✑  Abandono el grupo : 
+   │✑ ${metadata.subject}
+   │✑  Miembro : 
+   │✑ ${memberss}
+   │✑  Salida : 
+   │✑  ${time} ${date}
+   └───────────────┈ ⳹`
+conn.sendMessage(anu.id, { image: PPLft, caption: captionbye, mentions: [num]}, { quoted: qfake })                    
+}}} catch (e) {
+console.log(e)}})*/	
+	
 	conn.ev.on('creds.update', await saveCreds)
 
 	conn.reply = (from, content, msg) => conn.sendMessage(from, { text: content }, { quoted: msg })
