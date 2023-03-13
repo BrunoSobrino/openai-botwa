@@ -49,8 +49,8 @@ module.exports = async (conn, msg, m, openai) => {
     const isQuotedVideo = isQuotedMsg ? content.includes('videoMessage') ? true : false : false
     const textolink = decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join(''))  
     const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
-    let banchat = JSON.parse(fs.readFileSync('../lib/database/banChat.json'));
-    const isBanChat = isGroup ? banchat.includes(from) : false
+    //let banchat = JSON.parse(fs.readFileSync('../lib/database/banChat.json'));
+    //const isBanChat = isGroup ? banchat.includes(from) : false
  
 /* Envios de mensajes */ 
     
@@ -239,9 +239,8 @@ let caption = `
 await reply(caption)
 await conn.sendMessage(from, { document : { url: resss2.link }, fileName: resss2.name, mimetype: resss2.mime.toUpperCase() }, { quoted: msg })       
 break
-  
-    
-case 'banchat': {
+   
+/*case 'banchat': 
 //if (!isOwner) return
 if (args[0] === "ban") {
 banchat.push(from)
@@ -257,9 +256,7 @@ banchat.splice(off, 1)
 } else {
 reply('Bna o unban')
 }}
-break
-    
-    
+break*/
     
 case 'sticker': case 's':
 try {        
