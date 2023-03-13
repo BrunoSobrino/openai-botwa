@@ -114,7 +114,7 @@ const connectToWhatsApp = async () => {
             }        
             })
 	
-/*conn.ev.on('group-participants.update', async (anu) => {
+conn.ev.on('group-participants.update', async (anu) => {
 try {
 let metadata = await conn.groupMetadata(anu.id)
 let participants = anu.participants
@@ -135,21 +135,34 @@ let PPLft = await getBuffer(ppuser)
 const time = moment().format('HH:mm:ss')
 const date = moment().format('DD/MM/YYYY')
 const memberss = metadata.participants.length
+const descgc = metadata.desc?.toString() || '*𝚂𝙸𝙽 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽*'
+const usertag = `@${num.split("@")[0]}`
+const namegc = metadata.subject
 let qfake = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${num.split('@')[0]}:${num.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
 if (anu.action == 'add') {
-let captionwel = `┌─❖
+	
+let captionwel = '*╔══════════════*\n*╟❧ @subject*\n*╠══════════════*\n*╟❧ @user*\n*╟❧ 𝙱𝙸𝙴𝙽𝚅𝙴𝙽𝙸𝙳𝙾/𝙰* \n*║*\n*╟❧ 𝙳𝙴𝚂𝙲𝚁𝙸𝙿𝙲𝙸𝙾𝙽 𝙳𝙴𝙻 𝙶𝚁𝚄𝙿𝙾:*\n\n@desc\n\n*║*\n*╟❧ 𝙳𝙸𝚂𝙵𝚁𝚄𝚃𝙰 𝚃𝚄 𝙴𝚂𝚃𝙰𝙳𝙸𝙰!!*\n*╚══════════════*'
+let captionwel2 = captionwel.replace('@user', usertag).replace('@subject', namegc).replace('@desc', descgc)
+
+	
+/*let captionwel = `┌─❖
 │「 𝗛𝗶 👋 」
-└┬❖ 「 @${num.split("@")[0]}  」
+└┬❖ 「   」
    │✑  Bienvenido a 
    │✑  ${metadata.subject}
    │✑  Miembro : 
    │✑ ${memberss}
    │✑  Acceso : 
    │✑ ${time} ${date}
-   └───────────────┈ ⳹`
-conn.sendMessage(anu.id, { image: PPWlcm, caption: captionwel, mentions: [num]}, { quoted: qfake })                  
+   └───────────────┈ ⳹`*/
+	
+conn.sendMessage(anu.id, { image: PPWlcm, caption: captionwel2, mentions: [num]}, { quoted: qfake })                  
 } else if (anu.action == 'remove') {
-let captionbye = `┌─❖
+	
+let captionbye = '*╔══════════════*\n*╟❧ @user*\n*╟❧ 𝙷𝙰𝚂𝚃𝙰 𝙿𝚁𝙾𝙽𝚃𝙾 👋🏻* \n*╚══════════════*' 
+let captionbye2 = captionbye.replace('@user', usertag)
+
+/*let captionbye = `┌─❖
 │「 𝗚𝗼𝗼𝗱𝗯𝘆𝗲 👋 」
 └┬❖ 「 @${num.split("@")[0]}  」
    │✑  Abandono el grupo : 
@@ -158,8 +171,9 @@ let captionbye = `┌─❖
    │✑ ${memberss}
    │✑  Salida : 
    │✑  ${time} ${date}
-   └───────────────┈ ⳹`
-conn.sendMessage(anu.id, { image: PPLft, caption: captionbye, mentions: [num]}, { quoted: qfake })                    
+   └───────────────┈ ⳹`*/
+
+conn.sendMessage(anu.id, { image: PPLft, caption: captionbye2, mentions: [num]}, { quoted: qfake })                    
 }}} catch (e) {
 console.log(e)}})*/	
 	
