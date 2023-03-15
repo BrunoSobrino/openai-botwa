@@ -27,6 +27,7 @@ module.exports = async (conn, msg, m, openai) => {
     const from = msg.key.remoteJid;
     const chats = type === "conversation" && msg.message.conversation ? msg.message.conversation : type === "imageMessage" && msg.message.imageMessage.caption ? msg.message.imageMessage.caption : type === "videoMessage" && msg.message.videoMessage.caption ? msg.message.videoMessage.caption : type === "extendedTextMessage" && msg.message.extendedTextMessage.text ? msg.message.extendedTextMessage.text : type === "buttonsResponseMessage" && quotedMsg.fromMe && msg.message.buttonsResponseMessage.selectedButtonId ? msg.message.buttonsResponseMessage.selectedButtonId : type === "templateButtonReplyMessage" && quotedMsg.fromMe && msg.message.templateButtonReplyMessage.selectedId ? msg.message.templateButtonReplyMessage.selectedId : type === "messageContextInfo" ? msg.message.buttonsResponseMessage?.selectedButtonId || msg.message.listResponseMessage?.singleSelectReply.selectedRowId : type == "listResponseMessage" && quotedMsg.fromMe && msg.message.listResponseMessage.singleSelectReply.selectedRowId ? msg.message.listResponseMessage.singleSelectReply.selectedRowId : "";
     const args = chats.split(" ");
+    const args22 = chats.trim().split(/ +/).slice(1)
     const prefix = /^[°•π÷×¶∆£¢€¥®™✓=|~+×_*!#%^&./\\©^]/.test(chats) ? chats.match(/^[°•π÷×¶∆£¢€¥®™✓=|~+×_*!#,|÷?;:%^&./\\©^]/gi) : null;
     const command = prefix ? chats.slice(1).trim().split(' ').shift().toLowerCase() : ''
     const isGroup = msg.key.remoteJid.endsWith("@g.us");
@@ -38,6 +39,7 @@ module.exports = async (conn, msg, m, openai) => {
     const isOwner = [botNumber,...ownerNumber].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(sender)
     const pushname = msg.pushName;
     const q = chats.slice(command.length + 1, chats.length);
+    const textoo = args22.join(" ")  
     const isCmd = chats.startsWith(prefix)
     const content = JSON.stringify(msg.message)
     const isImage = (type == 'imageMessage')
