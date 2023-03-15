@@ -100,6 +100,7 @@ Comandos disposibles:
 - ${prefix}ytmp3
 - ${prefix}ytmp4
 - ${prefix}chatgpt
+- ${prefix}chatgpt2
 - ${prefix}dall-e
 - ${prefix}sticker
 - ${prefix}mediafiredl
@@ -239,7 +240,23 @@ let caption = `
 await reply(caption)
 await conn.sendMessage(from, { document : { url: resss2.link }, fileName: resss2.name, mimetype: resss2.mime.toUpperCase() }, { quoted: msg })       
 break
-   
+/*-------------------------------------------------------*/
+/* [❗]                      [❗]                      [❗] */  
+/*                                                       */ 
+/*         |- [ ⚠ ] - CODIGO OFUSCADO - [ ⚠ ] -|        */
+/*     —◉ DESAROLLADO POR OTOSAKA:                       */
+/*     ◉ Otosaka (https://github.com/6otosaka9)          */
+/*     ◉ Número: wa.me/51993966345                       */
+/*                                                       */
+/*     —◉ FT:                                            */
+/*     ◉ BrunoSobrino (https://github.com/BrunoSobrino)  */
+/*                                                       */
+/* [❗]                      [❗]                      [❗] */
+/*-------------------------------------------------------*/    
+case 'chatgpt2': case 'ia2':         
+function _0x166f(_0x1a86e8,_0x3927b8){const _0x10b2fa=_0x10b2();return _0x166f=function(_0x166f70,_0x1b6c3d){_0x166f70=_0x166f70-0xaa;let _0x30218d=_0x10b2fa[_0x166f70];return _0x30218d;},_0x166f(_0x1a86e8,_0x3927b8);}function _0x10b2(){const _0x213f2c=['choices','user','users','2214990HCSVsq','push','131670ECMNoj','231NfxGZj','31229976LfuPlo','9836155uzEsuD','7044IfXBre','56yoaNiD','data','gpt-3.5-turbo','17jClSHm','104094eMcaCS','425420YrdgvN','application/json','content','32ZoXoEQ','system','13loceJm','310YdkGdy','log'];_0x10b2=function(){return _0x213f2c;};return _0x10b2();}const _0x39f397=_0x166f;(function(_0x492c7b,_0x192cab){const _0x5beead=_0x166f,_0x253cd4=_0x492c7b();while(!![]){try{const _0x4c8bda=parseInt(_0x5beead(0xb2))/0x1*(-parseInt(_0x5beead(0xaa))/0x2)+parseInt(_0x5beead(0xb3))/0x3*(parseInt(_0x5beead(0xaf))/0x4)+parseInt(_0x5beead(0xba))/0x5*(parseInt(_0x5beead(0xae))/0x6)+-parseInt(_0x5beead(0xad))/0x7+-parseInt(_0x5beead(0xb7))/0x8*(-parseInt(_0x5beead(0xbf))/0x9)+parseInt(_0x5beead(0xb4))/0xa*(-parseInt(_0x5beead(0xab))/0xb)+parseInt(_0x5beead(0xac))/0xc*(parseInt(_0x5beead(0xb9))/0xd);if(_0x4c8bda===_0x192cab)break;else _0x253cd4['push'](_0x253cd4['shift']());}catch(_0x138cf2){_0x253cd4['push'](_0x253cd4['shift']());}}}(_0x10b2,0xb1acc));try{let chgptdb=global['chatgpt'][_0x39f397(0xb0)][_0x39f397(0xbe)][m['sender']];chgptdb[_0x39f397(0xc0)]({'role':_0x39f397(0xbd),'content':textosinespacio});const config={'method':'post','url':'https://api.openai.com/v1/chat/completions','headers':{'Content-Type':_0x39f397(0xb5),'Authorization':'Bearer\x20'+OPENAI_KEY},'data':JSON['stringify']({'model':_0x39f397(0xb1),'messages':[{'role':_0x39f397(0xb8),'content':''},...chgptdb]})};let response=await axios(config);chgptdb[_0x39f397(0xc0)]({'role':'assistant','content':response[_0x39f397(0xb0)][_0x39f397(0xbc)][0x0]['message'][_0x39f397(0xb6)]}),reply(response[_0x39f397(0xb0)][_0x39f397(0xbc)][0x0]['message'][_0x39f397(0xb6)]);}catch(_0x1b9b5e){console[_0x39f397(0xbb)](_0x1b9b5e);}    
+break     
+    
 /*case 'banchat': 
 //if (!isOwner) return
 if (args[0] === "ban") {
