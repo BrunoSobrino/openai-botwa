@@ -24,6 +24,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "jimp": "^0.16.1",
     "jsdom": "^16.4.0",  
+    "lodash": "^4.17.21",
     "lowdb": "^2.1.0",
     "moment": "^2.29.4",
     "moment-timezone": "^0.5.34",
