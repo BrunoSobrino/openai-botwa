@@ -190,7 +190,7 @@ reply(`*[❗] 𝚂𝙴 𝙴𝙻𝙸𝙼𝙸𝙽𝙾 𝙲𝙾𝙽 𝙴𝚇𝙸�
 } catch (error1) {   
 console.log(error1)
 reply(`*[❗] 𝙴𝚁𝚁𝙾𝚁, 𝚅𝚄𝙴𝙻𝚅𝙰 𝙰 𝙸𝙽𝚃𝙴𝙽𝚃𝙰𝚁𝙻𝙾*`)   
-}}     
+}   
 break    
 case 'update':
 if (!isOwner) return reply('*[❗] Este comando solo puede ser utilizado por el Owner del Bot*')    
