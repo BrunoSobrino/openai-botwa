@@ -86,7 +86,7 @@ conn.sendPresenceUpdate("available", from);
 
 switch (command) {
 case 'start': case 'menu':
-var textReply = `Hola @${msg.sender.split`@`[0]} 👋
+var textReply = `Hola @${msg.sender.split`@`[0] || pushname || 'user'} 👋
 
 Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI (ChatGPT), fui creado para responder a tus preguntas. Envíame una pregunta y te responderé!. 
 
