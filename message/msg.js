@@ -86,7 +86,7 @@ conn.sendPresenceUpdate("available", from);
 
 switch (command) {
 case 'start': case 'menu':
-var textReply = `Hola 👋
+var textReply = `Hola @${msg.sender.split`@`[0]} 👋
 
 Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI (ChatGPT), fui creado para responder a tus preguntas. Envíame una pregunta y te responderé!. 
 
@@ -110,13 +110,9 @@ Comandos del Owner:
 - ${prefix}update
 - ${prefix}desactivarwa
 
-*Editado By @BrunoSobrino*`
-var templateButtons = [
-{index: 1, urlButton: {displayText: '𝙾𝚆𝙽𝙴𝚁 👑', url: 'https://wa.me/5219996125657'}},
-{index: 2, urlButton: {displayText: '𝙶𝙸𝚃𝙷𝚄𝙱 🔗', url: 'https://github.com/BrunoSobrino/openai-botwa'}}]
-let templateMessage = { image: {url: 'https://www.mizanurrmizan.info/wp-content/uploads/2023/02/chatgpt.jpg'}, caption: textReply, footer: null, templateButtons: templateButtons, viewOnce: true };
-//conn.sendMessage(from, templateMessage, { quoted: msg });
-reply(textReply)    
+*Editado By @5219996125657*`
+let fkontak2 = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${msg.sender.split('@')[0]}:${msg.sender.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }  
+conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: fkontak2 });
 break
 case 'runtime':
 reply(require('../lib/myfunc').runtime(process.uptime()))
