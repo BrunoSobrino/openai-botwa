@@ -10,7 +10,6 @@ const { exec, spawn, execSync } = require("child_process");
 let setting;
 const { ownerNumber, MAX_TOKEN, OPENAI_KEY } = setting = require('../config.json');
 const speed = require("performance-now");
-let { ytv } = require('../lib/y2mate')
 const ffmpeg = require("fluent-ffmpeg");
 let { ytmp4, ytmp3, ytplay, ytplayvid } = require('../lib/youtube')
 const { mediafireDl } = require('../lib/myfunc')
