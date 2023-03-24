@@ -348,7 +348,7 @@ let hasil = await tiores.json()
 reply(`${hasil.result}`.trim())   
 } catch (eeee) {        
 reply("*[❗] Error, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + eeee)  
-}}} 
+}}}}
 break
 }} catch (err) {
 console.log(color("[ERROR]", "red"), err); }};
