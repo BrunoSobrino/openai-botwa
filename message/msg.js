@@ -20,7 +20,7 @@ moment.tz.setDefault("Asia/Jakarta").locale("id");
 
 module.exports = async (conn, msg, m, openai) => {
   try {
-    if (msg.key.fromMe) return
+    //if (msg.key.fromMe) return
     const { type, isQuotedMsg, quotedMsg, mentioned, now, fromMe } = msg;
     const toJSON = (j) => JSON.stringify(j, null, "\t");
     const from = msg.key.remoteJid;
@@ -256,13 +256,18 @@ try {
 const BotIA = await openai.createCompletion({ model: "text-davinci-003", prompt: textosinespacio, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(BotIA.data.choices[0].text.trim())
 } catch (qe) {
+try {   
+let rrEes = await fetch(`https://api.ibeng.tech/api/info/openai?text=${textosinespacio}&apikey=tamvan`)
+let jjJson = await rrEes.json()
+reply(jjJson.data.data.trim())    
+} catch (qe4) {      
 try {    
 let tioress = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textosinespacio}&user=user-unique-id`)
 let hasill = await tioress.json()
 reply(`${hasill.result}`.trim())   
 } catch (qqe) {        
 reply("*[❗] Error, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qqe)  
-}} 
+}}} 
 break       
     
 /*case 'banchat': 
@@ -317,6 +322,7 @@ reply(`*[❗] Responda a una imagen, gif o video, el cual será convertido en st
 break 
 default:
 const botNumber22 = '@' + conn.user.id.split(":")[0];
+if (msg.key.fromMe || msg.sender == conn.user.id) return //console.log('[❗] Unicamente respondo mensajes sin comandos de otros usuarios pero no se mi mismo')    
 if (!chats.startsWith(botNumber22) && isGroup) return
 if (isImage || isVideo || isSticker || isViewOnce || isAudio) return
 let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '')
