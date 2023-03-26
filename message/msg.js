@@ -59,8 +59,7 @@ module.exports = async (conn, msg, m, openai) => {
 try {    
 let banned = global.db.data.chats[from].mute  
 if (banned && !chats.includes('unmute')) return  
-} catch {
-continue   
+} catch {   
 }  
   
 /* Envios de mensajes */ 
