@@ -53,6 +53,11 @@ module.exports = async (conn, msg, m, openai) => {
     const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
     //let banchat = JSON.parse(fs.readFileSync('../lib/database/banChat.json'));
     //const isBanChat = isGroup ? banchat.includes(from) : false
+  
+/* baneo de chats */
+    
+let banned = global.db.data.chats[from].mute  
+if (banned && !chats.includes('unmute')) return    
  
 /* Envios de mensajes */ 
     
@@ -108,6 +113,8 @@ Comandos disposibles:
 - ${prefix}dall-e
 - ${prefix}sticker
 - ${prefix}mediafiredl
+- ${prefix}mute
+- ${prefix}unmute
 
 Comandos del Owner:
 - ${prefix}update
@@ -135,6 +142,16 @@ let audiodownload = json.result.audio
 if (!audiodownload) audiodownload = kingcore.result
 sendAud(`${audiodownload}`)
 break
+case 'mute':     
+if (global.db.data.chats[from].mute) return reply(`Ya activo antes`)
+global.db.data.chats[from].mute = true
+reply(`bot myuteado en este chat`)
+break           
+case 'unmute':
+if (!global.db.data.chats[from].mute) return reply(`*No activado antes*`)
+global.db.data.chats[from].mute = false
+reply(`bot desmuteado en este chat`)
+break          
 case 'play2':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*`)        
 let mediaa = await ytplayvid(textosinespacio)
