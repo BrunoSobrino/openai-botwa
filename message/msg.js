@@ -45,6 +45,7 @@ module.exports = async (conn, msg, m, openai) => {
     const isAudio = (type == 'audioMessage')
     const isSticker = (type == 'stickerMessage')
     const isDocument = (type == 'documentMessage')
+    const isLocation = (type == 'locationMessage')
     const isViewOnce = (type == 'viewOnceMessageV2')
     const isQuotedImage = isQuotedMsg ? content.includes('imageMessage') ? true : false : false    
     const isQuotedVideo = isQuotedMsg ? content.includes('videoMessage') ? true : false : false
@@ -323,7 +324,7 @@ default:
 const botNumber22 = '@' + conn.user.id.split(":")[0];
 if (msg.key.fromMe || msg.sender == conn.user.id) return //console.log('[❗] Unicamente respondo mensajes sin comandos de otros usuarios pero no se mi mismo')    
 if (!chats.startsWith(botNumber22) && isGroup) return
-if (isImage || isVideo || isSticker || isViewOnce || isAudio || isDocument) return
+if (isImage || isVideo || isSticker || isViewOnce || isAudio || isDocument || isLocation) return
 let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '')
 if (isGroup) chatstext = chatstext.replace("@", '').replace(prefix, '')
 console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chatstext}"`)
