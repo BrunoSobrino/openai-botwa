@@ -54,6 +54,13 @@ module.exports = async (conn, msg, m, openai) => {
     const participants = msg.isGroup ? await groupMetadata.participants : ''
     const groupAdmins = msg.isGroup ? await getGroupAdmins(participants) : ''
     const isAdmin = msg.isGroup ? groupAdmins.includes(sender) : false
+    let senderJid;
+    if (msg.participant !== undefined) {
+    senderJid = msg.participant;
+    } else {
+    senderJid = msg.sender;
+    }
+
 
   
 /* Baneo de chats */
@@ -131,7 +138,7 @@ Comandos del Owner:
 conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: msg });
 break
 case 'runtime':
-console.log(msg)    
+console.log(senderJid)    
 reply(require('../lib/myfunc').runtime(process.uptime()))
 break
 case 'ping':
