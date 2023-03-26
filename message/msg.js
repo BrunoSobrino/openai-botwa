@@ -59,7 +59,8 @@ let senderJid;
 if (msg.participant) {
   senderJid = msg.participant;
 } else if (msg.isGroup && msg.key.remoteJid.endsWith('@g.us')) {
-  const participant = msg.participants.find((p) => p.jid === msg.key.remoteJid);
+  const participants = msg.participants || [];
+  const participant = participants.find((p) => p.jid === msg.key.remoteJid);
   if (participant) {
     senderJid = participant.jid;
   }
