@@ -138,7 +138,7 @@ Comandos del Owner:
 conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: msg });
 break
 case 'runtime':
-console.log(senderJid)    
+console.log(msg)    
 reply(require('../lib/myfunc').runtime(process.uptime()))
 break
 case 'ping':
