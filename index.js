@@ -99,12 +99,7 @@ global.loadDatabase = async function loadDatabase() {
   await global.db.read()
   global.db.READ = false
   global.db.data = {
-    users: {},
     chats: {},
-    database: {},
-    settings: {},
-    others: {},
-    sticker: {},
     ...(global.db.data || {})
   }
   global.db.chain = _.chain(global.db.data)
@@ -147,11 +142,11 @@ const connectToWhatsApp = async () => {
 		msg = serialize(conn, msg)
 		msg.isBaileys = msg.key.id.startsWith('BAE5')
 		require('./message/msg')(conn, msg, m, openai)
-	       let Dchats = global.db.data.chats[msg.key.remoteJid]
-               if (typeof Dchats !== 'object') global.db.data.chats[msg.key.remoteJid] = {}
+	       let Dchats = global.db.data.chats[m.chat]
+               if (typeof Dchats !== 'object') global.db.data.chats[m.chat] = {}
                if (Dchats) {
                if (!('mute' in Dchats)) Dchats.mute = false
-               } else global.db.data.chats[msg.key.remoteJid] = {
+               } else global.db.data.chats[m.chat] = {
                mute: false
                }
 		
