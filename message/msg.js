@@ -12,7 +12,7 @@ const { ownerNumber, MAX_TOKEN, OPENAI_KEY } = setting = require('../config.json
 const speed = require("performance-now");
 const ffmpeg = require("fluent-ffmpeg");
 let { ytmp4, ytmp3, ytplay, ytplayvid } = require('../lib/youtube')
-const { mediafireDl } = require('../lib/myfunc')
+const { mediafireDl, getGroupAdmins } = require('../lib/myfunc')
 const axios = require("axios");
 const cheerio = require("cheerio");
 moment.tz.setDefault("Asia/Jakarta").locale("id");
@@ -51,6 +51,10 @@ module.exports = async (conn, msg, m, openai) => {
     const isQuotedVideo = isQuotedMsg ? content.includes('videoMessage') ? true : false : false
     const textolink = decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join(''))  
     const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
+    const participants = isGroup ? await groupMetadata.participants : ''
+    const groupAdmins = isGroup ? await getGroupAdmins(participants) : ''
+    const isAdmins = isGroup ? groupAdmins.includes(msg.sender) : false
+
   
 /* Baneo de chats */
 
@@ -144,6 +148,7 @@ if (!audiodownload) audiodownload = kingcore.result
 sendAud(`${audiodownload}`)
 break
 case 'mute': case 'banchat':    
+if (isGroup && )    
 if (global.db.data.chats[from].mute) return reply(`*[❗] Este chat ya estaba muteado (baneado) desde antes*`)
 global.db.data.chats[from].mute = true
 reply(`*[❗] Este chat se ha muteado (baneado) correctamente, el Bot no responderá a ningun mensaje hasta ser desbaneado con el comando ${prefix}unmute*`)
