@@ -186,6 +186,11 @@ const _0x438288=_0x293b;(function(_0xe35c10,_0x2c3233){const _0x19c078=_0x293b,_
             }        
             })
 	
+if (!opts['test']) {
+if (global.db) setInterval(async () => {
+if (global.db.data) await global.db.write()
+}, 30 * 1000)}   	
+	
 conn.ev.on('group-participants.update', async (anu) => {
 try {
 let metadata = await conn.groupMetadata(anu.id)
