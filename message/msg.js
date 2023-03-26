@@ -55,7 +55,7 @@ module.exports = async (conn, msg, m, openai) => {
     const groupAdmins = msg.isGroup ? await getGroupAdmins(participants) : ''
     const isAdmin = msg.isGroup ? groupAdmins.includes(sender) : false
     let senderJid;
-    if (msg.isGroup) {
+    if (msg.participant) {
     senderJid = msg.participant;
     } else {
     senderJid = msg.sender;
