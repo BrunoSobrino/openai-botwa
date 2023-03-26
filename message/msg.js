@@ -150,7 +150,7 @@ break
 case 'unmute': case 'unbanchat':
 if (!global.db.data.chats[from].mute) return reply(`*[❗] Este chat no esta muteado (baneado)*`)
 global.db.data.chats[from].mute = false
-reply(`*[❗] Este chat ha sido desmuteado (desbaneado) correctamente, ahora el Bot responderá con normalidad`)
+reply(`*[❗] Este chat ha sido desmuteado (desbaneado) correctamente, ahora el Bot responderá con normalidad*`)
 break          
 case 'play2':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*`)        
