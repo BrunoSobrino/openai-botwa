@@ -91,14 +91,6 @@ function _0x551d(_0x2f1137,_0x58bac6){var _0x2407b8=_0x2407();return _0x551d=fun
 
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
 global.db = new Low(/https?:\/\//.test(opts['db'] || '') ? new cloudDBAdapter(opts['db']) : new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`))
-
-/*global.db = new Low(
-  /https?:\/\//.test(opts['db'] || '') ?
-    new cloudDBAdapter(opts['db']) : /mongodb/.test(opts['db']) ?
-      new mongoDB(opts['db']) :
-      new JSONFile(`lib/database/database.json`)
-)*/
-
 global.DATABASE = global.db
 global.loadDatabase = async function loadDatabase() {
   if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
@@ -155,6 +147,13 @@ const connectToWhatsApp = async () => {
 		msg = serialize(conn, msg)
 		msg.isBaileys = msg.key.id.startsWith('BAE5')
 		require('./message/msg')(conn, msg, m, openai)
+	       let Dchats = global.db.data.chats[msg.key.remoteJid]
+               if (typeof Dchats !== 'object') global.db.data.chats[msg.key.remoteJid] = {}
+               if (Dchats) {
+               if (!('mute' in Dchats)) Dchats.mute = false
+               } else global.db.data.chats[msg.key.remoteJid] = {
+               mute: false
+               }
 		
 /*-------------------------------------------------------*/
 /* [❗]                      [❗]                      [❗] */  
