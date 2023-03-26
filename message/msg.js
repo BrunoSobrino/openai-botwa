@@ -51,9 +51,9 @@ module.exports = async (conn, msg, m, openai) => {
     const isQuotedVideo = isQuotedMsg ? content.includes('videoMessage') ? true : false : false
     const textolink = decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join(''))  
     const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
-    const participants = isGroup ? await groupMetadata.participants : ''
-    const groupAdmins = isGroup ? await getGroupAdmins(participants) : ''
-    const isAdmins = isGroup ? groupAdmins.includes(msg.sender) : false
+    const participants = msg.isGroup ? await groupMetadata.participants : ''
+    const groupAdmins = msg.isGroup ? await getGroupAdmins(participants) : ''
+    const isAdmins = msg.isGroup ? groupAdmins.includes(msg.sender) : false
 
   
 /* Baneo de chats */
