@@ -26,6 +26,7 @@ low = require('./lib/lowdb')}
 const { Low, JSONFile } = low
 const path = require('path')
 const lodash = require('lodash')
+const _ = require('lodash')
 const yargs = require('yargs/yargs')
 const mongoDB = require('./lib/mongoDB')
 
@@ -89,12 +90,15 @@ function _0x551d(_0x2f1137,_0x58bac6){var _0x2407b8=_0x2407();return _0x551d=fun
 
 
 global.opts = new Object(yargs(process.argv.slice(2)).exitProcess(false).parse())
-global.db = new Low(
+global.db = new Low(/https?:\/\//.test(opts['db'] || '') ? new cloudDBAdapter(opts['db']) : new JSONFile(`${opts._[0] ? opts._[0] + '_' : ''}database.json`))
+
+/*global.db = new Low(
   /https?:\/\//.test(opts['db'] || '') ?
     new cloudDBAdapter(opts['db']) : /mongodb/.test(opts['db']) ?
       new mongoDB(opts['db']) :
       new JSONFile(`lib/database/database.json`)
-)
+)*/
+
 global.DATABASE = global.db
 global.loadDatabase = async function loadDatabase() {
   if (global.db.READ) return new Promise((resolve) => setInterval(function () { (!global.db.READ ? (clearInterval(this), resolve(global.db.data == null ? global.loadDatabase() : global.db.data)) : null) }, 1 * 1000))
