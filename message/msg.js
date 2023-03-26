@@ -142,12 +142,12 @@ let audiodownload = json.result.audio
 if (!audiodownload) audiodownload = kingcore.result
 sendAud(`${audiodownload}`)
 break
-case 'mute':     
-if (global.db.data.chats[from].mute) return reply(`Ya activo antes`)
+case 'mute': case 'banchat':    
+if (global.db.data.chats[from].mute) return reply(`*[❗] Este chat ya estaba muteado (baneado) desde antes*`)
 global.db.data.chats[from].mute = true
-reply(`bot myuteado en este chat`)
+reply(`*[❗] Este chat se ha muteado (baneado) correctamente, el Bot no respondera a ninguna mensaje hasta ser desbaneado con el comando ${prefix}unmute*`)
 break           
-case 'unmute':
+case 'unmute': case 'unbanchat':
 if (!global.db.data.chats[from].mute) return reply(`*No activado antes*`)
 global.db.data.chats[from].mute = false
 reply(`bot desmuteado en este chat`)
@@ -287,25 +287,6 @@ reply(`${hasill.result}`.trim())
 reply("*[❗] Error, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qqe)  
 }}} 
 break       
-    
-/*case 'banchat': 
-//if (!isOwner) return
-if (args[0] === "ban") {
-banchat.push(from)
-var groupe = await conn.groupMetadata(from)
-var members = groupe['participants']
-var mems = []
-members.map(async adm => {
-mems.push(adm.id.replace('c.us', 's.whatsapp.net'))
-})
-} else if (args[0] === "unban") {
-let off = banchat.indexOf(from)
-banchat.splice(off, 1)
-} else {
-reply('Bna o unban')
-}}
-break*/
-    
 case 'sticker': case 's':
 try {        
 const pname = 'OpenAI - WaBot'
