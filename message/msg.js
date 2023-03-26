@@ -15,7 +15,6 @@ let { ytmp4, ytmp3, ytplay, ytplayvid } = require('../lib/youtube')
 const { mediafireDl } = require('../lib/myfunc')
 const axios = require("axios");
 const cheerio = require("cheerio");
-
 moment.tz.setDefault("Asia/Jakarta").locale("id");
 
 module.exports = async (conn, msg, m, openai) => {
@@ -51,15 +50,13 @@ module.exports = async (conn, msg, m, openai) => {
     const isQuotedVideo = isQuotedMsg ? content.includes('videoMessage') ? true : false : false
     const textolink = decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join(''))  
     const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
-    //let banchat = JSON.parse(fs.readFileSync('../lib/database/banChat.json'));
-    //const isBanChat = isGroup ? banchat.includes(from) : false
   
 /* Baneo de chats */
 
 try {    
 let banned = global.db.data.chats[from].mute  
 if (banned && !chats.includes('unmute')) return  
-} catch {   
+} catch {
 }  
   
 /* Envios de mensajes */ 
