@@ -148,14 +148,13 @@ if (!audiodownload) audiodownload = kingcore.result
 sendAud(`${audiodownload}`)
 break
 case 'mute': case 'banchat':    
-if (isGroup && !isAdmins) return reply(`*[❗] Este comando solo puede ser usado por admins del grupo*`)    
+if (isGroup && !isAdmin) return reply(`*[❗] Este comando solo puede ser usado por admins del grupo*`)    
 if (global.db.data.chats[from].mute) return reply(`*[❗] Este chat ya estaba muteado (baneado) desde antes*`)
 global.db.data.chats[from].mute = true
 reply(`*[❗] Este chat se ha muteado (baneado) correctamente, el Bot no responderá a ningun mensaje hasta ser desbaneado con el comando ${prefix}unmute*`)
 break           
 case 'unmute': case 'unbanchat':
-console.log(isAdmin)    
-if (isGroup && !isAdmins) return reply(`*[❗] Este comando solo puede ser usado por admins del grupo*`)    
+if (isGroup && !isAdmin) return reply(`*[❗] Este comando solo puede ser usado por admins del grupo*`)    
 if (!global.db.data.chats[from].mute) return reply(`*[❗] Este chat no esta muteado (baneado)*`)
 global.db.data.chats[from].mute = false
 reply(`*[❗] Este chat ha sido desmuteado (desbaneado) correctamente, ahora el Bot responderá con normalidad*`)
