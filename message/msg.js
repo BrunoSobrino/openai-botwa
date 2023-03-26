@@ -145,12 +145,12 @@ break
 case 'mute': case 'banchat':    
 if (global.db.data.chats[from].mute) return reply(`*[❗] Este chat ya estaba muteado (baneado) desde antes*`)
 global.db.data.chats[from].mute = true
-reply(`*[❗] Este chat se ha muteado (baneado) correctamente, el Bot no respondera a ninguna mensaje hasta ser desbaneado con el comando ${prefix}unmute*`)
+reply(`*[❗] Este chat se ha muteado (baneado) correctamente, el Bot no responderá a ningun mensaje hasta ser desbaneado con el comando ${prefix}unmute*`)
 break           
 case 'unmute': case 'unbanchat':
-if (!global.db.data.chats[from].mute) return reply(`*No activado antes*`)
+if (!global.db.data.chats[from].mute) return reply(`*[❗] Este chat no esta muteado (baneado)*`)
 global.db.data.chats[from].mute = false
-reply(`bot desmuteado en este chat`)
+reply(`*[❗] Este chat ha sido desmuteado (desbaneado) correctamente, ahora el Bot responderá con normalidad`)
 break          
 case 'play2':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*`)        
