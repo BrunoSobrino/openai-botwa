@@ -53,7 +53,7 @@ module.exports = async (conn, msg, m, openai) => {
     const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
     const participants = msg.isGroup ? await groupMetadata.participants : ''
     const groupAdmins = msg.isGroup ? await getGroupAdmins(participants) : ''
-    const isAdmin = msg.isGroup ? groupAdmins.includes(msg.sender) : false
+    const isAdmin = msg.isGroup ? groupAdmins.includes(sender) : false
 
   
 /* Baneo de chats */
