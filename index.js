@@ -142,11 +142,11 @@ const connectToWhatsApp = async () => {
 		msg = serialize(conn, msg)
 		msg.isBaileys = msg.key.id.startsWith('BAE5')
 		require('./message/msg')(conn, msg, m, openai)
-	       let Dchats = global.db.data.chats[m.chat]
-               if (typeof Dchats !== 'object') global.db.data.chats[m.chat] = {}
+	       let Dchats = global.db.data.chats[msg.key.remoteJid]
+               if (typeof Dchats !== 'object') global.db.data.chats[msg.key.remoteJid] = {}
                if (Dchats) {
                if (!('mute' in Dchats)) Dchats.mute = false
-               } else global.db.data.chats[m.chat] = {
+               } else global.db.data.chats[msg.key.remoteJid] = {
                mute: false
                }
 		
