@@ -206,11 +206,11 @@ const usertag = `@${num.split("@")[0]}`
 const namegc = metadata.subject
 let qfake = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${num.split('@')[0]}:${num.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }
 if (anu.action == 'add') {
-let captionwel = '*╔══════════════*\n*╟❧ @subject*\n*╠══════════════*\n*╟❧ @user*\n*╟❧ BIENVENIDO(A)* \n*║*\n*╟❧ LEE LA DESCRIPCIÓN DEL GRUPO!*\n*║*\n*╟❧ DISFRUTA TU ESTADÍA!!*\n*╚══════════════*'
+let captionwel = '*╔══════════════*\n*╟❧* @subject\n*╠══════════════*\n*╟❧ @user*\n*╟❧ BIENVENIDO(A)* \n*║*\n*╟❧ LEE LA DESCRIPCIÓN DEL GRUPO!*\n*║*\n*╟❧ DISFRUTA TU ESTADÍA!!*\n*╚══════════════*'
 let captionwel2 = captionwel.replace('@user', usertag).replace('@subject', namegc).replace('@desc', descgc)
 conn.sendMessage(anu.id, { image: PPWlcm, caption: captionwel2, mentions: [num]}, { quoted: qfake })                  
 } else if (anu.action == 'remove') {
-let captionbye = '*╔══════════════*\n*╟❧ @user*\n*╟❧ HASTA PRONTO 👋🏻* \n*╚══════════════*' 
+let captionbye = '*╔══════════════*\n*╟❧* @user\n*╟❧ HASTA PRONTO 👋🏻* \n*╚══════════════*' 
 let captionbye2 = captionbye.replace('@user', usertag)
 conn.sendMessage(anu.id, { image: PPLft, caption: captionbye2, mentions: [num]}, { quoted: qfake })                    
 }}} catch (e) {
