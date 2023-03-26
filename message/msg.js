@@ -53,7 +53,7 @@ module.exports = async (conn, msg, m, openai) => {
     const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
     const participants = msg.isGroup ? await groupMetadata.participants : ''
     const groupAdmins = msg.isGroup ? await getGroupAdmins(participants) : ''
-    const isAdmins = msg.isGroup ? groupAdmins.includes(msg.sender) : false
+    const isAdmin = msg.isGroup ? groupAdmins.includes(msg.sender) : false
 
   
 /* Baneo de chats */
@@ -154,6 +154,7 @@ global.db.data.chats[from].mute = true
 reply(`*[❗] Este chat se ha muteado (baneado) correctamente, el Bot no responderá a ningun mensaje hasta ser desbaneado con el comando ${prefix}unmute*`)
 break           
 case 'unmute': case 'unbanchat':
+console.log(isAdmin)    
 if (isGroup && !isAdmins) return reply(`*[❗] Este comando solo puede ser usado por admins del grupo*`)    
 if (!global.db.data.chats[from].mute) return reply(`*[❗] Este chat no esta muteado (baneado)*`)
 global.db.data.chats[from].mute = false
