@@ -54,11 +54,15 @@ module.exports = async (conn, msg, m, openai) => {
     //let banchat = JSON.parse(fs.readFileSync('../lib/database/banChat.json'));
     //const isBanChat = isGroup ? banchat.includes(from) : false
   
-/* baneo de chats */
-    
+/* Baneo de chats */
+
+try {    
 let banned = global.db.data.chats[from].mute  
-if (banned && !chats.includes('unmute')) return    
- 
+if (banned && !chats.includes('unmute')) return  
+} catch {
+continue   
+}  
+  
 /* Envios de mensajes */ 
     
 const reply = (teks) => {
