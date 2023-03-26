@@ -56,23 +56,11 @@ module.exports = async (conn, msg, m, openai) => {
     const isAdmin = msg.isGroup ? groupAdmins.includes(sender) : false
     
 let senderJid;
-if (msg.participant) {
-  senderJid = msg.participant;
-} else if (msg.isGroup && msg.key.remoteJid.endsWith('@g.us')) {
-  const participants = msg.participants;
-  if (participants) {
-    const participant = participants.find((p) => p.jid === msg.key.remoteJid);
-    if (participant) {
-      senderJid = participant.jid;
-    }
-  } else {
-    senderJid = msg.key.remoteJid;
-  }
+if (msg.isGroup) {
+  senderJid = msg.key.participant;
 } else {
-  senderJid = msg.key.remoteJid;
+  senderJid = msg.sender;
 }
-
-
 
   
 /* Baneo de chats */
