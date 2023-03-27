@@ -271,6 +271,7 @@ break
 /* [❗]                      [❗]                      [❗] */
 /*-------------------------------------------------------*/  
 case 'chatgpt': case 'ia': 
+try {    
 let chgptdb = global.chatgpt.data.users[senderJid];
 chgptdb.push({ role: 'user', content: textosinespacio });
 const config = { method: 'post', url: 'https://api.openai.com/v1/chat/completions', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OPENAI_KEY }, data: JSON.stringify({ 'model': 'gpt-3.5-turbo', 'messages': [{ role: 'system', content: 'Actuaras como un Bot de WhatsApp y tu lenguaje principal es español, tu seras openai-botwa y fuiste creado por BrunoSobrino' }, ...chgptdb ]})}
