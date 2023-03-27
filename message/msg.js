@@ -109,7 +109,7 @@ Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI (ChatGPT), f
 _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 
 Comandos disposibles:
-- ${prefix}start
+- ${prefix}menu
 - ${prefix}ping
 - ${prefix}runtime
 - ${prefix}play
