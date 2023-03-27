@@ -260,7 +260,7 @@ break
 /*-------------------------------------------------------*/
 /* [❗]                      [❗]                      [❗] */  
 /*                                                       */ 
-/*         |- [ ⚠ ] - CODIGO OFUSCADO - [ ⚠ ] -|        */
+/*       |- [ ⚠ ] - CREDITOS DEL CODIGO - [ ⚠ ] -|      */
 /*     —◉ DESAROLLADO POR OTOSAKA:                       */
 /*     ◉ Otosaka (https://github.com/6otosaka9)          */
 /*     ◉ Número: wa.me/51993966345                       */
@@ -269,9 +269,30 @@ break
 /*     ◉ BrunoSobrino (https://github.com/BrunoSobrino)  */
 /*                                                       */
 /* [❗]                      [❗]                      [❗] */
-/*-------------------------------------------------------*/    
+/*-------------------------------------------------------*/  
 case 'chatgpt': case 'ia': 
-function _0x3fc1(){const _0x50bdf0=['application/json','790416mKuBqF','6481376QTGKXA','users','choices','user','Bearer\x20','294830yUeVuP','data','json','message','createCompletion','https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=','content','5iCMnld','trim','4IaIlHD','text','877371MtbBDH','Human:','https://api.openai.com/v1/chat/completions','2300788oIcZXa','push','result','1yOvYFz','gpt-3.5-turbo','31590PazfrX','2347242bADAhd','24TrLUVq','1701yWZDFE','post','system'];_0x3fc1=function(){return _0x50bdf0;};return _0x3fc1();}const _0x1c80dc=_0xfd22;(function(_0x33c7d6,_0x1952df){const _0x4ed4ca=_0xfd22,_0x1f6913=_0x33c7d6();while(!![]){try{const _0x27a7c5=parseInt(_0x4ed4ca(0xc8))/0x1*(-parseInt(_0x4ed4ca(0xb7))/0x2)+-parseInt(_0x4ed4ca(0xc2))/0x3*(parseInt(_0x4ed4ca(0xc0))/0x4)+parseInt(_0x4ed4ca(0xbe))/0x5*(-parseInt(_0x4ed4ca(0xcb))/0x6)+-parseInt(_0x4ed4ca(0xc5))/0x7+-parseInt(_0x4ed4ca(0xb1))/0x8+parseInt(_0x4ed4ca(0xcd))/0x9*(parseInt(_0x4ed4ca(0xca))/0xa)+parseInt(_0x4ed4ca(0xb2))/0xb*(parseInt(_0x4ed4ca(0xcc))/0xc);if(_0x27a7c5===_0x1952df)break;else _0x1f6913['push'](_0x1f6913['shift']());}catch(_0x3df380){_0x1f6913['push'](_0x1f6913['shift']());}}}(_0x3fc1,0x7e336));function _0xfd22(_0x56a413,_0x34d51c){const _0x3fc1c2=_0x3fc1();return _0xfd22=function(_0xfd2282,_0x317738){_0xfd2282=_0xfd2282-0xb0;let _0x2d662a=_0x3fc1c2[_0xfd2282];return _0x2d662a;},_0xfd22(_0x56a413,_0x34d51c);}try{let chgpPtdb=global['chatgpt'][_0x1c80dc(0xb8)][_0x1c80dc(0xb3)][senderJid];chgpPtdb[_0x1c80dc(0xc6)]({'role':_0x1c80dc(0xb5),'content':textosinespacio});const confFig={'method':_0x1c80dc(0xce),'url':_0x1c80dc(0xc4),'headers':{'Content-Type':_0x1c80dc(0xb0),'Authorization':_0x1c80dc(0xb6)+OPENAI_KEY},'data':JSON['stringify']({'model':_0x1c80dc(0xc9),'messages':[{'role':_0x1c80dc(0xcf),'content':''},...chgpPtdb]})};let respPonse=await axios(confFig);chgpPtdb[_0x1c80dc(0xc6)]({'role':'assistant','content':respPonse[_0x1c80dc(0xb8)][_0x1c80dc(0xb4)][0x0][_0x1c80dc(0xba)]['content']}),reply(respPonse[_0x1c80dc(0xb8)][_0x1c80dc(0xb4)][0x0][_0x1c80dc(0xba)][_0x1c80dc(0xbd)]);}catch(_0xc689ef){try{const BotTIA222=await openai[_0x1c80dc(0xbb)]({'model':'text-davinci-003','prompt':textosinespacio,'temperature':0.3,'max_tokens':MAX_TOKEN,'stop':['Ai:',_0x1c80dc(0xc3)],'top_p':0x1,'frequency_penalty':0.2,'presence_penalty':0x0});reply(BotTIA222['data']['choices'][0x0][_0x1c80dc(0xc1)][_0x1c80dc(0xbf)]());}catch(_0x563cd7){try{let RrreEs=await fetch('https://api.ibeng.tech/api/info/openai?text='+textosinespacio+'&apikey=tamvan'),JjjsoEn=await RrreEs[_0x1c80dc(0xb9)]();m['reply'](JjjsoEn[_0x1c80dc(0xb8)][_0x1c80dc(0xb8)][_0x1c80dc(0xbf)]());}catch(_0x5af3b5){try{let tiIoress22=await fetch(_0x1c80dc(0xbc)+textosinespacio+'&user=user-unique-id'),hasiIll22=await tiIoress22[_0x1c80dc(0xb9)]();reply((''+hasiIll22[_0x1c80dc(0xc7)])[_0x1c80dc(0xbf)]());}catch(_0x2f5321){console['log'](_0x2f5321);}}}}    
+let chgptdb = global.chatgpt.data.users[senderJid];
+chgptdb.push({ role: 'user', content: textosinespacio });
+const config = { method: 'post', url: 'https://api.openai.com/v1/chat/completions', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OPENAI_KEY }, data: JSON.stringify({ 'model': 'gpt-3.5-turbo', 'messages': [{ role: 'system', content: 'Actuaras como un Bot de WhatsApp y tu lenguaje principal es español, tu seras openai-botwa y fuiste creado por BrunoSobrino' }, ...chgptdb ]})}
+let response = await axios(config);
+chgptdb.push({ role: 'assistant', content: response.data.choices[0].message.content }) 
+reply(response.data.choices[0].message.content)
+} catch (efe1) {
+try {
+const BotIA222 = await openai.createCompletion({ model: "text-davinci-003", prompt: textosinespacio, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
+reply(BotIA222.data.choices[0].text.trim())    
+} catch (efe2) {
+try {  
+let Rrres = await fetch(`https://api.ibeng.tech/api/info/openai?text=${textosinespacio}&apikey=tamvan`)
+let Jjjson = await Rrres.json()
+m.reply(Jjjson.data.data.trim())    
+} catch (efe3) {        
+try {   
+let tioress22 = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textosinespacio}&user=user-unique-id`)
+let hasill22 = await tioress22.json()
+reply(`${hasill22.result}`.trim())       
+} catch (efe4) {    
+console.log(efe4)}}}}
 break 
 case 'delchatgpt':
 try {
@@ -343,7 +364,12 @@ if (isGroup) chatstext = chatstext.replace("@", '').replace(prefix, '')
 console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chatstext}"`)
 conn.sendPresenceUpdate("composing", from);
 try {
-const _0x3f9840=_0xecfe;(function(_0x83ff45,_0x26cd33){const _0x21913f=_0xecfe,_0x53e383=_0x83ff45();while(!![]){try{const _0x25b520=parseInt(_0x21913f(0x10b))/0x1*(-parseInt(_0x21913f(0xf5))/0x2)+parseInt(_0x21913f(0xfa))/0x3*(parseInt(_0x21913f(0x101))/0x4)+-parseInt(_0x21913f(0x103))/0x5*(parseInt(_0x21913f(0xfe))/0x6)+parseInt(_0x21913f(0xf9))/0x7+-parseInt(_0x21913f(0x10d))/0x8+-parseInt(_0x21913f(0xfd))/0x9*(-parseInt(_0x21913f(0xf7))/0xa)+-parseInt(_0x21913f(0x104))/0xb;if(_0x25b520===_0x26cd33)break;else _0x53e383['push'](_0x53e383['shift']());}catch(_0xb243a9){_0x53e383['push'](_0x53e383['shift']());}}}(_0x293a,0x45059));let chgptdb=global[_0x3f9840(0xf6)]['data'][_0x3f9840(0x107)][senderJid];chgptdb['push']({'role':'user','content':textosinespacio});function _0x293a(){const _0x4dd0e5=['10lbZdjj','2392995dGDjHS','content','https://api.openai.com/v1/chat/completions','users','push','system','post','121EUnlFL','stringify','2192880zjeDcH','3676LIoQZD','chatgpt','20wxJqYf','choices','3580451oqdvfA','4299lRFlUA','application/json','message','1149651oECKrw','260694qZRQCn','data','assistant','884ZYuflz','Bearer\x20'];_0x293a=function(){return _0x4dd0e5;};return _0x293a();}const config={'method':_0x3f9840(0x10a),'url':_0x3f9840(0x106),'headers':{'Content-Type':_0x3f9840(0xfb),'Authorization':_0x3f9840(0x102)+OPENAI_KEY},'data':JSON[_0x3f9840(0x10c)]({'model':'gpt-3.5-turbo','messages':[{'role':_0x3f9840(0x109),'content':''},...chgptdb]})};let response=await axios(config);function _0xecfe(_0xdd2314,_0x53d766){const _0x293a47=_0x293a();return _0xecfe=function(_0xecfedd,_0x273a63){_0xecfedd=_0xecfedd-0xf5;let _0x1471f7=_0x293a47[_0xecfedd];return _0x1471f7;},_0xecfe(_0xdd2314,_0x53d766);}chgptdb[_0x3f9840(0x108)]({'role':_0x3f9840(0x100),'content':response[_0x3f9840(0xff)][_0x3f9840(0xf8)][0x0][_0x3f9840(0xfc)][_0x3f9840(0x105)]}),reply(response[_0x3f9840(0xff)]['choices'][0x0][_0x3f9840(0xfc)][_0x3f9840(0x105)]);  
+let chgptTdb = global.chatgpt.data.users[senderJid];
+chgptTdb.push({ role: 'user', content: textosinespacio });
+const conNfig = { method: 'post', url: 'https://api.openai.com/v1/chat/completions', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OPENAI_KEY }, data: JSON.stringify({ 'model': 'gpt-3.5-turbo', 'messages': [{ role: 'system', content: 'Actuaras como un Bot de WhatsApp y tu lenguaje principal es español, tu seras openai-botwa y fuiste creado por BrunoSobrino' }, ...chgptTdb ]})}
+let responNse = await axios(conNfig);
+chgptTdb.push({ role: 'assistant', content: responNse.data.choices[0].message.content }) 
+reply(responNse.data.choices[0].message.content)  
 } catch {   
 try {
 const response = await openai.createCompletion({ model: "text-davinci-003", prompt: chatstext, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
