@@ -58,7 +58,7 @@ module.exports = async (conn, msg, m, openai) => {
     if (msg.isGroup) {
     senderJid = msg.key.participant;
     } else {
-    senderJid = msg.key.remoteJid;}
+    senderJid = msg.sender;}
 
   
 /* Baneo de chats */
