@@ -137,13 +137,12 @@ conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0
 }
 break
 case 'runtime':   
-conn.sendMessage(from, { text: require('../lib/myfunc').runtime(process.uptime()) }, { quoted: msg });    
-//reply(require('../lib/myfunc').runtime(process.uptime()))
+conn.sendMessage(from, { text: `*${require('../lib/myfunc').runtime(process.uptime())}*` }, { quoted: msg });    
 break
 case 'ping':
 var timestamp = speed();
 var latensi = speed() - timestamp
-reply(`*Tiempo de respuesta: ${latensi.toFixed(4)}s*`)
+conn.sendMessage(from, { text: `*Tiempo de respuesta: ${latensi.toFixed(4)}s*` }, { quoted: msg });  
 break     
 case 'play':
 if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*`)        
