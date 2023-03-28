@@ -60,13 +60,12 @@ module.exports = async (conn, msg, m, openai) => {
     } else {
     senderJid = msg.sender;}
 
-  
 /* Baneo de chats */
 
 try {    
 let banned = global.db.data.chats[from].mute  
 if (banned && !chats.includes('unmute')) return  
-} catch {
+} catch { 
 }  
   
 /* Envios de mensajes */ 
@@ -272,13 +271,18 @@ break
 /*-------------------------------------------------------*/  
 case 'chatgpt': case 'ia': 
 try {    
-let chgptdb = global.chatgpt.data.users[senderJid];
+let chgpHtdb = global.chatgpt.data.users[senderJid];
 chgptdb.push({ role: 'user', content: textosinespacio });
 const config = { method: 'post', url: 'https://api.openai.com/v1/chat/completions', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OPENAI_KEY }, data: JSON.stringify({ 'model': 'gpt-3.5-turbo', 'messages': [{ role: 'system', content: 'Actuaras como un Bot de WhatsApp y tu lenguaje principal es español, tu seras openai-botwa y fuiste creado por BrunoSobrino' }, ...chgptdb ]})}
 let response = await axios(config);
 chgptdb.push({ role: 'assistant', content: response.data.choices[0].message.content }) 
 reply(response.data.choices[0].message.content)
 } catch (efe1) {
+try {
+let IA = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textosinespacio}&string_id=${senderJid}`)  
+let IAR = await IA.json()
+reply(IAR.response)  
+} catch {
 try {
 const BotIA222 = await openai.createCompletion({ model: "text-davinci-003", prompt: textosinespacio, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(BotIA222.data.choices[0].text.trim())    
