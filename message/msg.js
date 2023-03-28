@@ -271,7 +271,7 @@ break
 /*-------------------------------------------------------*/  
 case 'chatgpt': case 'ia': 
 try {    
-let chgpHtdb = global.chatgpt.data.users[senderJid];
+let chgptdb = global.chatgpt.data.users[senderJid];
 chgptdb.push({ role: 'user', content: textosinespacio });
 const config = { method: 'post', url: 'https://api.openai.com/v1/chat/completions', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OPENAI_KEY }, data: JSON.stringify({ 'model': 'gpt-3.5-turbo', 'messages': [{ role: 'system', content: 'Actuaras como un Bot de WhatsApp y tu lenguaje principal es español, tu seras openai-botwa y fuiste creado por BrunoSobrino' }, ...chgptdb ]})}
 let response = await axios(config);
@@ -281,7 +281,7 @@ reply(response.data.choices[0].message.content)
 try {
 let IA = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textosinespacio}&string_id=${senderJid}`)  
 let IAR = await IA.json()
-reply(IAR.response)  
+reply(`${IAR.response}`.trim())  
 } catch {
 try {
 const BotIA222 = await openai.createCompletion({ model: "text-davinci-003", prompt: textosinespacio, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
@@ -310,6 +310,11 @@ reply(`*[❗] Error, vuelva a intentarlo*`)
 break    
 case 'chatgpt2': case 'ia2':      
 if (!args[1]) return reply(`*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${prefix + command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${prefix + command} Codigo en JS para un juego de cartas*`)           
+try {
+let IA2 = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textosinespacio}&string_id=${senderJid}`)  
+let IAR2 = await IA2.json()
+reply(`${IAR2.response}`.trim())    
+} catch {
 try {
 const BotIA = await openai.createCompletion({ model: "text-davinci-003", prompt: textosinespacio, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(BotIA.data.choices[0].text.trim())
@@ -376,6 +381,11 @@ let responNse = await axios(conNfig);
 chgptTdb.push({ role: 'assistant', content: responNse.data.choices[0].message.content }) 
 reply(responNse.data.choices[0].message.content)  
 } catch {   
+try {
+let IA3 = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textosinespacio}&string_id=${senderJid}`)  
+let IAR3 = await IA3.json()
+reply(`${IAR3.response}`.trim())    
+} catch {  
 try {
 const response = await openai.createCompletion({ model: "text-davinci-003", prompt: chatstext, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(response.data.choices[0].text.trim())
