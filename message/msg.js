@@ -136,8 +136,9 @@ let fkontak2 = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "statu
 conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: fkontak2 });  
 }
 break
-case 'runtime':    
-reply(require('../lib/myfunc').runtime(process.uptime()))
+case 'runtime':   
+conn.sendMessage(from, { text: require('../lib/myfunc').runtime(process.uptime()) }, { quoted: msg });    
+//reply(require('../lib/myfunc').runtime(process.uptime()))
 break
 case 'ping':
 var timestamp = speed();
@@ -293,7 +294,7 @@ let Jjjson = await Rrres.json()
 m.reply(Jjjson.data.data.trim())    
 } catch (efe3) {        
 try {   
-let tioress22 = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textosinespacio}&user=user-unique-id`)
+let tioress22 = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textosinespacio}&user=${senderJid}`)
 let hasill22 = await tioress22.json()
 reply(`${hasill22.result}`.trim())       
 } catch (efe4) {    
