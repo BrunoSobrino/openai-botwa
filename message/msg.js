@@ -297,7 +297,7 @@ let tioress22 = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSob
 let hasill22 = await tioress22.json()
 reply(`${hasill22.result}`.trim())       
 } catch (efe4) {    
-console.log(efe4)}}}}
+console.log(efe4)}}}}}
 break 
 case 'delchatgpt':
 try {
