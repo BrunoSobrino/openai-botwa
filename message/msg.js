@@ -330,7 +330,7 @@ let hasill = await tioress.json()
 reply(`${hasill.result}`.trim())   
 } catch (qqe) {        
 reply("*[❗] Error, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + qqe)  
-}}} 
+}}}}
 break       
 case 'sticker': case 's':
 try {        
@@ -401,7 +401,7 @@ let hasil = await tiores.json()
 reply(`${hasil.result}`.trim())   
 } catch (eeee) {        
 reply("*[❗] Error, no se obtuvieron respuestas de la IA...*\n\n*—◉ Error:*\n" + eeee)  
-}}}}
+}}}}}
 break
 }} catch (err) {
 console.log(color("[ERROR]", "red"), err); }};
