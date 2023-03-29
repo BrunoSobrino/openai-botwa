@@ -54,6 +54,7 @@ module.exports = async (conn, msg, m, openai) => {
     const participants = msg.isGroup ? await groupMetadata.participants : ''
     const groupAdmins = msg.isGroup ? await getGroupAdmins(participants) : ''
     const isAdmin = msg.isGroup ? groupAdmins.includes(sender) : false
+    const EP = ['ephemeralExpiration: true']
     let senderJid;
     if (msg.isGroup) {
     senderJid = msg.key.participant;
@@ -130,19 +131,19 @@ Comandos del Owner:
 
 *Editado By @5219996125657*`
 if (msg.isGroup) {
-conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: msg });    
+conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: msg, EP });    
 } else {
 let fkontak2 = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${senderJid.split('@')[0]}:${senderJid.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }  
-conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: fkontak2 });  
+conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: fkontak2, EP });  
 }
 break
 case 'runtime':   
-conn.sendMessage(from, { text: `*${require('../lib/myfunc').runtime(process.uptime())}*` }, { quoted: msg });    
+conn.sendMessage(from, { text: `*${require('../lib/myfunc').runtime(process.uptime())}*` }, { quoted: msg, EP });    
 break
 case 'ping':
 var timestamp = speed();
 var latensi = speed() - timestamp
-conn.sendMessage(from, { text: `*Tiempo de respuesta: ${latensi.toFixed(4)}s*` }, { quoted: msg, sendEphemeral: true });  
+conn.sendMessage(from, { text: `*Tiempo de respuesta: ${latensi.toFixed(4)}s*` }, { quoted: msg, EP });  
 break     
 case 'play':
 if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });     
