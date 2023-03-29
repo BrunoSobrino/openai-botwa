@@ -163,12 +163,12 @@ let json = await res.json()
 let kingcore = await ytplay(textoo)
 let audiodownload = json.result.audio
 if (!audiodownload) audiodownload = kingcore.result
-conn.sendMessage(from, { audio: { url: `${audiodownload}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });    
+await conn.sendMessage(from, { audio: { url: `${audiodownload}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });    
 break
 case 'play2':    
 if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });
 let mediaa = await ytplayvid(textoo)
-conn.sendMessage( from, { video: { url: mediaa.result }, fileName: `error.mp4`, thumbnail: mediaa.thumb, mimetype: 'video/mp4' }, { quoted: msg });
+await conn.sendMessage(from, { video: { url: mediaa.result }, fileName: `error.mp4`, thumbnail: mediaa.thumb, mimetype: 'video/mp4' }, { quoted: msg });
 break   
 case 'ytmp3':
 if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc` }, { quoted: msg });     
@@ -177,7 +177,7 @@ let jsonn22 = await ress22.json()
 let kingcoreee2 = await ytmp3(textolink)
 let audiodownloaddd2 = jsonn22.result.link
 if (!audiodownloaddd2) audiodownloaddd2 = kingcoreee2.result
-conn.sendMessage(from, { audio: { url: `${audiodownloaddd2}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });   
+await conn.sendMessage(from, { audio: { url: `${audiodownloaddd2}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });   
 break        
 case 'ytmp4':
 if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc` }, { quoted: msg });     
@@ -186,7 +186,7 @@ let jsonn2 = await ress2.json()
 let kingcoreee = await ytmp4(textolink)
 let videodownloaddd = jsonn2.result.link.link
 if (!videodownloaddd) videodownloaddd = kingcoreee.result
-conn.sendMessage( from, { video: { url: videodownloaddd }, fileName: `error.mp4`, thumbnail: `${kingcoreee.thumb || ''}`, mimetype: 'video/mp4' }, { quoted: msg });  
+await conn.sendMessage(from, { video: { url: videodownloaddd }, fileName: `error.mp4`, thumbnail: `${kingcoreee.thumb || ''}`, mimetype: 'video/mp4' }, { quoted: msg });  
 break    
 case 'dall-e': case 'draw': 
 if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*` }, { quoted: msg });     
@@ -201,17 +201,17 @@ conn.sendMessage(from, { text: "*[❗] Error, no se obtuvo ninguna imagen de la 
 }}
 break 
 case 'update':
-if (!isOwner) return reply('*[❗] Este comando solo puede ser utilizado por el Owner del Bot*')    
+if (!isOwner) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser utilizado por el Owner del Bot*` }, { quoted: msg });    
 try {    
 let stdout = execSync('git pull' + (m.fromMe && q ? ' ' + q : ''))
-await reply(stdout.toString()) 
+await conn.sendMessage(from, { text: stdout.toString() }, { quoted: msg });
 } catch { 
 let updatee = execSync('git remote set-url origin https://github.com/BrunoSobrino/openai-botwa.git && git pull')
-await reply(updatee.toString())}  
+await conn.sendMessage(from, { text: updatee.toString() }, { quoted: msg })}  
 break
 case 'desactivarwa':      
-if (!isOwner) return reply('*[❗] Este comando solo puede ser utilizado por el Owner del Bot*')    
-if (!q || !args[1]) return reply(`*[❗] Ingrese un numero, ejemplo ${prefix + command} +1 (450) 999-999*`)
+if (!isOwner) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser utilizado por el Owner del Bot*` }, { quoted: msg });
+if (!q || !args[1] || !textoo) return conn.sendMessage(from, { text: `*[❗] Ingrese un numero, ejemplo ${prefix + command} +1 (450) 999-999*` }, { quoted: msg });
 let ntah = await axios.get("https://www.whatsapp.com/contact/noclient/")
 let email = await axios.get("https://www.1secmail.com/api/v1/?action=genRandomMailbox&count=10")
 let cookie = ntah.headers["set-cookie"].join("; ")
@@ -240,20 +240,15 @@ form.append("__comment_req", "0")
 let ressss = await axios({ url, method: "POST", data: form, headers: { cookie } })
 var payload = String(ressss.data)
 if (payload.includes(`"payload":true`)) {
-reply(`##- WhatsApp Support -##\n\nHola,\n\nGracias por tu mensaje.\n\nHemos desactivado tu cuenta de WhatsApp. Esto significa que su cuenta está deshabilitada temporalmente y se eliminará automáticamente en 30 días si no vuelve a registrar la cuenta. Tenga en cuenta: el equipo de atención al cliente de WhatsApp no puede eliminar su cuenta manualmente.\n\nDurante el período de cierre:\n • Es posible que sus contactos en WhatsApp aún vean su nombre y foto de perfil.\n • Cualquier mensaje que sus contactos puedan enviar a la cuenta permanecerá en estado pendiente por hasta 30 días.\n\nSi desea recuperar su cuenta, vuelva a registrar su cuenta lo antes posible.\nVuelva a registrar su cuenta ingresando el código de 6 dígitos, el código que recibe por SMS o llamada telefónica. Si te vuelves a registrar\n\nSi tiene alguna otra pregunta o inquietud, no dude en ponerse en contacto con nosotros. Estaremos encantados de ayudar!`)
+conn.sendMessage(from, { text: `##- WhatsApp Support -##\n\nHola,\n\nGracias por tu mensaje.\n\nHemos desactivado tu cuenta de WhatsApp. Esto significa que su cuenta está deshabilitada temporalmente y se eliminará automáticamente en 30 días si no vuelve a registrar la cuenta. Tenga en cuenta: el equipo de atención al cliente de WhatsApp no puede eliminar su cuenta manualmente.\n\nDurante el período de cierre:\n • Es posible que sus contactos en WhatsApp aún vean su nombre y foto de perfil.\n • Cualquier mensaje que sus contactos puedan enviar a la cuenta permanecerá en estado pendiente por hasta 30 días.\n\nSi desea recuperar su cuenta, vuelva a registrar su cuenta lo antes posible.\nVuelva a registrar su cuenta ingresando el código de 6 dígitos, el código que recibe por SMS o llamada telefónica. Si te vuelves a registrar\n\nSi tiene alguna otra pregunta o inquietud, no dude en ponerse en contacto con nosotros. Estaremos encantados de ayudar!` }, { quoted: msg });
 } else if (payload.includes(`"payload":false`)) {
-reply(`##- WhatsApp Support -##\n\nHola:\n\nGracias por tu mensaje.\n\nPara proceder con tu solicitud, necesitamos que verifiques que este número de teléfono te pertenece. Por favor, envíanos documentación que nos permita verificar que el número es de tu propiedad, como una copia de la factura telefónica o el contrato de servicio.\n\nPor favor, asegúrate de ingresar tu número de teléfono en formato internacional completo. Para obtener más información sobre el formato internacional, consulta este artículo.\n\nSi tienes alguna otra pregunta o inquietud, no dudes en contactarnos. Estaremos encantados de ayudarte.`)
-} else reply(util.format(JSON.parse(res.data.replace("for (;;);", ""))))
+conn.sendMessage(from, { text: `##- WhatsApp Support -##\n\nHola:\n\nGracias por tu mensaje.\n\nPara proceder con tu solicitud, necesitamos que verifiques que este número de teléfono te pertenece. Por favor, envíanos documentación que nos permita verificar que el número es de tu propiedad, como una copia de la factura telefónica o el contrato de servicio.\n\nPor favor, asegúrate de ingresar tu número de teléfono en formato internacional completo. Para obtener más información sobre el formato internacional, consulta este artículo.\n\nSi tienes alguna otra pregunta o inquietud, no dudes en contactarnos. Estaremos encantados de ayudarte.` }, { quoted: msg });
+} else conn.sendMessage(from, { text: util.format(JSON.parse(res.data.replace("for (;;);", ""))) }, { quoted: msg });  
 break   
 case 'mediafiredl':
-let resss2 = await mediafireDl(textosinespacio)
-let caption = `
-*📓 Nombre:* ${resss2.name}
-*📁 Peso:* ${resss2.size}
-*📄 Tipo:* ${resss2.mime}\n
-*⏳ Espere en lo que envio su archivo. . . .* 
-`.trim()
-await reply(caption)
+let resss2 = await mediafireDl(textolink)
+let caption = `*📓 Nombre:* ${resss2.name}\n*📁 Peso:* ${resss2.size}\n*📄 Tipo:* ${resss2.mime}\n\n*⏳ Espere en lo que envio su archivo. . . .*`.trim()
+await conn.sendMessage(from, { text: caption }, { quoted: msg });
 await conn.sendMessage(from, { document : { url: resss2.link }, fileName: resss2.name, mimetype: resss2.mime.toUpperCase() }, { quoted: msg })       
 break
 /*-------------------------------------------------------*/
