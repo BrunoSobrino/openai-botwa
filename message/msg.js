@@ -367,7 +367,10 @@ if (msg.key.fromMe || msg.sender == conn.user.id) return //console.log('[❗] Un
 if (!chats.startsWith(botNumber22) && isGroup) return
 if (isImage || isVideo || isSticker || isViewOnce || isAudio || isDocument || isLocation) return
 let chatstext = chats.replace(conn.user.id.split(":")[0].split("@")[0], '')
-if (isGroup) chatstext = chatstext.replace("@", '').replace(prefix, '')
+const lines = chatstext.split('\n');
+lines[0] = lines[0].replace('@', '').replace(prefix, '').replace(/^\s+|\s+$/g, '');
+const resultLines = lines.join('\n');
+if (isGroup) chatstext = resultLines //chatstext.replace("@", '').replace(prefix, '')
 console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color(pushname, 'lightblue'), `: "${chatstext}"`)
 conn.sendPresenceUpdate("composing", from);
 try {
