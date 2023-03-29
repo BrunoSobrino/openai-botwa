@@ -130,34 +130,34 @@ Comandos del Owner:
 
 *Editado By @5219996125657*`
 if (msg.isGroup) {
-conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: msg, ephemeralExpiration: true });    
+conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: msg });    
 } else {
 let fkontak2 = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "status@broadcast", "fromMe": false, "id": "Halo" }, "message": { "contactMessage": { "vcard": `BEGIN:VCARD\nVERSION:3.0\nN:Sy;Bot;;;\nFN:y\nitem1.TEL;waid=${senderJid.split('@')[0]}:${senderJid.split('@')[0]}\nitem1.X-ABLabel:Ponsel\nEND:VCARD` }}, "participant": "0@s.whatsapp.net" }  
-conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: fkontak2, ephemeralExpiration: true });  
+conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: fkontak2 });  
 }
 break
 case 'runtime':   
-conn.sendMessage(from, { text: `*${require('../lib/myfunc').runtime(process.uptime())}*` }, { quoted: msg, ephemeralExpiration: true });    
+conn.sendMessage(from, { text: `*${require('../lib/myfunc').runtime(process.uptime())}*` }, { quoted: msg });    
 break
 case 'ping':
 var timestamp = speed();
 var latensi = speed() - timestamp
-conn.sendMessage(from, { text: `*Tiempo de respuesta: ${latensi.toFixed(4)}s*` }, { quoted: msg, ephemeralExpiration: true });  
+conn.sendMessage(from, { text: `*Tiempo de respuesta: ${latensi.toFixed(4)}s*` }, { quoted: msg });  
 break     
 case 'play':
-if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg, ephemeralExpiration: true });     
+if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });     
 let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${textosinespacio}`) 
 let json = await res.json()
 let kingcore = await ytplay(textosinespacio)
 let audiodownload = json.result.audio
 if (!audiodownload) audiodownload = kingcore.result
-conn.sendMessage(from, { audio: { url: `${audiodownload}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg, ephemeralExpiration: true });    
+conn.sendMessage(from, { audio: { url: `${audiodownload}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });    
 break
 case 'mute': case 'banchat':    
-if (isGroup && !isAdmin) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser usado por admins del grupo*` }, { quoted: msg, ephemeralExpiration: true });  
-if (global.db.data.chats[from].mute) return conn.sendMessage(from, { text: `*[❗] Este chat ya estaba muteado (baneado) desde antes*` }, { quoted: msg, ephemeralExpiration: true });      
+if (isGroup && !isAdmin) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser usado por admins del grupo*` }, { quoted: msg });  
+if (global.db.data.chats[from].mute) return conn.sendMessage(from, { text: `*[❗] Este chat ya estaba muteado (baneado) desde antes*` }, { quoted: msg });      
 global.db.data.chats[from].mute = true
-conn.sendMessage(from, { text: `*[❗] Este chat se ha muteado (baneado) correctamente, el Bot no responderá a ningun mensaje hasta ser desbaneado con el comando ${prefix}unmute*` }, { quoted: msg, ephemeralExpiration: true });    
+conn.sendMessage(from, { text: `*[❗] Este chat se ha muteado (baneado) correctamente, el Bot no responderá a ningun mensaje hasta ser desbaneado con el comando ${prefix}unmute*` }, { quoted: msg });    
 break           
 case 'unmute': case 'unbanchat':
 if (isGroup && !isAdmin) return reply(`*[❗] Este comando solo puede ser usado por admins del grupo*`)    
