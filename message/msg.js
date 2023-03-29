@@ -146,7 +146,7 @@ conn.sendMessage(from, { text: `*Tiempo de respuesta: ${latensi.toFixed(4)}s*` }
 break     
 case 'play':
 if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });     
-let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${textosinespacio}`) 
+let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${textoo}`) 
 let json = await res.json()
 let kingcore = await ytplay(textosinespacio)
 let audiodownload = json.result.audio
