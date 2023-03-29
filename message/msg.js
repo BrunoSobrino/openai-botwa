@@ -266,43 +266,43 @@ break
 /* [❗]                      [❗]                      [❗] */
 /*-------------------------------------------------------*/  
 case 'chatgpt': case 'ia': 
-if (!textoo) return reply(`*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${prefix + command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${prefix + command} Codigo en JS para un juego de cartas*`)               
+if (!textoo) return conn.sendMessage(from, { text: `*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${prefix + command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${prefix + command} Codigo en JS para un juego de cartas*` }, { quoted: msg });    
 try {    
 let chgptdb = global.chatgpt.data.users[senderJid];
 chgptdb.push({ role: 'user', content: textoo });
 const config = { method: 'post', url: 'https://api.openai.com/v1/chat/completions', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OPENAI_KEY }, data: JSON.stringify({ 'model': 'gpt-3.5-turbo', 'messages': [{ role: 'system', content: 'Actuaras como un Bot de WhatsApp y tu lenguaje principal es español, tu seras openai-botwa y fuiste creado por BrunoSobrino' }, ...chgptdb ]})}
 let response = await axios(config);
 chgptdb.push({ role: 'assistant', content: response.data.choices[0].message.content }) 
-reply(response.data.choices[0].message.content)
+conn.sendMessage(from, { text: `${response.data.choices[0].message.content}`.trim() }, { quoted: msg });  
 } catch (efe1) {
 try {
 let IA = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textoo}&string_id=${senderJid}`)  
 let IAR = await IA.json()
-reply(`${IAR.response}`.trim())  
+conn.sendMessage(from, { text: `${IAR.response}`.trim() }, { quoted: msg });
 } catch {
 try {
 const BotIA222 = await openai.createCompletion({ model: "text-davinci-003", prompt: textoo, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
-reply(BotIA222.data.choices[0].text.trim())    
+conn.sendMessage(from, { text: BotIA222.data.choices[0].text.trim() }, { quoted: msg });
 } catch (efe2) {
 try {  
 let Rrres = await fetch(`https://api.ibeng.tech/api/info/openai?text=${textoo}&apikey=tamvan`)
 let Jjjson = await Rrres.json()
-m.reply(Jjjson.data.data.trim())    
+conn.sendMessage(from, { text: Jjjson.data.data.trim() }, { quoted: msg });
 } catch (efe3) {        
 try {   
 let tioress22 = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textoo}&user=${senderJid}`)
 let hasill22 = await tioress22.json()
-reply(`${hasill22.result}`.trim())       
+conn.sendMessage(from, { text: `${hasill22.result}`.trim() }, { quoted: msg });
 } catch (efe4) {    
 console.log(efe4)}}}}}
 break 
 case 'delchatgpt':
 try {
 delete global.chatgpt.data.users[senderJid]  
-reply(`*[❗] Se elimino con exito el historial de mensajes entre usted y ChatGPT (IA)*\n\n*—◉ Recuerde que puede ultilizar este comando cuando tenga algun error en el comando ${prefix}chatgpt O ${prefix}ia*`)    
+conn.sendMessage(from, { text: `*[❗] Se elimino con exito el historial de mensajes entre usted y ChatGPT (IA)*\n\n*—◉ Recuerde que puede ultilizar este comando cuando tenga algun error en el comando ${prefix}chatgpt O ${prefix}ia*` }, { quoted: msg });  
 } catch (error1) {   
 console.log(error1)
-reply(`*[❗] Error, vuelva a intentarlo*`)   
+conn.sendMessage(from, { text: `*[❗] Error, vuelva a intentarlo*` }, { quoted: msg });  
 }   
 break    
 case 'chatgpt2': case 'ia2':      
@@ -355,7 +355,7 @@ console.log(`Started: ${cmd}`)
 console.log(`Error: ${err}`);
 reply('error')}).on('end', async function() {
 console.log('Finish')
-await conn.sendMessage(from, {sticker: {url:'stk.webp'}})
+await conn.sendMessage(from, { sticker: { url:'stk.webp' }})
 }).addOutputOptions([`-vcodec`,`libwebp`,`-vf`,`scale='min(320,iw)':min'(320,ih)':force_original_aspect_ratio=decrease,fps=15, pad=320:320:-1:-1:color=white@0.0, split [a][b]; [a] palettegen=reserve_transparent=on:transparency_color=ffffff [p]; [b][p] paletteuse`]).toFormat('webp').save('stk.webp');
 }}} catch {     
 reply(`*[❗] Responda a una imagen, gif o video, el cual será convertido en sticker, recuerde que debe mandar una imagen o responder a una imagen con el comando ${prefix + command}*`)        
@@ -372,14 +372,14 @@ console.log("->[\x1b[1;32mNew\x1b[1;37m]", color('Pregunta De', 'yellow'), color
 conn.sendPresenceUpdate("composing", from);
 try {
 let chgptTdb = global.chatgpt.data.users[senderJid];
-chgptTdb.push({ role: 'user', content: textosinespacio });
+chgptTdb.push({ role: 'user', content: chatstext });
 const conNfig = { method: 'post', url: 'https://api.openai.com/v1/chat/completions', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OPENAI_KEY }, data: JSON.stringify({ 'model': 'gpt-3.5-turbo', 'messages': [{ role: 'system', content: 'Actuaras como un Bot de WhatsApp y tu lenguaje principal es español, tu seras openai-botwa y fuiste creado por BrunoSobrino' }, ...chgptTdb ]})}
 let responNse = await axios(conNfig);
 chgptTdb.push({ role: 'assistant', content: responNse.data.choices[0].message.content }) 
 reply(responNse.data.choices[0].message.content)  
 } catch {   
 try {
-let IA3 = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textosinespacio}&string_id=${senderJid}`)  
+let IA3 = await fetch(`https://api.amosayomide05.cf/gpt/?question=${chatstext}&string_id=${senderJid}`)  
 let IAR3 = await IA3.json()
 reply(`${IAR3.response}`.trim())    
 } catch {  
