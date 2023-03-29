@@ -142,7 +142,7 @@ break
 case 'ping':
 var timestamp = speed();
 var latensi = speed() - timestamp
-conn.sendMessage(from, { text: `*Tiempo de respuesta: ${latensi.toFixed(4)}s*` }, { quoted: msg });  
+conn.sendMessage(from, { text: `*Tiempo de respuesta: ${latensi.toFixed(4)}s*` }, { quoted: msg, sendEphemeral: true });  
 break     
 case 'play':
 if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });     
@@ -154,8 +154,9 @@ if (!audiodownload) audiodownload = kingcore.result
 conn.sendMessage(from, { audio: { url: `${audiodownload}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });    
 break
 case 'mute': case 'banchat':    
-if (isGroup && !isAdmin) return reply(`*[❗] Este comando solo puede ser usado por admins del grupo*`)    
-if (global.db.data.chats[from].mute) return reply(`*[❗] Este chat ya estaba muteado (baneado) desde antes*`)
+if (isGroup && !isAdmin) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser usado por admins del grupo*` }, { quoted: msg });  
+if (global.db.data.chats[from].mute) return 
+conn.sendMessage(from, { text: `*[❗] Este chat ya estaba muteado (baneado) desde antes*` }, { quoted: msg });      
 global.db.data.chats[from].mute = true
 reply(`*[❗] Este chat se ha muteado (baneado) correctamente, el Bot no responderá a ningun mensaje hasta ser desbaneado con el comando ${prefix}unmute*`)
 break           
