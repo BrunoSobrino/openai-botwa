@@ -157,7 +157,7 @@ global.db.data.chats[from].mute = false
 conn.sendMessage(from, { text: `*[❗] Este chat ha sido desmuteado (desbaneado) correctamente, ahora el Bot responderá con normalidad*` }, { quoted: msg });    
 break          
 case 'play':
-if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });     
+if (!textoo) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });     
 let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${textoo}`) 
 let json = await res.json()
 let kingcore = await ytplay(textoo)
@@ -166,12 +166,12 @@ if (!audiodownload) audiodownload = kingcore.result
 await conn.sendMessage(from, { audio: { url: `${audiodownload}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });    
 break
 case 'play2':    
-if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });
+if (!textoo) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });
 let mediaa = await ytplayvid(textoo)
 await conn.sendMessage(from, { video: { url: mediaa.result }, fileName: `error.mp4`, thumbnail: mediaa.thumb, mimetype: 'video/mp4' }, { quoted: msg });
 break   
 case 'ytmp3':
-if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc` }, { quoted: msg });     
+if (!textolink) return conn.sendMessage(from, { text: `*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc` }, { quoted: msg });     
 let ress22 = await fetch(`https://api.lolhuman.xyz/api/ytaudio2?apikey=BrunoSobrino&url=${textolink}`) 
 let jsonn22 = await ress22.json()
 let kingcoreee2 = await ytmp3(textolink)
@@ -180,7 +180,7 @@ if (!audiodownloaddd2) audiodownloaddd2 = kingcoreee2.result
 await conn.sendMessage(from, { audio: { url: `${audiodownloaddd2}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });   
 break        
 case 'ytmp4':
-if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc` }, { quoted: msg });     
+if (!textolink) return conn.sendMessage(from, { text: `*[❗] Ingresa el enlace de un video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command}* https://youtu.be/WEdvakuztPc` }, { quoted: msg });     
 let ress2 = await fetch(`https://api.lolhuman.xyz/api/ytvideo?apikey=BrunoSobrino&url=${textolink}`) 
 let jsonn2 = await ress2.json()
 let kingcoreee = await ytmp4(textolink)
@@ -189,7 +189,7 @@ if (!videodownloaddd) videodownloaddd = kingcoreee.result
 await conn.sendMessage(from, { video: { url: videodownloaddd }, fileName: `error.mp4`, thumbnail: `${kingcoreee.thumb || ''}`, mimetype: 'video/mp4' }, { quoted: msg });  
 break    
 case 'dall-e': case 'draw': 
-if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*` }, { quoted: msg });     
+if (!textoo) return conn.sendMessage(from, { text: `*[❗] Ingrese un texto el cual sera la tematica de la imagen y así usar la función de la IA Dall-E*\n\n*—◉ Ejemplos de peticions:*\n*◉ ${prefix + command} gatitos llorando*\n*◉ ${prefix + command} hatsune miku beso*` }, { quoted: msg });     
 try {       
 const responsee = await openai.createImage({ prompt: textoo, n: 1, size: "512x512", });    
 conn.sendMessage(from, { image: { url: responsee.data.data[0].url }, fileName: `error.jpg` }, { quoted: msg });  
@@ -246,6 +246,7 @@ conn.sendMessage(from, { text: `##- WhatsApp Support -##\n\nHola:\n\nGracias por
 } else conn.sendMessage(from, { text: util.format(JSON.parse(res.data.replace("for (;;);", ""))) }, { quoted: msg });  
 break   
 case 'mediafiredl':
+if (!textolink) return conn.sendMessage(from, { text: `*[❗] Ingrese un enlace valido de mediafire, ejemplo: ${prefix}mediafiredl* https://www.mediafire.com/file/r0lrc9ir5j3e2fs/DOOM_v13_UNCLONE` }, { quoted: msg });            
 let resss2 = await mediafireDl(textolink)
 let caption = `*📓 Nombre:* ${resss2.name}\n*📁 Peso:* ${resss2.size}\n*📄 Tipo:* ${resss2.mime}\n\n*⏳ Espere en lo que envio su archivo. . . .*`.trim()
 await conn.sendMessage(from, { text: caption }, { quoted: msg });
