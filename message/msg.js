@@ -266,30 +266,31 @@ break
 /* [❗]                      [❗]                      [❗] */
 /*-------------------------------------------------------*/  
 case 'chatgpt': case 'ia': 
+if (!textoo) return reply(`*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${prefix + command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${prefix + command} Codigo en JS para un juego de cartas*`)               
 try {    
 let chgptdb = global.chatgpt.data.users[senderJid];
-chgptdb.push({ role: 'user', content: textosinespacio });
+chgptdb.push({ role: 'user', content: textoo });
 const config = { method: 'post', url: 'https://api.openai.com/v1/chat/completions', headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + OPENAI_KEY }, data: JSON.stringify({ 'model': 'gpt-3.5-turbo', 'messages': [{ role: 'system', content: 'Actuaras como un Bot de WhatsApp y tu lenguaje principal es español, tu seras openai-botwa y fuiste creado por BrunoSobrino' }, ...chgptdb ]})}
 let response = await axios(config);
 chgptdb.push({ role: 'assistant', content: response.data.choices[0].message.content }) 
 reply(response.data.choices[0].message.content)
 } catch (efe1) {
 try {
-let IA = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textosinespacio}&string_id=${senderJid}`)  
+let IA = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textoo}&string_id=${senderJid}`)  
 let IAR = await IA.json()
 reply(`${IAR.response}`.trim())  
 } catch {
 try {
-const BotIA222 = await openai.createCompletion({ model: "text-davinci-003", prompt: textosinespacio, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
+const BotIA222 = await openai.createCompletion({ model: "text-davinci-003", prompt: textoo, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(BotIA222.data.choices[0].text.trim())    
 } catch (efe2) {
 try {  
-let Rrres = await fetch(`https://api.ibeng.tech/api/info/openai?text=${textosinespacio}&apikey=tamvan`)
+let Rrres = await fetch(`https://api.ibeng.tech/api/info/openai?text=${textoo}&apikey=tamvan`)
 let Jjjson = await Rrres.json()
 m.reply(Jjjson.data.data.trim())    
 } catch (efe3) {        
 try {   
-let tioress22 = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textosinespacio}&user=${senderJid}`)
+let tioress22 = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textoo}&user=${senderJid}`)
 let hasill22 = await tioress22.json()
 reply(`${hasill22.result}`.trim())       
 } catch (efe4) {    
@@ -305,23 +306,23 @@ reply(`*[❗] Error, vuelva a intentarlo*`)
 }   
 break    
 case 'chatgpt2': case 'ia2':      
-if (!args[1]) return reply(`*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${prefix + command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${prefix + command} Codigo en JS para un juego de cartas*`)           
+if (!textoo) return reply(`*[❗] Ingrese una petición o una orden para usar la funcion ChatGPT*\n\n*—◉ Ejemplos de peticions u ordenes:*\n*◉ ${prefix + command} Reflexion sobre la serie Merlina 2022 de netflix*\n*◉ ${prefix + command} Codigo en JS para un juego de cartas*`)           
 try {
-let IA2 = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textosinespacio}&string_id=${senderJid}`)  
+let IA2 = await fetch(`https://api.amosayomide05.cf/gpt/?question=${textoo}&string_id=${senderJid}`)  
 let IAR2 = await IA2.json()
 reply(`${IAR2.response}`.trim())    
 } catch {
 try {
-const BotIA = await openai.createCompletion({ model: "text-davinci-003", prompt: textosinespacio, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
+const BotIA = await openai.createCompletion({ model: "text-davinci-003", prompt: textoo, temperature: 0.3, max_tokens: MAX_TOKEN, stop: ["Ai:", "Human:"], top_p: 1, frequency_penalty: 0.2, presence_penalty: 0, })
 reply(BotIA.data.choices[0].text.trim())
 } catch (qe) {
 try {   
-let rrEes = await fetch(`https://api.ibeng.tech/api/info/openai?text=${textosinespacio}&apikey=tamvan`)
+let rrEes = await fetch(`https://api.ibeng.tech/api/info/openai?text=${textoo}&apikey=tamvan`)
 let jjJson = await rrEes.json()
 reply(jjJson.data.data.trim())    
 } catch (qe4) {      
 try {    
-let tioress = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textosinespacio}&user=user-unique-id`)
+let tioress = await fetch(`https://api.lolhuman.xyz/api/openai?apikey=BrunoSobrino&text=${textoo}&user=user-unique-id`)
 let hasill = await tioress.json()
 reply(`${hasill.result}`.trim())   
 } catch (qqe) {        
