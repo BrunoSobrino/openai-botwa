@@ -145,13 +145,13 @@ var latensi = speed() - timestamp
 conn.sendMessage(from, { text: `*Tiempo de respuesta: ${latensi.toFixed(4)}s*` }, { quoted: msg });  
 break     
 case 'play':
-if (!args[1]) return reply(`*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*`)        
+if (!args[1]) return conn.sendMessage(from, { text: `*[❗] Nombre de la canción faltante, por favor ingrese el comando mas el nombre, titulo o enlace de alguna canción o video de YouTube*\n\n*—◉ Ejemplo:*\n*◉ ${prefix + command} Good Feeling - Flo Rida*` }, { quoted: msg });     
 let res = await fetch(`https://api.lolhuman.xyz/api/ytplay2?apikey=BrunoSobrino&query=${textosinespacio}`) 
 let json = await res.json()
 let kingcore = await ytplay(textosinespacio)
 let audiodownload = json.result.audio
 if (!audiodownload) audiodownload = kingcore.result
-sendAud(`${audiodownload}`)
+conn.sendMessage(from, { audio: { url: `${audiodownload}` }, fileName: `error.mp3`, mimetype: 'audio/mp4' }, { quoted: msg });    
 break
 case 'mute': case 'banchat':    
 if (isGroup && !isAdmin) return reply(`*[❗] Este comando solo puede ser usado por admins del grupo*`)    
