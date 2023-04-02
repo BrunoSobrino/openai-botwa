@@ -6,7 +6,7 @@
 
 - WhatsApp Bot que usa la IA de OpenAI creado por @rtwone y editado por @BrunoSobrino
 
-- En colaboracion de Otosaka, I'm Felix, FG98, Darlyn, SinNombre y Diego-OFC
+- En colaboracion de Otosaka y FG98
 
 ## Base usada:
 [https://github.com/rtwone/openai-botwa](https://github.com/rtwone/openai-botwa)
