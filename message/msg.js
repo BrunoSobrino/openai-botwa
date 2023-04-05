@@ -132,6 +132,9 @@ _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 - ${prefix}sticker
 - ${prefix}mediafiredl\`\`\`
 
+💫 *Grupos*
+\`\`\`- ${prefix}hidetag\`\`\`
+
 🤴🏻 *Owner*
 \`\`\`- ${prefix}update
 - ${prefix}desactivarwa\`\`\`
@@ -147,6 +150,37 @@ break
 case 'runtime':   
 conn.sendMessage(from, { text: `*${require('../lib/myfunc').runtime(process.uptime())}*` }, { quoted: msg });    
 break
+case 'hidetag':
+if (!msg.isGroup) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser usado en grupos*` }, { quoted: msg }) 
+if (!isAdmin) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser usado por admins del grupo*` }, { quoted: msg })    
+try {
+let users = participants.map(u => u.id).filter(id => id);
+let htextos = `${textoo ? textoo : ''}`
+if (isImage || isQuotedImage) {
+await conn.downloadAndSaveMediaMessage(msg, 'image', `./tmp/${senderJid.split("@")[0]}.jpg`)    
+var mediax = await fs.readFileSync(`./tmp/${senderJid.split("@")[0]}.jpg`)
+conn.sendMessage(from, { image: mediax, mentions: users, caption: htextos, mentions: users }, { quoted: msg })
+fs.unlinkSync(`./tmp/${senderJid.split("@")[0]}.jpg`)
+} else if (isVideo || isQuotedVideo) {
+await conn.downloadAndSaveMediaMessage(msg, 'video', `./tmp/${senderJid.split("@")[0]}.mp4`) 
+var mediax = await fs.readFileSync(`./tmp/${senderJid.split("@")[0]}.mp4`)    
+conn.sendMessage(from, { video: mediax, mentions: users, mimetype: 'video/mp4', caption: htextos }, { quoted: msg })
+fs.unlinkSync(`./tmp/${senderJid.split("@")[0]}.mp4`)    
+} else if (isAudio || isQuotedAudio) {
+await conn.downloadAndSaveMediaMessage(msg, 'image', `./tmp/${senderJid.split("@")[0]}.mp3`)   
+var mediax = await fs.readFileSync(`./tmp/${senderJid.split("@")[0]}.mp3`)    
+conn.sendMessage(m.chat, { audio: mediax, mentions: users, mimetype: 'audio/mp4', fileName: `Hidetag.mp3` }, { quoted: msg })
+fs.unlinkSync(`./tmp/${senderJid.split("@")[0]}.mp3`)    
+} else if (isSticker || isQuotedSticker) {
+await conn.downloadAndSaveMediaMessage(msg, 'image', `./tmp/${senderJid.split("@")[0]}.jpg`) 
+var mediax = await fs.readFileSync(`./tmp/${senderJid.split("@")[0]}.jpg`)    
+conn.sendMessage(from, {sticker: mediax, mentions: users}, { quoted: msg })
+fs.unlinkSync(`./tmp/${senderJid.split("@")[0]}.jpg`)    
+} else {
+await conn.sendMessage(from, { text : `${htextos}`, mentions: users }, { quoted: msg })}
+} catch {
+conn.sendMessage(from, { text: `*[❗] Para usar este comando debe agregar un texto o responder a una imagen o video*` }, { quoted: msg })}    
+break     
 case 'ping':
 var timestamp = speed();
 var latensi = speed() - timestamp
