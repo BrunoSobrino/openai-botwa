@@ -112,29 +112,29 @@ _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 *COMANDOS DISPONIBLES*
 
 🔷 *Generales*
-- ${prefix}menu
+\`\`\`- ${prefix}menu
 - ${prefix}mute
 - ${prefix}unmute
 - ${prefix}ping
-- ${prefix}runtime
+- ${prefix}runtime\`\`\`
 
 🤖 *IA*
-- ${prefix}chatgpt
+\`\`\`- ${prefix}chatgpt
 - ${prefix}chatgpt2
 - ${prefix}delchatgpt
-- ${prefix}dall-e
+- ${prefix}dall-e\`\`\`
 
 📥 *Multimedia*
-- ${prefix}play
+\`\`\`- ${prefix}play
 - ${prefix}play2
 - ${prefix}ytmp3
 - ${prefix}ytmp4
 - ${prefix}sticker
-- ${prefix}mediafiredl
+- ${prefix}mediafiredl\`\`\`
 
 🤴🏻 *Owner*
-- ${prefix}update
-- ${prefix}desactivarwa
+\`\`\`- ${prefix}update
+- ${prefix}desactivarwa\`\`\`
 
 *Editado By @5219996125657*`
 if (msg.isGroup) {
