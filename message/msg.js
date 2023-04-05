@@ -107,24 +107,32 @@ Soy un Bot de WhatsApp que usa la inteligencia artificial de OpenAI (ChatGPT), f
 
 _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 
-Comandos disposibles:
+<------------------->
+
+*COMANDOS DISPONIBLES*
+
+🔷 *Generales*
 - ${prefix}menu
+- ${prefix}mute
+- ${prefix}unmute
 - ${prefix}ping
 - ${prefix}runtime
-- ${prefix}play
-- ${prefix}play2
-- ${prefix}ytmp3
-- ${prefix}ytmp4
+
+🤖 *IA*
 - ${prefix}chatgpt
 - ${prefix}chatgpt2
 - ${prefix}delchatgpt
 - ${prefix}dall-e
+
+📥 *Multimedia*
+- ${prefix}play
+- ${prefix}play2
+- ${prefix}ytmp3
+- ${prefix}ytmp4
 - ${prefix}sticker
 - ${prefix}mediafiredl
-- ${prefix}mute
-- ${prefix}unmute
 
-Comandos del Owner:
+🤴🏻 *Owner*
 - ${prefix}update
 - ${prefix}desactivarwa
 
