@@ -49,6 +49,8 @@ module.exports = async (conn, msg, m, openai) => {
     const isViewOnce = (type == 'viewOnceMessageV2')
     const isQuotedImage = isQuotedMsg ? content.includes('imageMessage') ? true : false : false    
     const isQuotedVideo = isQuotedMsg ? content.includes('videoMessage') ? true : false : false
+    const isQuotedAudio = isQuotedMsg ? content.includes('audioMessage') ? true : false : false
+    const isQuotedSticker = isQuotedMsg ? content.includes('stickerMessage') ? true : false : false
     const textolink = decodeURIComponent(chats.replace(command, '').replace(prefix, '').split(' ').join(''))  
     const textosinespacio = decodeURIComponent(chats.replace(command, '').replace(prefix, ''))
     const participants = msg.isGroup ? await groupMetadata.participants : ''
@@ -59,7 +61,7 @@ module.exports = async (conn, msg, m, openai) => {
     senderJid = msg.key.participant;
     } else {
     senderJid = msg.sender;}
-
+    
 /* Baneo de chats */
 
 try {    
