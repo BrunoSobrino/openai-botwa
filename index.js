@@ -174,11 +174,11 @@ const connectToWhatsApp = async () => {
                 senderJid = msg.key.participant;
                 } else {
                 senderJid = msg.sender;}
-	        let Dchats = global.db.data.chats[senderJid]
-                if (typeof Dchats !== 'object') global.db.data.chats[senderJid] = {}
+	        let Dchats = global.db.data.chats[msg.key.remoteJid]
+                if (typeof Dchats !== 'object') global.db.data.chats[msg.key.remoteJid] = {}
                 if (Dchats) {
                 if (!('mute' in Dchats)) Dchats.mute = false
-                } else global.db.data.chats[senderJid] = {
+                } else global.db.data.chats[msg.key.remoteJid] = {
                 mute: false
                 }		
                 if (global.chatgpt.data === null) await global.loadChatgptDB();
