@@ -135,7 +135,9 @@ _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 - ${prefix}mediafiredl\`\`\`
 
 💫 *Grupos*
-\`\`\`- ${prefix}hidetag\`\`\`
+\`\`\`- ${prefix}hidetag
+- ${prefix}promote
+- ${prefix}demote\`\`\`
 
 🤴🏻 *Owner*
 \`\`\`- ${prefix}update
@@ -182,7 +184,49 @@ fs.unlinkSync(`./tmp/${senderJid.split("@")[0]}.jpg`)
 await conn.sendMessage(from, { text : `${htextos}`, mentions: users }, { quoted: msg })}
 } catch {
 conn.sendMessage(from, { text: `*[❗] Para usar este comando debe agregar un texto o responder a una imagen o video*` }, { quoted: msg })}    
-break     
+break         
+case 'promote':
+if (!msg.isGroup) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser usado en grupos*` }, { quoted: msg }) 
+if (!isAdmin) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser usado por admins del grupo*` }, { quoted: msg })  
+let iuser = `${msg.quotedMsg ? msg.quotedMsg.key.participant || '' : ''}${msg.mentioned ? msg.mentioned : ''}`      
+if (!iuser) return conn.sendMessage(from, { text: `*[❗] Uso correcto del comando:*\n*┯┷*\n*┠≽ ${prefix}promote @${senderJid.split`@`[0] || 'tag'}*\n*┠≽ ${prefix}promote -> responder a un mensaje*\n*┷┯*`, mentions: [senderJid] }, { quoted: msg });                     
+try {
+var userrr = '';
+if (msg.quotedMsg && msg.quotedMsg.key && msg.quotedMsg.key.participant) {
+userrr = msg.quotedMsg.key.participant;
+} else if (msg.mentioned && msg.mentioned.length > 0) {
+userrr = msg.mentioned[0];
+}} catch(e) {
+console.log(e);
+} finally {
+if (userrr) {
+if (groupAdmins.includes(userrr)) {
+conn.sendMessage(from, { text: `*[❗] @${userrr.split`@`[0] || 'user'} ya forma parte de l@s admins del grupo*`, mentions: [userrr] }, { quoted: msg }); 
+} else {
+conn.groupParticipantsUpdate(from, [userrr], 'promote')
+conn.sendMessage(from, { text: `*[ ✔ ] Comando ejecutado con éxito, ahora @${userrr.split`@`[0] || 'user'} forma parte de l@s admins del grupo*`, mentions: [userrr] }, { quoted: msg })}}}
+break
+case 'demote':
+if (!msg.isGroup) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser usado en grupos*` }, { quoted: msg }) 
+if (!isAdmin) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser usado por admins del grupo*` }, { quoted: msg })  
+let iuser2 = `${msg.quotedMsg ? msg.quotedMsg.key.participant || '' : ''}${msg.mentioned ? msg.mentioned : ''}`      
+if(!iuser2) return conn.sendMessage(from, { text: `*[❗] Uso correcto del comando:*\n*┯┷*\n*┠≽ ${prefix}demote @${senderJid.split`@`[0] || 'tag'}*\n*┠≽ ${prefix}demote -> responder a un mensaje*\n*┷┯*`, mentions: [senderJid] }, { quoted: msg });                     
+try {
+var userrr2 = '';
+if (msg.quotedMsg && msg.quotedMsg.key && msg.quotedMsg.key.participant) {
+userrr2 = msg.quotedMsg.key.participant;
+} else if (msg.mentioned && msg.mentioned.length > 0) {
+userrr2 = msg.mentioned[0];
+}} catch (e) {
+console.log(e);
+} finally {
+if (userrr2) {
+if (!groupAdmins.includes(userrr2)) {
+conn.sendMessage(from, { text: `*[❗] @${userrr2.split`@`[0] || 'user'} no forma parte de l@s admins del grupo*`, mentions: [userrr2] }, { quoted: msg }); 
+} else {
+conn.groupParticipantsUpdate(from, [userrr2], 'demote')
+conn.sendMessage(from, { text: `*[ ✔ ] Comando ejecutado con éxito, ahora @${userrr2.split`@`[0] || 'user'} ya no forma parte de l@s admins del grupo*`, mentions: [userrr2] }, { quoted: msg })}}} 
+break    
 case 'ping':
 var timestamp = speed();
 var latensi = speed() - timestamp
