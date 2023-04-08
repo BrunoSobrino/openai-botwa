@@ -6,5 +6,6 @@
   "OPENAI_KEY": "TU_APIKEY", 
   "NOTA_1": "Consigue tu ApiKey en este enlace: https://platform.openai.com/account/api-keys",
   "ORG_ID": "TU_ID_DE_ORG",
-  "NOTA_2": "Consigue tu ID de organizacion en este enlace: https://platform.openai.com/account/org-settings"
+  "NOTA_2": "Consigue tu ID de organizacion en este enlace: https://platform.openai.com/account/org-settings",
+  "LOLHUMAN_KEY": "BrunoSobrino"
 }
