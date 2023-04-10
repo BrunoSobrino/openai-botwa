@@ -141,7 +141,9 @@ _El Bot se limita a responder ${MAX_TOKEN} palabras como máximo_
 
 🤴🏻 *Owner*
 \`\`\`- ${prefix}update
-- ${prefix}desactivarwa\`\`\`
+- ${prefix}desactivarwa
+- ${prefix}restrict enable
+- ${prefix}restrict disable\`\`\`
 
 *Editado By @5219996125657*`
 if (msg.isGroup) {
@@ -151,6 +153,19 @@ let fkontak2 = { "key": { "participants":"0@s.whatsapp.net", "remoteJid": "statu
 conn.sendMessage(from, { text: textReply, mentions: [...textReply.matchAll(/@([0-9]{5,16}|0)/g)].map(v => v[1] + '@s.whatsapp.net')}, { quoted: fkontak2 });  
 }
 break
+case 'restrict':
+if (!isOwner) return conn.sendMessage(from, { text: `*[❗] Este comando solo puede ser utilizado por el Owner del Bot*` }, { quoted: msg });        
+if (!textoo) return conn.sendMessage(from, { text: `*[❗] Por favor usa una de las siguientes opciones:*\n*—◉ ${prefix}restrict enable*\n*—◉ ${prefix}restrict disable*` }, { quoted: msg });        
+let bott = global.db.data.settings[conn.user.id] || {}            
+if (textoo == 'enable') {
+bott.restrict = true
+conn.sendMessage(from, { text: `*[ ✔ ] Se activaron correctamente las restricciones del Bot, recuerde que el uso de comandos con restricciones pueden causar suspension a su numero y esto es bajo su propio riesgo*` }, { quoted: msg });      
+} else if (textoo == 'disable') {
+bott.restrict = false    
+conn.sendMessage(from, { text: `*[ ✔ ] Se desactivaron correctamente las restricciones del Bot, ahora el Bot tiene restricciones*` }, { quoted: msg });     
+} else {
+conn.sendMessage(from, { text: `*[❗] Por favor usa una de las siguientes opciones:*\n*—◉ ${prefix}restrict enable*\n*—◉ ${prefix}restrict disable*` }, { quoted: msg })}   
+break            
 case 'runtime':   
 conn.sendMessage(from, { text: `*${require('../lib/myfunc').runtime(process.uptime())}*` }, { quoted: msg });    
 break
