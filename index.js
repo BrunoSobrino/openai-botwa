@@ -114,6 +114,7 @@ global.loadDatabase = async function loadDatabase() {
   global.db.READ = false
   global.db.data = {
     chats: {},
+    settings: {},
     ...(global.db.data || {})
   }
   global.db.chain = _.chain(global.db.data)
