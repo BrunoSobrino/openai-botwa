@@ -175,6 +175,7 @@ const connectToWhatsApp = async () => {
                 senderJid = msg.key.participant;
                 } else {
                 senderJid = msg.sender;}
+	    try {
 	        let Dchats = global.db.data.chats[msg.key.remoteJid]
                 if (typeof Dchats !== 'object') global.db.data.chats[msg.key.remoteJid] = {}
                 if (Dchats) {
@@ -182,7 +183,6 @@ const connectToWhatsApp = async () => {
                 } else global.db.data.chats[msg.key.remoteJid] = {
                 mute: false
                 }
-		
 	        let settingsBot = global.db.data.settings[conn.user.id]
                 if (typeof settingsBot !== 'object') global.db.data.settings[conn.user.id] = {}
                 if (settingsBot) {
@@ -190,11 +190,12 @@ const connectToWhatsApp = async () => {
                 } else global.db.data.settingsBot[conn.user.id] = {
                 restrict: false
                 }	
-		
                 if (global.chatgpt.data === null) await global.loadChatgptDB();
                 let chatgptUser = global.chatgpt.data.users[senderJid];
-                if (typeof chatgptUser !== 'object') global.chatgpt.data.users[senderJid] = [];        
-              })
+                if (typeof chatgptUser !== 'object') global.chatgpt.data.users[senderJid] = [];  
+             } catch (errorindex) {
+                console.log(errorindex)}
+	     })
 	conn.ev.on('connection.update', (update) => {
           if (global.qr !== update.qr) {
            global.qr = update.qr
