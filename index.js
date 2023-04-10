@@ -180,7 +180,16 @@ const connectToWhatsApp = async () => {
                 if (!('mute' in Dchats)) Dchats.mute = false
                 } else global.db.data.chats[msg.key.remoteJid] = {
                 mute: false
-                }		
+                }
+		
+	        let settingsBot = global.db.data.settings[conn.user.id]
+                if (typeof settingsBot !== 'object') global.db.data.settings[conn.user.id] = {}
+                if (settingsBot) {
+                if (!('restrict' in settingsBot)) settingsBot.restrict = false
+                } else global.db.data.settingsBot[conn.user.id] = {
+                restrict: false
+                }	
+		
                 if (global.chatgpt.data === null) await global.loadChatgptDB();
                 let chatgptUser = global.chatgpt.data.users[senderJid];
                 if (typeof chatgptUser !== 'object') global.chatgpt.data.users[senderJid] = [];        
